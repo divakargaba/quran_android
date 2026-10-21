@@ -1,0 +1,10 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+  <uses-permission android:name="android.permission.INTERNET" />
+
+  <application>
+    <!-- handles its own configuration changes so that streaming recitation keeps playing -->
+    <activity
+      android:name=".QiraatActivity"
+      android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|keyboardHidden" />
+  </application>
+</manifest>

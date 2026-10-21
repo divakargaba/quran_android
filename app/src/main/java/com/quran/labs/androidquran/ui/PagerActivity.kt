@@ -135,6 +135,7 @@ import com.quran.mobile.feature.ayahbookmark.readingbookmark.ReadingBookmarkShee
 import com.quran.mobile.feature.ayahbookmark.readingbookmark.di.ReadingBookmarkSheetWrapperInjector
 import com.quran.mobile.feature.qarilist.QariListWrapper
 import com.quran.mobile.feature.qarilist.di.QariListWrapperInjector
+import com.quran.mobile.feature.qiraat.QiraatActivity
 import com.quran.mobile.translation.model.LocalTranslation
 import com.quran.page.common.data.QuranNaming
 import com.quran.page.common.factory.PageViewFactoryProvider
@@ -1224,6 +1225,9 @@ class PagerActivity : AppCompatActivity(), AudioBarListener, OnBookmarkTagsUpdat
       val jumpDialog = JumpFragment()
       jumpDialog.show(fm, JumpFragment.TAG)
       return true
+    } else if (itemId == R.id.qiraat) {
+      startActivity(QiraatActivity.readerIntent(this, currentPage))
+      return true
     }
     return super.onOptionsItemSelected(item)
   }
@@ -1864,6 +1868,12 @@ class PagerActivity : AppCompatActivity(), AudioBarListener, OnBookmarkTagsUpdat
         )
         playFromAyah(startSuraAyah.sura, startSuraAyah.ayah)
         toggleActionBarVisibility(true)
+      } else if (itemId == com.quran.labs.androidquran.common.toolbar.R.id.cab_qiraat) {
+        startActivity(
+          QiraatActivity.compareIntent(
+            this@PagerActivity, startSuraAyah.sura, startSuraAyah.ayah, currentPage
+          )
+        )
       } else if (itemId == com.quran.labs.androidquran.common.toolbar.R.id.cab_recite_from_here) {
         onEndSessionBackCallback.isEnabled = true
         pagerActivityRecitationPresenter.onRecitationPressed()

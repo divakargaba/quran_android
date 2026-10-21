@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="qiraat_title">The Ten Qira\'at</string>
+  <string name="qiraat_compare">Compare riwayat</string>
+  <string name="qiraat_compare_title">%1$d:%2$d in all riwayat</string>
+  <string name="qiraat_reader">Read mushaf</string>
+  <string name="qiraat_page">Page %1$d</string>
+  <string name="qiraat_selected_ayah">Ayah %1$d:%2$d</string>
+  <string name="qiraat_clear_selection">Clear selection</string>
+  <string name="qiraat_download_prompt">The %1$s mushaf (riwayah of %2$s) is downloaded once, when you first open it.</string>
+  <string name="qiraat_download">Download (%1$s)</string>
+  <string name="qiraat_download_all">Download all remaining (%1$s)</string>
+  <string name="qiraat_downloading">Downloading… %1$d%%</string>
+  <string name="qiraat_download_failed">Download failed: %1$s</string>
+  <string name="qiraat_retry">Retry</string>
+  <string name="qiraat_delete">Delete downloaded mushaf</string>
+  <string name="qiraat_not_downloaded">Not downloaded</string>
+  <string name="qiraat_long_press_hint">Long press an ayah, then tap Compare to see it in every riwayah.</string>
+  <string name="qiraat_audio_unavailable">No recitation available for this riwayah</string>
+  <string name="qiraat_audio_sura_unavailable">%1$s: not recorded for this sura</string>
+  <string name="qiraat_audio_error">Unable to play recitation</string>
+  <string name="qiraat_play">Play</string>
+  <string name="qiraat_pause">Pause</string>
+  <string name="qiraat_stop">Stop</string>
+  <string name="qiraat_riwayah_label">%1$s ʿan %2$s</string>
+  <string name="qiraat_source">Mushaf pages: islamweb.net riwayah mushaf series. Colours mark where the riwayah differs from Hafs.</string>
+</resources>

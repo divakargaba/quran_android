@@ -237,6 +237,7 @@ dependencies {
   implementation(project(":feature:ayahbookmark"))
   implementation(project(":feature:downloadmanager"))
   implementation(project(":feature:qarilist"))
+  implementation(project(":feature:qiraat"))
   implementation(project(":feature:sync"))
 
   // android auto support

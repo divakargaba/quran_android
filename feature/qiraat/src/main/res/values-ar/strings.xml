@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="qiraat_title">القراءات العشر</string>
+  <string name="qiraat_compare">مقارنة الروايات</string>
+  <string name="qiraat_compare_title">الآية %1$d:%2$d في جميع الروايات</string>
+  <string name="qiraat_reader">قراءة المصحف</string>
+  <string name="qiraat_page">صفحة %1$d</string>
+  <string name="qiraat_selected_ayah">الآية %1$d:%2$d</string>
+  <string name="qiraat_clear_selection">إلغاء التحديد</string>
+  <string name="qiraat_download_prompt">يتم تحميل مصحف رواية %1$s عن %2$s مرة واحدة عند فتحه لأول مرة.</string>
+  <string name="qiraat_download">تحميل (%1$s)</string>
+  <string name="qiraat_download_all">تحميل الباقي (%1$s)</string>
+  <string name="qiraat_downloading">جاري التحميل… %1$d%%</string>
+  <string name="qiraat_download_failed">فشل التحميل: %1$s</string>
+  <string name="qiraat_retry">إعادة المحاولة</string>
+  <string name="qiraat_delete">حذف المصحف المحمل</string>
+  <string name="qiraat_not_downloaded">غير محمل</string>
+  <string name="qiraat_long_press_hint">اضغط مطولا على آية ثم اختر المقارنة لرؤيتها في كل الروايات.</string>
+  <string name="qiraat_audio_unavailable">لا توجد تلاوة متاحة لهذه الرواية</string>
+  <string name="qiraat_audio_sura_unavailable">%1$s: غير مسجلة لهذه السورة</string>
+  <string name="qiraat_audio_error">تعذر تشغيل التلاوة</string>
+  <string name="qiraat_play">تشغيل</string>
+  <string name="qiraat_pause">إيقاف مؤقت</string>
+  <string name="qiraat_stop">إيقاف</string>
+  <string name="qiraat_riwayah_label">%1$s عن %2$s</string>
+  <string name="qiraat_source">صفحات المصحف: مصاحف الروايات من الشبكة الإسلامية. الألوان تبين مواضع مخالفة الرواية لحفص.</string>
+</resources>
