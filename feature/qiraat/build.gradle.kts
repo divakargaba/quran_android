@@ -2,7 +2,10 @@ plugins {
   id("quran.android.library.compose")
 }
 
-android.namespace = "com.quran.mobile.feature.qiraat"
+android {
+  namespace = "com.quran.mobile.feature.qiraat"
+  testOptions.unitTests.isIncludeAndroidResources = true
+}
 
 dependencies {
   implementation(project(":common:ui:core"))
@@ -24,4 +27,6 @@ dependencies {
 
   testImplementation(libs.junit)
   testImplementation(libs.truth)
+  testImplementation(libs.robolectric)
+  testImplementation(libs.junit.ktx)
 }

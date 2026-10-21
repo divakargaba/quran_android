@@ -8,7 +8,7 @@ import java.io.File
 class RiwayahLocationsTest {
 
   private fun load(id: String): RiwayahLocations =
-    File("src/main/assets/qiraat/$id.bin.gz").inputStream().use { RiwayahLocations.load(it) }
+    File("src/main/assets/qiraat/$id.qrx").inputStream().use { RiwayahLocations.load(it) }
 
   @Test
   fun everyRiwayahHasLocationsForEveryAyah() {

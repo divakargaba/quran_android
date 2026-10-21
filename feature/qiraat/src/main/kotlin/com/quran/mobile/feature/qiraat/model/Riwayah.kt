@@ -30,8 +30,9 @@ data class Riwayah(
   val pdfUrl: String
     get() = ARCHIVE_BASE + Uri.encode(pdfFileName)
 
+  // not ".gz": the android build decompresses and renames assets with that extension
   val locationsAsset: String
-    get() = "qiraat/$id.bin.gz"
+    get() = "qiraat/$id.qrx"
 
   companion object {
     private const val ARCHIVE_BASE = "https://archive.org/download/quran-islamweb.net/"

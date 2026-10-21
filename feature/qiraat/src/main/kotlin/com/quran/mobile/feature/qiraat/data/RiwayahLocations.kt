@@ -14,6 +14,7 @@ import java.util.zip.GZIPInputStream
  *
  * File format (gzipped, big endian): "QRX1", u16 ayah count, then per ayah in mushaf order:
  * u16 page, u8 rect count, and per rect: u16 page, u16 left, top, right, bottom (scaled by 65535).
+ * The files are named .qrx, since the android build unpacks (and renames) assets ending in .gz.
  */
 class RiwayahLocations private constructor(
   private val pageForAyah: IntArray,

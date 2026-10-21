@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Regenerates src/main/assets/qiraat/*.bin.gz (where each Hafs ayah sits in each riwayah's mushaf).
+# Regenerates src/main/assets/qiraat/*.qrx (gzipped) (where each Hafs ayah sits in each riwayah's mushaf).
 #
 # 1. downloads the islamweb riwayah mushafs from archive.org (item quran-islamweb.net)
 # 2. extracts words and ayah markers with PyMuPDF (stream.py)
@@ -31,4 +31,4 @@ done < "$work/urls.txt"
 python3 -I -W ignore "$here/build_index.py" "$work" "$work/idx" \
   10,16,20,6,17,7,9,18,4,15,12,11,0,8,5,3,14,13,2,1 \
   hafs,qalun,warsh,bazzi,qunbul,duri_abuamr,susi,hisham,ibndhakwan,shubah,khalaf,khallad,abulharith,duri_kisai,ibnwardan,ibnjammaz,ruways,rawh,ishaq,idris
-cp "$work"/idx/*.bin.gz "$here/../src/main/assets/qiraat/"
+cp "$work"/idx/*.qrx "$here/../src/main/assets/qiraat/"

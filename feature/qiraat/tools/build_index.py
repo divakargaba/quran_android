@@ -30,5 +30,5 @@ for i,name in zip(ids,names):
             q=lambda v:max(0,min(65535,int(round(v*65535))))
             buf+=struct.pack('>HHHHH',p,q(x0),q(y0),q(x1),q(y1))
     data=gzip.compress(bytes(buf),9)
-    open(f'{outdir}/{name}.bin.gz','wb').write(data)
+    open(f'{outdir}/{name}.qrx','wb').write(data)
     print(name, 'textmatches',nm,'unmatched',un,'empty',empty,'raw',len(buf),'gz',len(data))

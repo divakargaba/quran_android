@@ -15,32 +15,43 @@ import java.io.File
 
 /**
  * Renders pages of a riwayah mushaf PDF. [PdfRenderer] only allows one open page at a time,
- * so all rendering is serialized.
+ * and pdfium is not thread safe on older Android versions, so all rendering (across every
+ * open mushaf) is serialized.
+ *
+ * @throws java.io.IOException if the file is not a readable PDF
  */
-class PdfPageRenderer(file: File) {
+class PdfPageRenderer(private val file: File) {
   private val descriptor = ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_ONLY)
-  private val renderer = PdfRenderer(descriptor)
-  private val lock = Mutex()
-  private val cache = object : LruCache<String, Bitmap>(CACHE_BYTES) {
-    override fun sizeOf(key: String, value: Bitmap) = value.byteCount
+  private val renderer = try {
+    PdfRenderer(descriptor)
+  } catch (e: Exception) {
+    descriptor.close()
+    throw e
   }
   private var closed = false
 
-  val pageCount: Int get() = renderer.pageCount
-
-  /** renders a whole page (1-based) at the given width */
-  suspend fun renderPage(page: Int, width: Int): Bitmap? =
-    render(page, RectF(0f, 0f, 1f, 1f), width)
-
   /**
-   * renders the [region] of a page (fractions of the page size) at the given width.
+   * renders the [region] of a page (fractions of the page size) at the given width, or returns
+   * null if it cannot be rendered.
    */
   suspend fun render(page: Int, region: RectF, width: Int): Bitmap? = withContext(Dispatchers.IO) {
-    val key = "$page:$region:$width"
+    val key = "${file.name}:$page:$region:$width"
     cache.get(key)?.let { return@withContext it }
     lock.withLock {
-      if (closed || page < 1 || page > renderer.pageCount || width <= 0) return@withLock null
-      renderer.openPage(page - 1).use { pdfPage ->
+      try {
+        renderLocked(page, region, width)?.also { cache.put(key, it) }
+      } catch (e: Exception) {
+        null
+      } catch (e: OutOfMemoryError) {
+        cache.evictAll()
+        null
+      }
+    }
+  }
+
+  private fun renderLocked(page: Int, region: RectF, width: Int): Bitmap? {
+    if (closed || page < 1 || page > renderer.pageCount || width <= 0) return null
+    return renderer.openPage(page - 1).use { pdfPage ->
         val pageWidth = pdfPage.width.toFloat()
         val pageHeight = pdfPage.height.toFloat()
         val regionWidth = region.width() * pageWidth
@@ -54,10 +65,8 @@ class PdfPageRenderer(file: File) {
           postScale(scale, scale)
         }
         pdfPage.render(bitmap, null, matrix, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
-        cache.put(key, bitmap)
         bitmap
       }
-    }
   }
 
   fun close() {
@@ -80,11 +89,16 @@ class PdfPageRenderer(file: File) {
       closed = true
       renderer.close()
       descriptor.close()
-      cache.evictAll()
     }
   }
 
   companion object {
     private const val CACHE_BYTES = 48 * 1024 * 1024
+    private val lock = Mutex()
+
+    // shared, so that the comparison screen (up to 20 open mushafs) stays within one budget
+    private val cache = object : LruCache<String, Bitmap>(CACHE_BYTES) {
+      override fun sizeOf(key: String, value: Bitmap) = value.byteCount
+    }
   }
 }

@@ -79,16 +79,28 @@ class RiwayahRepository private constructor(context: Context) {
     setState(riwayah, DownloadState.NotDownloaded)
   }
 
-  suspend fun locations(riwayah: Riwayah): RiwayahLocations = withContext(Dispatchers.IO) {
+  /** the riwayah's ayah locations, or null if they could not be read */
+  suspend fun locations(riwayah: Riwayah): RiwayahLocations? = withContext(Dispatchers.IO) {
     locationsLock.withLock {
-      locations.getOrPut(riwayah.id) { RiwayahLocations.load(appContext, riwayah.locationsAsset) }
+      locations[riwayah.id] ?: try {
+        RiwayahLocations.load(appContext, riwayah.locationsAsset).also { locations[riwayah.id] = it }
+      } catch (e: Exception) {
+        null
+      }
     }
   }
 
+  /** a renderer for a downloaded mushaf; a mushaf file that cannot be opened is removed */
   fun renderer(riwayah: Riwayah): PdfPageRenderer? {
     if (!isDownloaded(riwayah)) return null
     return synchronized(renderers) {
-      renderers.getOrPut(riwayah.id) { PdfPageRenderer(fileFor(riwayah)) }
+      renderers[riwayah.id] ?: try {
+        PdfPageRenderer(fileFor(riwayah)).also { renderers[riwayah.id] = it }
+      } catch (e: Exception) {
+        fileFor(riwayah).delete()
+        setState(riwayah, DownloadState.Failed(e.message))
+        null
+      }
     }
   }
 

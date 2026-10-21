@@ -116,7 +116,7 @@ private fun ComparedAyah(
 ) {
   var rects by remember(riwayah.id, sura, ayah) { mutableStateOf<Map<Int, List<RectF>>?>(null) }
   LaunchedEffect(riwayah.id, sura, ayah) {
-    rects = repository.locations(riwayah).rectsFor(sura, ayah)
+    rects = repository.locations(riwayah)?.rectsFor(sura, ayah).orEmpty()
   }
   val renderer = repository.renderer(riwayah) ?: return
   val ayahRects = rects ?: return
