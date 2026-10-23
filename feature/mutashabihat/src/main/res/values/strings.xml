@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="mutashabihat">Mutashabihat</string>
+  <string name="mutashabihat_select">Long press an ayah to see the ayat that share its phrases.</string>
+  <string name="mutashabihat_none">No mutashabihat are recorded for %1$d:%2$d.</string>
+  <string name="mutashabihat_count">Occurs %1$d times in %2$d ayat</string>
+</resources>

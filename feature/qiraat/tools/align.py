@@ -75,7 +75,15 @@ def regions(hst, rst, gr_all=None):
         for t in toks:
             key=(t[0],t[1]); r=lines.get(key)
             lines[key]=(min(r[0],t[2]),min(r[1],t[3]),max(r[2],t[4]),max(r[3],t[5])) if r else (t[2],t[3],t[4],t[5])
-        out[(s,a)]=(rst[k1][0], [(k[0],)+v for k,v in sorted(lines.items())], a1-a0)
+        out[(s,a)]=(rst[k1][0], [(k[0],)+v for k,v in sorted(lines.items())], a1-a0, a1)
+    # number each hafs ayah by the riwayah ayah (in that sura) that ends it; suras always end on
+    # an ayah end in every count
+    ends={k:v[3] for k,v in out.items()}
+    sura_base=-1; last=None
+    for (s,a),v in out.items():
+        if last is not None and s!=last[0]: sura_base=ends[last]
+        out[(s,a)]=v[:3]+(v[3]-sura_base, v[3])
+        last=(s,a)
     unmatched=sum(1 for x in match if x is None)
     return out, unmatched
 

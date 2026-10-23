@@ -2,6 +2,7 @@ package com.quran.mobile.feature.qiraat.data
 
 import com.google.common.truth.Truth.assertThat
 import com.quran.mobile.feature.qiraat.model.Qiraat
+import com.quran.mobile.feature.qiraat.model.Timings
 import org.junit.Test
 import java.io.File
 
@@ -54,5 +55,35 @@ class RiwayahLocationsTest {
       val (sura, ayah) = AyahIndex.suraAyahOf(index)
       assertThat(AyahIndex.indexOf(sura, ayah)).isEqualTo(index)
     }
+  }
+
+  @Test
+  fun timingsStartWithinEachSuraInOrder() {
+    Qiraat.all.forEach { riwayah ->
+      val asset = riwayah.timingsAsset ?: return@forEach
+      val timings = File("src/main/assets/$asset").inputStream().use { RiwayahTimings.load(it) }
+      for (sura in 1..114) {
+        var previous = -1L
+        for (ayah in 1..AyahIndex.ayahCount(sura)) {
+          val times = timings.timesFor(sura, ayah) ?: continue
+          assertThat(times.first).isAtLeast(previous)
+          assertThat(times.last).isGreaterThan(times.first)
+          previous = times.first
+        }
+      }
+      if (riwayah.audio?.timings == Timings.EXACT) {
+        assertThat(timings.timesFor(2, 255)).isNotNull()
+      }
+    }
+  }
+
+  @Test
+  fun riwayahNumbersFollowTheirCount() {
+    // outside the kufi count, "الم" is not an ayah of its own: 2:1 and 2:2 are one ayah
+    val warsh = load("warsh")
+    assertThat(warsh.riwayahAyahNumber(2, 1)).isEqualTo(1)
+    assertThat(warsh.riwayahAyahNumber(2, 2)).isEqualTo(1)
+    assertThat(warsh.riwayahAyahNumber(2, 3)).isEqualTo(2)
+    assertThat(load("shubah").riwayahAyahNumber(2, 255)).isEqualTo(255)
   }
 }

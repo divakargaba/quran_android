@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Regenerates src/main/assets/qiraat/*.qrx (gzipped) (where each Hafs ayah sits in each riwayah's mushaf).
+# Regenerates src/main/assets/qiraat/*.qrx (where each Hafs ayah sits in each riwayah's mushaf).
 #
 # 1. downloads the islamweb riwayah mushafs from archive.org (item quran-islamweb.net)
 # 2. extracts words and ayah markers with PyMuPDF (stream.py)
@@ -8,7 +8,11 @@
 #    the places where a riwayah's page breaks drift from the Madinah layout.
 # 4. writes one compact file per riwayah (build_index.py)
 #
-# requires: python3, pymupdf (pip install pymupdf), curl
+# Audio timings (*.qrt) are built separately: build_timing.py from mp3quran.net's ayat_timing data
+# (using the *.meta.json files written here), and build_estimated_timing.py, with
+# silence_align.py, for recordings without published timings.
+#
+# requires: python3, pymupdf (pip install pymupdf), numpy, ffmpeg, curl
 set -euo pipefail
 here="$(cd "$(dirname "$0")" && pwd)"
 work="${1:-$(mktemp -d)}"

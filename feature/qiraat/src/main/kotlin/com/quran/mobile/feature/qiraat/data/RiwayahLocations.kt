@@ -12,12 +12,14 @@ import java.util.zip.GZIPInputStream
  * When the riwayah counts ayahs differently (e.g. "الم" is not its own ayah outside the Kufi
  * count), an ayah maps to the whole riwayah ayah that contains it.
  *
- * File format (gzipped, big endian): "QRX1", u16 ayah count, then per ayah in mushaf order:
- * u16 page, u8 rect count, and per rect: u16 page, u16 left, top, right, bottom (scaled by 65535).
+ * File format (gzipped, big endian): "QRX2", u16 ayah count, then per ayah in mushaf order:
+ * u16 page, u16 number of the riwayah ayah it falls in (in that riwayah's count), u8 rect count,
+ * and per rect: u16 page, u16 left, top, right, bottom (scaled by 65535).
  * The files are named .qrx, since the android build unpacks (and renames) assets ending in .gz.
  */
 class RiwayahLocations private constructor(
   private val pageForAyah: IntArray,
+  private val riwayahNumbers: IntArray,
   private val rectOffsets: IntArray,
   private val rectPages: IntArray,
   private val rectCoords: FloatArray
@@ -35,6 +37,10 @@ class RiwayahLocations private constructor(
 
   /** the page (1-604) on which the ayah ends in this riwayah's mushaf */
   fun pageFor(sura: Int, ayah: Int): Int = pageForAyah[AyahIndex.indexOf(sura, ayah)]
+
+  /** the number, in this riwayah's own count, of the ayah that contains the (Hafs) ayah */
+  fun riwayahAyahNumber(sura: Int, ayah: Int): Int =
+    riwayahNumbers[AyahIndex.indexOf(sura, ayah)]
 
   /** line rectangles (fractions of the page size) of the ayah, grouped by page */
   fun rectsFor(sura: Int, ayah: Int): Map<Int, List<RectF>> {
@@ -70,7 +76,7 @@ class RiwayahLocations private constructor(
   }
 
   companion object {
-    private const val MAGIC = 0x51525831 // "QRX1"
+    private const val MAGIC = 0x51525832 // "QRX2"
 
     fun load(context: Context, asset: String): RiwayahLocations = load(context.assets.open(asset))
 
@@ -79,11 +85,13 @@ class RiwayahLocations private constructor(
         require(input.readInt() == MAGIC) { "bad locations file" }
         val count = input.readUnsignedShort()
         val pages = IntArray(count)
+        val numbers = IntArray(count)
         val offsets = IntArray(count + 1)
         val rectPages = ArrayList<Int>(count * 3)
         val coords = ArrayList<Float>(count * 12)
         for (i in 0 until count) {
           pages[i] = input.readUnsignedShort()
+          numbers[i] = input.readUnsignedShort()
           val rects = input.readUnsignedByte()
           repeat(rects) {
             rectPages.add(input.readUnsignedShort())
@@ -91,7 +99,9 @@ class RiwayahLocations private constructor(
           }
           offsets[i + 1] = offsets[i] + rects
         }
-        return RiwayahLocations(pages, offsets, rectPages.toIntArray(), coords.toFloatArray())
+        return RiwayahLocations(
+          pages, numbers, offsets, rectPages.toIntArray(), coords.toFloatArray()
+        )
       }
     }
   }

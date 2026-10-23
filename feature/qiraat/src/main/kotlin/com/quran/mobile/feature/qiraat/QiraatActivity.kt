@@ -68,6 +68,14 @@ class QiraatActivity : ComponentActivity() {
     fun readerIntent(context: Context, page: Int): Intent =
       Intent(context, QiraatActivity::class.java).putExtra(EXTRA_PAGE, page)
 
+    /** opens the mushaf of a riwayah with an ayah (Hafs numbering) selected */
+    fun ayahIntent(context: Context, riwayahId: String, sura: Int, ayah: Int, page: Int): Intent =
+      Intent(context, QiraatActivity::class.java)
+        .putExtra(EXTRA_PAGE, page)
+        .putExtra(EXTRA_SURA, sura)
+        .putExtra(EXTRA_AYAH, ayah)
+        .putExtra(EXTRA_RIWAYAH, riwayahId)
+
     /** shows an ayah (Hafs numbering) in all the riwayat */
     fun compareIntent(context: Context, sura: Int, ayah: Int, page: Int): Intent =
       Intent(context, QiraatActivity::class.java)

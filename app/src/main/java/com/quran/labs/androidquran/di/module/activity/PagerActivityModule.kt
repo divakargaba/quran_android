@@ -10,6 +10,8 @@ import com.quran.labs.androidquran.model.quran.CoordinatesModel
 import com.quran.labs.androidquran.model.quran.CoordinatesModelInterface
 import com.quran.labs.androidquran.model.translation.TranslationModel
 import com.quran.labs.androidquran.model.translation.TranslationModelImpl
+import com.quran.labs.androidquran.ui.fragment.AyahMutashabihatFragment
+import com.quran.labs.androidquran.ui.fragment.AyahQiraatFragment
 import com.quran.labs.androidquran.ui.helpers.QuranPageLoader
 import com.quran.labs.androidquran.ui.helpers.QuranPageLoaderInterface
 import com.quran.labs.androidquran.util.QuranPageInfoImpl
@@ -55,7 +57,7 @@ object PagerActivityModule {
   @Provides
   @ElementsIntoSet
   fun provideAdditionalAyahPanels(): Set<AyahActionFragmentProvider> {
-    return emptySet()
+    return setOf(AyahQiraatFragment.Provider, AyahMutashabihatFragment.Provider)
   }
 
   @Provides

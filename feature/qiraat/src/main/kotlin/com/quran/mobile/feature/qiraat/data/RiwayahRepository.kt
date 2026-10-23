@@ -90,6 +90,20 @@ class RiwayahRepository private constructor(context: Context) {
     }
   }
 
+  private val timings = HashMap<String, RiwayahTimings>()
+
+  /** the riwayah recording's ayah timings, or null if there are none */
+  suspend fun timings(riwayah: Riwayah): RiwayahTimings? = withContext(Dispatchers.IO) {
+    val asset = riwayah.timingsAsset ?: return@withContext null
+    locationsLock.withLock {
+      timings[riwayah.id] ?: try {
+        RiwayahTimings.load(appContext, asset).also { timings[riwayah.id] = it }
+      } catch (e: Exception) {
+        null
+      }
+    }
+  }
+
   /** a renderer for a downloaded mushaf; a mushaf file that cannot be opened is removed */
   fun renderer(riwayah: Riwayah): PdfPageRenderer? {
     if (!isDownloaded(riwayah)) return null

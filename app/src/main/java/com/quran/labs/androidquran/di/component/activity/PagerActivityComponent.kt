@@ -4,7 +4,9 @@ import com.quran.data.di.QuranReadingScope
 import com.quran.data.di.QuranScope
 import com.quran.labs.androidquran.di.component.fragment.QuranPageComponent
 import com.quran.labs.androidquran.ui.PagerActivity
+import com.quran.labs.androidquran.ui.fragment.AyahMutashabihatFragment
 import com.quran.labs.androidquran.ui.fragment.AyahPlaybackFragment
+import com.quran.labs.androidquran.ui.fragment.AyahQiraatFragment
 import com.quran.labs.androidquran.ui.fragment.AyahTranslationFragment
 import com.quran.labs.androidquran.ui.helpers.AyahSelectedListener
 import com.quran.mobile.di.QuranReadingActivityComponent
@@ -27,6 +29,8 @@ interface PagerActivityComponent : QuranReadingActivityComponent {
 
   fun inject(ayahPlaybackFragment: AyahPlaybackFragment)
   fun inject(ayahTranslationFragment: AyahTranslationFragment)
+  fun inject(ayahQiraatFragment: AyahQiraatFragment)
+  fun inject(ayahMutashabihatFragment: AyahMutashabihatFragment)
 
   fun inject(qariListWrapper: QariListWrapper)
   fun inject(audioBarWrapper: AudioBarWrapper)

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="mutashabihat">المتشابهات</string>
+  <string name="mutashabihat_select">اضغط مطولا على آية لرؤية الآيات التي تشترك معها في ألفاظها.</string>
+  <string name="mutashabihat_none">لا توجد متشابهات مسجلة للآية %1$d:%2$d.</string>
+  <string name="mutashabihat_count">تكررت %1$d مرة في %2$d آية</string>
+</resources>

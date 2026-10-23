@@ -28,6 +28,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -46,6 +47,7 @@ import com.quran.mobile.feature.qiraat.data.RiwayahLocations
 import com.quran.mobile.feature.qiraat.data.RiwayahRepository
 import com.quran.mobile.feature.qiraat.model.Qiraat
 import com.quran.mobile.feature.qiraat.model.Riwayah
+import kotlinx.coroutines.launch
 
 private const val PAGE_COUNT = 604
 
@@ -90,7 +92,10 @@ fun QiraatScreen(
   }
 
   val currentPage = pagerState.currentPage + 1
-  val currentSura = selection?.first ?: locations?.firstAyahOn(currentPage)?.first
+  // playback starts at the selected ayah, otherwise at the first ayah on the page
+  val startAyah = selection ?: locations?.firstAyahOn(currentPage)
+  val currentSura = startAyah?.first
+  val scope = rememberCoroutineScope()
 
   fun select(target: Riwayah) {
     riwayahId = target.id
@@ -162,7 +167,13 @@ fun QiraatScreen(
           riwayah = riwayah,
           sura = currentSura,
           playback = playback,
-          onPlay = { sura -> player.play(riwayah, sura) },
+          onPlay = { sura ->
+            val ayah = startAyah?.takeIf { it.first == sura }?.second ?: 0
+            scope.launch {
+              val times = if (ayah > 0) repository.timings(riwayah)?.timesFor(sura, ayah) else null
+              player.play(riwayah, sura, ayah, times)
+            }
+          },
           onPause = player::pause,
           onStop = player::stop
         )
@@ -176,6 +187,7 @@ fun QiraatScreen(
           ayah = selection.second,
           repository = repository,
           downloadStates = downloadStates,
+          player = player,
           onOpenInReader = { target ->
             select(target)
             comparing = false

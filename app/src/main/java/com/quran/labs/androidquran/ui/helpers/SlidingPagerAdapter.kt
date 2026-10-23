@@ -39,6 +39,12 @@ class SlidingPagerAdapter(
     return pages[pos].newAyahActionFragment()
   }
 
+  /** the position of a panel, or -1 if it is not shown */
+  fun getPagePosition(provider: AyahActionFragmentProvider): Int {
+    val index = pages.indexOf(provider)
+    return if (index < 0) -1 else getPagePosition(index)
+  }
+
   fun getPagePosition(page: Int): Int {
     return if (isRtl) pages.size - 1 - page else page
   }

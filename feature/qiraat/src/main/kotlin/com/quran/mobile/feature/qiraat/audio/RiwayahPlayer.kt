@@ -13,6 +13,10 @@ import kotlinx.coroutines.flow.asStateFlow
 data class PlaybackState(
   val riwayahId: String? = null,
   val sura: Int = 0,
+  /** the ayah playback started from, or 0 for the beginning of the sura */
+  val ayah: Int = 0,
+  /** whether only [ayah] is being played */
+  val singleAyah: Boolean = false,
   val isPlaying: Boolean = false,
   val isBuffering: Boolean = false,
   val error: Boolean = false
@@ -46,16 +50,39 @@ class RiwayahPlayer(context: Context) {
     })
   }
 
-  fun play(riwayah: Riwayah, sura: Int) {
+  /**
+   * plays the sura, from the start of [ayah] when [times] (its start and end in the recording, in
+   * milliseconds) are known; with [singleAyah], stops at the end of that ayah.
+   */
+  fun play(
+    riwayah: Riwayah,
+    sura: Int,
+    ayah: Int = 0,
+    times: LongRange? = null,
+    singleAyah: Boolean = false
+  ) {
     val audio = riwayah.audio ?: return
     if (!audio.hasSura(sura)) return
     val current = _state.value
-    if (current.riwayahId == riwayah.id && current.sura == sura && !current.error) {
+    val target = PlaybackState(riwayah.id, sura, ayah, singleAyah && times != null)
+    if (current.copy(isPlaying = false, isBuffering = false) == target && !player.isPlaying &&
+      player.mediaItemCount > 0 && player.playbackState != Player.STATE_ENDED
+    ) {
+      // resume after a pause
       player.play()
       return
     }
-    _state.value = PlaybackState(riwayahId = riwayah.id, sura = sura, isBuffering = true)
-    player.setMediaItem(MediaItem.fromUri(audio.urlForSura(sura)))
+    _state.value = target.copy(isBuffering = true)
+    val item = MediaItem.Builder().setUri(audio.urlForSura(sura))
+    if (times != null && singleAyah) {
+      item.setClippingConfiguration(
+        MediaItem.ClippingConfiguration.Builder()
+          .setStartPositionMs(times.first)
+          .setEndPositionMs(times.last)
+          .build()
+      )
+    }
+    player.setMediaItem(item.build(), if (times != null && !singleAyah) times.first else 0L)
     player.prepare()
     player.play()
   }

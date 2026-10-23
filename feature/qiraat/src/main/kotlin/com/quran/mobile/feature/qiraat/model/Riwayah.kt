@@ -34,9 +34,25 @@ data class Riwayah(
   val locationsAsset: String
     get() = "qiraat/$id.qrx"
 
+  /** per ayah start and end times in [audio]'s recording, if it has any */
+  val timingsAsset: String?
+    get() = if (audio != null && audio.timings != Timings.NONE) "qiraat/$id.qrt" else null
+
   companion object {
     private const val ARCHIVE_BASE = "https://archive.org/download/quran-islamweb.net/"
   }
+}
+
+/** how well the start of each ayah in a recording is known */
+enum class Timings {
+  /** published per-ayah timings (mp3quran.net) */
+  EXACT,
+
+  /** estimated from the pauses in the recording, so occasionally off by an ayah */
+  ESTIMATED,
+
+  /** none: playback can only start at the beginning of a sura */
+  NONE
 }
 
 /**
@@ -47,7 +63,8 @@ data class RiwayahAudioSource(
   val reciterEn: String,
   val reciterAr: String,
   private val baseUrl: String,
-  val suras: Set<Int>? = null
+  val suras: Set<Int>? = null,
+  val timings: Timings = Timings.NONE
 ) {
   fun hasSura(sura: Int): Boolean = suras?.contains(sura) ?: true
 
@@ -65,13 +82,17 @@ object Qiraat {
         Riwayah(
           "qalun", "Qalun", "قالون",
           "القرآن الكريم برواية قالون عن نافع.pdf", 5410737, "665ba345afa60ea529ab52980ffef113",
-          RiwayahAudioSource("Ali al-Huthaify", "علي الحذيفي", QURANIC_AUDIO + "huthayfi_qaloon/")
+          RiwayahAudioSource(
+            "Ali al-Huthaify", "علي الحذيفي", MP3_QURAN + "ali-hudhaifi/r2/",
+            timings = Timings.EXACT
+          )
         ),
         Riwayah(
           "warsh", "Warsh", "ورش",
           "القرآن الكريم برواية ورش عن نافع.pdf", 6145219, "5f10f0c3fcdf7ecc995cb779dd3046f2",
           RiwayahAudioSource(
-            "AbdulBaset AbdulSamad", "عبد الباسط عبد الصمد", QURANIC_AUDIO + "abdulbaset_warsh/"
+            "Mahmoud Khalil Al-Husary", "محمود خليل الحصري", MP3_QURAN + "mahmoud-husary/r3/",
+            timings = Timings.EXACT
           )
         )
       )
@@ -81,12 +102,18 @@ object Qiraat {
         Riwayah(
           "bazzi", "Al-Bazzi", "البزي",
           "القرآن الكريم برواية البزي عن ابن كثير.pdf", 11180079, "8f6add8c847b00bf03b67be2fb615b32",
-          RiwayahAudioSource("Ahmad Deban", "أحمد ديبان", MP3_QURAN + "ahmad-deeban/r4/")
+          RiwayahAudioSource(
+            "Okasha Kameny", "عكاشة كميني", MP3_QURAN + "okasha-kameny/r2/",
+            timings = Timings.EXACT
+          )
         ),
         Riwayah(
           "qunbul", "Qunbul", "قنبل",
           "القرآن الكريم برواية قنبل عن ابن كثير.pdf", 10972224, "4794e8315c1965939e686731125f73af",
-          RiwayahAudioSource("Ahmad Deban", "أحمد ديبان", MP3_QURAN + "ahmad-deeban/r3/")
+          RiwayahAudioSource(
+            "Ahmad Deban", "أحمد ديبان", MP3_QURAN + "ahmad-deeban/r3/",
+            timings = Timings.ESTIMATED
+          )
         )
       )
     ),
@@ -96,14 +123,16 @@ object Qiraat {
           "duri_abuamr", "Ad-Duri", "الدوري",
           "القرآن الكريم برواية الدوري عن أبي عمرو.pdf", 5730161, "4e90fd7f0d9a907fbbdb0f8daf33e36d",
           RiwayahAudioSource(
-            "Abdur-Rashid Sufi", "عبد الرشيد صوفي", QURANIC_AUDIO + "abdurrashid_sufi_doori/"
+            "Mahmoud Khalil Al-Husary", "محمود خليل الحصري", MP3_QURAN + "mahmoud-husary/r4/",
+            timings = Timings.EXACT
           )
         ),
         Riwayah(
           "susi", "As-Susi", "السوسي",
           "القرآن الكريم برواية السوسي عن أبي عمرو.pdf", 5575954, "b6610e53fcaf04134e9ad72274d0932d",
           RiwayahAudioSource(
-            "Abdur-Rashid Sufi", "عبد الرشيد صوفي", QURANIC_AUDIO + "abdurrashid_sufi_soosi_2020/"
+            "Abdur-Rashid Sufi", "عبد الرشيد صوفي", MP3_QURAN + "abdulrasheed-sufi/r2/",
+            timings = Timings.EXACT
           )
         )
       )
@@ -116,13 +145,17 @@ object Qiraat {
           RiwayahAudioSource(
             "Ahmad Deban", "أحمد ديبان", MP3_QURAN + "ahmad-deeban/r12/",
             setOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 13, 85, 90, 92, 93, 94, 95, 99, 100, 101, 103, 105, 107,
-              108, 110, 112, 113, 114)
+              108, 110, 112, 113, 114),
+            Timings.ESTIMATED
           )
         ),
         Riwayah(
           "ibndhakwan", "Ibn Dhakwan", "ابن ذكوان",
           "القرآن الكريم برواية ابن ذكوان عن ابن عامر.pdf", 10718818, "4017e03e3f9db1fa65b36371773cf329",
-          RiwayahAudioSource("Muftah al-Saltany", "مفتاح السلطني", MP3_QURAN + "muftah-saltani/r5/")
+          RiwayahAudioSource(
+            "Muftah al-Saltany", "مفتاح السلطني", MP3_QURAN + "muftah-saltani/r5/",
+            timings = Timings.ESTIMATED
+          )
         )
       )
     ),
@@ -132,15 +165,16 @@ object Qiraat {
           "shubah", "Shu'bah", "شعبة",
           "القرآن الكريم برواية شعبة عن عاصم.pdf", 10744558, "0912637757d1e9a6fd0bdf25892f9fcb",
           RiwayahAudioSource(
-            "Abdur-Rashid Sufi", "عبد الرشيد صوفي", QURANIC_AUDIO + "abdurrashid_sufi_shu3ba/"
+            "Ali al-Huthaify", "علي الحذيفي", MP3_QURAN + "ali-hudhaifi/r3/",
+            timings = Timings.EXACT
           )
         ),
         Riwayah(
           "hafs", "Hafs", "حفص",
           "القرآن الكريم برواية حفص عن عاصم.pdf", 10424221, "8d7239673e2a398002cd1c6092224f4c",
           RiwayahAudioSource(
-            "Mahmoud Khalil Al-Husary", "محمود خليل الحصري",
-            QURANIC_AUDIO + "mahmood_khaleel_al-husaree/"
+            "Mahmoud Khalil Al-Husary", "محمود خليل الحصري", MP3_QURAN + "mahmoud-husary/r1/",
+            timings = Timings.EXACT
           )
         )
       )
@@ -152,7 +186,8 @@ object Qiraat {
           "القرآن الكريم برواية خلف عن حمزة.pdf", 11026466, "9ac4abfa86d1b521c31cbc969e29c375",
           RiwayahAudioSource(
             "Abdur-Rashid Sufi", "عبد الرشيد صوفي",
-            QURANIC_AUDIO + "abdurrashid_sufi_-_khalaf_3an_7amza_recitation/"
+            QURANIC_AUDIO + "abdurrashid_sufi_-_khalaf_3an_7amza_recitation/",
+            timings = Timings.ESTIMATED
           )
         ),
         Riwayah(
@@ -168,13 +203,18 @@ object Qiraat {
           "abulharith", "Abu al-Harith", "أبو الحارث",
           "القرآن الكريم برواية أبي الحارث عن الكسائي.pdf", 10895140, "80c0835c1e952b7ae8bd02d7d4a8f470",
           RiwayahAudioSource(
-            "Abdur-Rashid Sufi", "عبد الرشيد صوفي", QURANIC_AUDIO + "abdurrashid_sufi_abi_al7arith/"
+            "Abdur-Rashid Sufi", "عبد الرشيد صوفي",
+            QURANIC_AUDIO + "abdurrashid_sufi_abi_al7arith/",
+            timings = Timings.ESTIMATED
           )
         ),
         Riwayah(
           "duri_kisai", "Ad-Duri", "الدوري",
           "القرآن الكريم برواية الدوري عن الكسائي.pdf", 15203681, "0098c890585589c642387cade238b28c",
-          RiwayahAudioSource("Muftah al-Saltany", "مفتاح السلطني", MP3_QURAN + "muftah-saltani/r2/")
+          RiwayahAudioSource(
+            "Muftah al-Saltany", "مفتاح السلطني", MP3_QURAN + "muftah-saltani/r2/",
+            timings = Timings.ESTIMATED
+          )
         )
       )
     ),
@@ -190,7 +230,8 @@ object Qiraat {
           "القرآن الكريم برواية ابن جماز عن أبي جعفر.pdf", 4532816, "31e25e85f1a52b5b95269c14068585ce",
           RiwayahAudioSource(
             "Ahmad Deban", "أحمد ديبان", MP3_QURAN + "ahmad-deeban/r13/",
-            setOf(1, 93, 100, 102, 103, 109, 110, 111, 112, 113, 114)
+            setOf(1, 93, 100, 102, 103, 109, 110, 111, 112, 113, 114),
+            Timings.ESTIMATED
           )
         )
       )
