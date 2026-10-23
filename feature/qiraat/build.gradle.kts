@@ -8,7 +8,10 @@ android {
 }
 
 dependencies {
+  implementation(project(":common:data"))
   implementation(project(":common:ui:core"))
+  implementation(project(":pages:common:madani"))
+  implementation(project(":pages:data:madani"))
 
   implementation(libs.androidx.activity.compose)
   implementation(libs.androidx.core.ktx)

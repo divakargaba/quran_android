@@ -1,6 +1,7 @@
 package com.quran.labs.androidquran
 
 import android.app.Application
+import android.os.Build
 import androidx.work.Configuration
 import androidx.work.WorkManager
 import com.quran.labs.androidquran.core.worker.QuranWorkerFactory
@@ -15,6 +16,7 @@ import dev.zacsweers.metro.HasMemberInjections
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.createGraphFactory
 import timber.log.Timber
+import java.io.File
 
 @HasMemberInjections
 open class QuranApplication : Application(), QuranApplicationComponentProvider {
@@ -30,6 +32,8 @@ open class QuranApplication : Application(), QuranApplicationComponentProvider {
 
   override fun onCreate() {
     super.onCreate()
+    // the process that restarts the app after a riwayah switch needs none of the app's setup
+    if (isRestartProcess()) return
     setupTimber()
     applicationComponent = initializeInjector()
     applicationComponent.inject(this)
@@ -39,6 +43,15 @@ open class QuranApplication : Application(), QuranApplicationComponentProvider {
     // theme setup
     val theme = quranSettings.currentTheme()
     ThemeUtil.setTheme(theme)
+  }
+
+  private fun isRestartProcess(): Boolean {
+    val name = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+      getProcessName()
+    } else {
+      runCatching { File("/proc/self/cmdline").readText().trim(Char(0)) }.getOrNull()
+    }
+    return name?.endsWith(":restart") == true
   }
 
   open fun setupTimber() {

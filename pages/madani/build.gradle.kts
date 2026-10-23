@@ -12,5 +12,6 @@ dependencies {
   implementation(project(":common:upgrade"))
 
   implementation(project(":pages:common:madani"))
+  implementation(project(":feature:qiraat"))
   api(project(":pages:data:madani"))
 }

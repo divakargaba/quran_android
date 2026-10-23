@@ -62,7 +62,7 @@ enum class Timings {
 data class RiwayahAudioSource(
   val reciterEn: String,
   val reciterAr: String,
-  private val baseUrl: String,
+  val baseUrl: String,
   val suras: Set<Int>? = null,
   val timings: Timings = Timings.NONE
 ) {
@@ -244,7 +244,8 @@ object Qiraat {
           // this recording combines the riwayat of Ruways and Rawh
           RiwayahAudioSource(
             "Yasser Al-Mazroyee (Ruways & Rawh)", "ياسر المزروعي (رويس وروح)",
-            MP3_QURAN + "yasser-mazrouei/r1/"
+            MP3_QURAN + "yasser-mazrouei/r1/",
+            timings = Timings.ESTIMATED
           )
         ),
         Riwayah(
@@ -252,7 +253,8 @@ object Qiraat {
           "القرآن الكريم برواية روح عن يعقوب الحضرمي.pdf", 4170469, "2e3ce52ed7f83bfd7e27af405e014255",
           RiwayahAudioSource(
             "Yasser Al-Mazroyee (Ruways & Rawh)", "ياسر المزروعي (رويس وروح)",
-            MP3_QURAN + "yasser-mazrouei/r1/"
+            MP3_QURAN + "yasser-mazrouei/r1/",
+            timings = Timings.ESTIMATED
           )
         )
       )

@@ -15,7 +15,7 @@ def coords(st):
         g.append(t[0]-1+ (cur/tot[t[0]] if tot[t[0]] else 0))
     return g
 
-def align(gh, gr, gap=0.035, maxd=0.25, band=80):
+def align(gh, gr, gap=0.035, maxd=0.25, band=80, end_h=None, end_r=None):
     n,m=len(gh),len(gr)
     INF=1e18
     # banded DP: D[i][j] best cost aligning gh[:i], gr[:j]
@@ -32,9 +32,13 @@ def align(gh, gr, gap=0.035, maxd=0.25, band=80):
             v=D[i].get(j-1)
             if v is not None and v+gap<best: best=v+gap; bk=2   # riwayah marker unmatched
             v=D[i-1].get(j-1)
-            if v is not None:
+            if v is not None and abs(gh[i-1]-gr[j-1])<maxd:
                 d=abs(gh[i-1]-gr[j-1])
-                if d<maxd and v+d<best: best=v+d; bk=3
+                if end_h is not None:
+                    # a sura's last ayah ends where a sura title follows, and no other ayah does
+                    if end_r[j-1] and not end_h[i-1]: d+=1.0
+                    elif end_h[i-1] and not end_r[j-1]: d+=0.05
+                if v+d<best: best=v+d; bk=3
             if bk: D[i][j]=best; B[i][j]=bk
     i,j=n,m; match=[None]*n
     while i>0 or j>0:
@@ -50,12 +54,13 @@ def regions(hst, rst, gr_all=None):
     hm=[k for k,t in enumerate(hst) if t[6]=='m']
     rm=[k for k,t in enumerate(rst) if t[6]=='m']
     gh=[gh_all[k] for k in hm]; gr=[gr_all[k] for k in rm]
+    ayahs=[sa for p in range(1,605) for sa in page_ayahs(p)]
     if len(gh)==len(gr) and max(abs(a-b) for a,b in zip(gh,gr))<0.6:
         # same ayah count (Kufi): markers correspond one to one
         match=list(range(len(gr)))
     else:
-        match=align(gh,gr)
-    ayahs=[sa for p in range(1,605) for sa in page_ayahs(p)]
+        end_h=[k+1==len(ayahs) or ayahs[k+1][0]!=s for k,(s,_) in enumerate(ayahs)]
+        match=align(gh,gr,end_h=end_h,end_r=heading_after(rst))
     assert len(ayahs)==len(hm)
     import bisect
     def end_idx(i):   # riwayah marker index (in rm) that closes hafs ayah i
@@ -176,3 +181,21 @@ def hafs_coords_for(h, ref_k, r, idx, sibling=None):
     if idx==12: return [F(v) for v in gk], None
     gr,n=ref_coords(ref_k, r)
     return [F(v) for v in gr], n
+
+def heading_after(st):
+    """for each ayah marker, whether a sura title or basmalah line (a whole line without an ayah
+    marker, narrow and centred) follows it before the next marker: the end of a sura"""
+    rm=[k for k,t in enumerate(st) if t[6]=='m']
+    extent={}; has_marker=set()
+    for t in st:
+        key=(t[0],t[1])
+        if t[6]=='m': has_marker.add(key)
+        e=extent.setdefault(key,[1,0]); e[0]=min(e[0],t[2]); e[1]=max(e[1],t[4])
+    def heading(key):
+        x0,x1=extent[key]
+        return key[0]>1 and key not in has_marker and (x1-x0)<0.55 and abs((x0+x1)/2-0.5)<0.04
+    flags=[]
+    for j,k in enumerate(rm):
+        nxt=rm[j+1] if j+1<len(rm) else len(st)
+        flags.append(j==len(rm)-1 or any(heading((t[0],t[1])) for t in st[k+1:nxt] if t[6]=='w'))
+    return flags

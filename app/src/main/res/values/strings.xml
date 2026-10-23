@@ -442,4 +442,10 @@
   <!-- notification channel names [CHAR LIMIT=40] -->
   <string name="notification_channel_download">Quran Downloads</string>
   <string name="notification_channel_audio">Quran Recitation</string>
+  <string name="menu_riwayah">Switch riwayah</string>
+  <string name="riwayah_hafs_madinah">Hafs ʿan ʿAsim (Madinah mushaf)</string>
+  <string name="qiraat_preparing">Preparing the mushaf…</string>
+  <string name="qiraat_downloading_mushaf">Downloading the mushaf…</string>
+  <string name="qiraat_preparing_page">Preparing page %1$d of %2$d… (only needed once)</string>
+  <string name="qiraat_prepare_failed">The mushaf could not be prepared. Check your connection and try again.</string>
 </resources>

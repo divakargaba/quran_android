@@ -107,6 +107,7 @@ import com.quran.labs.androidquran.ui.helpers.QuranNavigator
 import com.quran.labs.androidquran.ui.helpers.QuranPage
 import com.quran.labs.androidquran.ui.helpers.QuranPageAdapter
 import com.quran.labs.androidquran.ui.helpers.SlidingPagerAdapter
+import com.quran.labs.androidquran.ui.qiraat.RiwayahSwitcher
 import com.quran.labs.androidquran.ui.listener.AudioBarListener
 import com.quran.labs.androidquran.ui.readingbookmark.createReadingBookmarkToastView
 import com.quran.labs.androidquran.ui.util.ToastCompat.makeText
@@ -1226,6 +1227,10 @@ class PagerActivity : AppCompatActivity(), AudioBarListener, OnBookmarkTagsUpdat
       val fm = supportFragmentManager
       val jumpDialog = JumpFragment()
       jumpDialog.show(fm, JumpFragment.TAG)
+      return true
+    } else if (itemId == R.id.riwayah) {
+      val range = quranInfo.getVerseRangeForPage(currentPage)
+      RiwayahSwitcher.showPicker(this, range.startSura, range.startAyah, currentPage)
       return true
     } else if (itemId == R.id.qiraat) {
       startActivity(QiraatActivity.readerIntent(this, currentPage))

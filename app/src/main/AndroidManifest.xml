@@ -173,6 +173,11 @@
       </intent-filter>
     </activity>
 
+    <activity
+        android:name=".ui.qiraat.ProcessRestartActivity"
+        android:process=":restart"
+        android:exported="false"
+        android:theme="@android:style/Theme.Translucent.NoTitleBar" />
     <activity android:name=".pageselect.PageSelectActivity"
         android:theme="@style/QuranToolBarDayNight"
         android:exported="false"/>

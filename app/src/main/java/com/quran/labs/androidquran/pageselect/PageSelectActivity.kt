@@ -14,6 +14,7 @@ import com.quran.labs.androidquran.QuranApplication
 import com.quran.labs.androidquran.QuranDataActivity
 import com.quran.labs.androidquran.R
 import com.quran.labs.androidquran.ui.helpers.QuranDisplayHelper
+import com.quran.labs.androidquran.ui.qiraat.RiwayahSwitcher
 import com.quran.labs.androidquran.util.QuranSettings
 import dev.zacsweers.metro.Inject
 
@@ -96,8 +97,13 @@ class PageSelectActivity : AppCompatActivity() {
       val intent = Intent(this@PageSelectActivity, QuranDataActivity::class.java).apply {
         addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
       }
-      startActivity(intent)
-      finish()
+      if (RiwayahSwitcher.isQiraatPageType(pageType) || RiwayahSwitcher.isQiraatPageType(type)) {
+        // the riwayat have their own reciters, which are held for the life of the process
+        RiwayahSwitcher.restart(this, intent)
+      } else {
+        startActivity(intent)
+        finish()
+      }
     } else {
       finish()
     }

@@ -49,7 +49,21 @@ class PdfPageRenderer(private val file: File) {
     }
   }
 
-  private fun renderLocked(page: Int, region: RectF, width: Int): Bitmap? {
+  /**
+   * renders the [region] of a page at the given width without caching it, on a transparent
+   * background when [transparent] (otherwise white)
+   */
+  suspend fun renderUncached(page: Int, region: RectF, width: Int, transparent: Boolean): Bitmap? =
+    withContext(Dispatchers.IO) {
+      lock.withLock { renderLocked(page, region, width, transparent) }
+    }
+
+  private fun renderLocked(
+    page: Int,
+    region: RectF,
+    width: Int,
+    transparent: Boolean = false
+  ): Bitmap? {
     if (closed || page < 1 || page > renderer.pageCount || width <= 0) return null
     return renderer.openPage(page - 1).use { pdfPage ->
         val pageWidth = pdfPage.width.toFloat()
@@ -59,7 +73,7 @@ class PdfPageRenderer(private val file: File) {
         val scale = width / regionWidth
         val height = (regionHeight * scale).toInt().coerceAtLeast(1)
         val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-        bitmap.eraseColor(Color.WHITE)
+        bitmap.eraseColor(if (transparent) Color.TRANSPARENT else Color.WHITE)
         val matrix = Matrix().apply {
           postTranslate(-region.left * pageWidth, -region.top * pageHeight)
           postScale(scale, scale)

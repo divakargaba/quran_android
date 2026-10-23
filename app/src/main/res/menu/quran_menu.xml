@@ -26,6 +26,9 @@
     <item android:id="@+id/jump"
           android:title="@string/menu_jump"
           app:showAsAction="never" />
+    <item android:id="@+id/riwayah"
+          android:title="@string/menu_riwayah"
+          app:showAsAction="never" />
     <item android:id="@+id/qiraat"
           android:title="@string/menu_qiraat"
           app:showAsAction="never" />

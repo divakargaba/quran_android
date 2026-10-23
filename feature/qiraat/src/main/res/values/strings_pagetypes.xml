@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- qira'at page types, one per riwayah -->
+  <string name="qiraat_pagetype_qalun">Qalun ʿan Nafiʿ</string>
+  <string name="qiraat_reciter_qalun">Ali al-Huthaify – Qalun ʿan Nafiʿ</string>
+  <string name="qiraat_pagetype_warsh">Warsh ʿan Nafiʿ</string>
+  <string name="qiraat_reciter_warsh">Mahmoud Khalil Al-Husary – Warsh ʿan Nafiʿ</string>
+  <string name="qiraat_pagetype_bazzi">Al-Bazzi ʿan Ibn Kathir</string>
+  <string name="qiraat_reciter_bazzi">Okasha Kameny – Al-Bazzi ʿan Ibn Kathir</string>
+  <string name="qiraat_pagetype_qunbul">Qunbul ʿan Ibn Kathir</string>
+  <string name="qiraat_reciter_qunbul">Ahmad Deban – Qunbul ʿan Ibn Kathir</string>
+  <string name="qiraat_pagetype_duri_abuamr">Ad-Duri ʿan Abi ʿAmr</string>
+  <string name="qiraat_reciter_duri_abuamr">Mahmoud Khalil Al-Husary – Ad-Duri ʿan Abi ʿAmr</string>
+  <string name="qiraat_pagetype_susi">As-Susi ʿan Abi ʿAmr</string>
+  <string name="qiraat_reciter_susi">Abdur-Rashid Sufi – As-Susi ʿan Abi ʿAmr</string>
+  <string name="qiraat_pagetype_hisham">Hisham ʿan Ibn ʿAmir</string>
+  <string name="qiraat_reciter_hisham">Ahmad Deban – Hisham ʿan Ibn ʿAmir</string>
+  <string name="qiraat_pagetype_ibndhakwan">Ibn Dhakwan ʿan Ibn ʿAmir</string>
+  <string name="qiraat_reciter_ibndhakwan">Muftah al-Saltany – Ibn Dhakwan ʿan Ibn ʿAmir</string>
+  <string name="qiraat_pagetype_shubah">Shuʿbah ʿan ʿAsim</string>
+  <string name="qiraat_reciter_shubah">Ali al-Huthaify – Shuʿbah ʿan ʿAsim</string>
+  <string name="qiraat_pagetype_khalaf">Khalaf ʿan Hamzah</string>
+  <string name="qiraat_reciter_khalaf">Abdur-Rashid Sufi – Khalaf ʿan Hamzah</string>
+  <string name="qiraat_pagetype_khallad">Khallad ʿan Hamzah</string>
+  <string name="qiraat_reciter_khallad">Abdur-Rashid Sufi – Khalaf ʿan Hamzah (no Khallad recording exists)</string>
+  <string name="qiraat_pagetype_abulharith">Abu al-Harith ʿan al-Kisaʾi</string>
+  <string name="qiraat_reciter_abulharith">Abdur-Rashid Sufi – Abu al-Harith ʿan al-Kisaʾi</string>
+  <string name="qiraat_pagetype_duri_kisai">Ad-Duri ʿan al-Kisaʾi</string>
+  <string name="qiraat_reciter_duri_kisai">Muftah al-Saltany – Ad-Duri ʿan al-Kisaʾi</string>
+  <string name="qiraat_pagetype_ibnwardan">Ibn Wardan ʿan Abi Jaʿfar</string>
+  <string name="qiraat_reciter_ibnwardan">Ahmad Deban – Ibn Jammaz ʿan Abi Jaʿfar (no Ibn Wardan recording exists)</string>
+  <string name="qiraat_pagetype_ibnjammaz">Ibn Jammaz ʿan Abi Jaʿfar</string>
+  <string name="qiraat_reciter_ibnjammaz">Ahmad Deban – Ibn Jammaz ʿan Abi Jaʿfar</string>
+  <string name="qiraat_pagetype_ruways">Ruways ʿan Yaʿqub</string>
+  <string name="qiraat_reciter_ruways">Yasser Al-Mazroyee – Ruways and Rawh</string>
+  <string name="qiraat_pagetype_rawh">Rawh ʿan Yaʿqub</string>
+  <string name="qiraat_reciter_rawh">Yasser Al-Mazroyee – Ruways and Rawh</string>
+  <string name="qiraat_pagetype_ishaq">Ishaq ʿan Khalaf</string>
+  <string name="qiraat_reciter_ishaq">Abdur-Rashid Sufi – Khalaf ʿan Hamzah (no Ishaq recording exists)</string>
+  <string name="qiraat_pagetype_idris">Idris ʿan Khalaf</string>
+  <string name="qiraat_reciter_idris">Abdur-Rashid Sufi – Khalaf ʿan Hamzah (no Idris recording exists)</string>
+  <string name="qiraat_pagetype_description">Mushaf of the riwayah (islamweb.net), prepared on this device the first time it is opened. Colours mark where the riwayah differs from Hafs.</string>
+</resources>

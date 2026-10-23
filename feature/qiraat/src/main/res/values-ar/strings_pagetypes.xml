@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="qiraat_pagetype_qalun">قالون عن نافع</string>
+  <string name="qiraat_reciter_qalun">علي الحذيفي – قالون عن نافع</string>
+  <string name="qiraat_pagetype_warsh">ورش عن نافع</string>
+  <string name="qiraat_reciter_warsh">محمود خليل الحصري – ورش عن نافع</string>
+  <string name="qiraat_pagetype_bazzi">البزي عن ابن كثير</string>
+  <string name="qiraat_reciter_bazzi">عكاشة كميني – البزي عن ابن كثير</string>
+  <string name="qiraat_pagetype_qunbul">قنبل عن ابن كثير</string>
+  <string name="qiraat_reciter_qunbul">أحمد ديبان – قنبل عن ابن كثير</string>
+  <string name="qiraat_pagetype_duri_abuamr">الدوري عن أبي عمرو</string>
+  <string name="qiraat_reciter_duri_abuamr">محمود خليل الحصري – الدوري عن أبي عمرو</string>
+  <string name="qiraat_pagetype_susi">السوسي عن أبي عمرو</string>
+  <string name="qiraat_reciter_susi">عبد الرشيد صوفي – السوسي عن أبي عمرو</string>
+  <string name="qiraat_pagetype_hisham">هشام عن ابن عامر</string>
+  <string name="qiraat_reciter_hisham">أحمد ديبان – هشام عن ابن عامر</string>
+  <string name="qiraat_pagetype_ibndhakwan">ابن ذكوان عن ابن عامر</string>
+  <string name="qiraat_reciter_ibndhakwan">مفتاح السلطني – ابن ذكوان عن ابن عامر</string>
+  <string name="qiraat_pagetype_shubah">شعبة عن عاصم</string>
+  <string name="qiraat_reciter_shubah">علي الحذيفي – شعبة عن عاصم</string>
+  <string name="qiraat_pagetype_khalaf">خلف عن حمزة</string>
+  <string name="qiraat_reciter_khalaf">عبد الرشيد صوفي – خلف عن حمزة</string>
+  <string name="qiraat_pagetype_khallad">خلاد عن حمزة</string>
+  <string name="qiraat_reciter_khallad">عبد الرشيد صوفي – خلف عن حمزة (لا يوجد تسجيل لرواية خلاد)</string>
+  <string name="qiraat_pagetype_abulharith">أبو الحارث عن الكسائي</string>
+  <string name="qiraat_reciter_abulharith">عبد الرشيد صوفي – أبو الحارث عن الكسائي</string>
+  <string name="qiraat_pagetype_duri_kisai">الدوري عن الكسائي</string>
+  <string name="qiraat_reciter_duri_kisai">مفتاح السلطني – الدوري عن الكسائي</string>
+  <string name="qiraat_pagetype_ibnwardan">ابن وردان عن أبي جعفر</string>
+  <string name="qiraat_reciter_ibnwardan">أحمد ديبان – ابن جماز عن أبي جعفر (لا يوجد تسجيل لرواية ابن وردان)</string>
+  <string name="qiraat_pagetype_ibnjammaz">ابن جماز عن أبي جعفر</string>
+  <string name="qiraat_reciter_ibnjammaz">أحمد ديبان – ابن جماز عن أبي جعفر</string>
+  <string name="qiraat_pagetype_ruways">رويس عن يعقوب</string>
+  <string name="qiraat_reciter_ruways">ياسر المزروعي – رويس وروح</string>
+  <string name="qiraat_pagetype_rawh">روح عن يعقوب</string>
+  <string name="qiraat_reciter_rawh">ياسر المزروعي – رويس وروح</string>
+  <string name="qiraat_pagetype_ishaq">إسحاق عن خلف</string>
+  <string name="qiraat_reciter_ishaq">عبد الرشيد صوفي – خلف عن حمزة (لا يوجد تسجيل لرواية إسحاق)</string>
+  <string name="qiraat_pagetype_idris">إدريس عن خلف</string>
+  <string name="qiraat_reciter_idris">عبد الرشيد صوفي – خلف عن حمزة (لا يوجد تسجيل لرواية إدريس)</string>
+  <string name="qiraat_pagetype_description">مصحف الرواية (الشبكة الإسلامية)، يُجهَّز على هذا الجهاز عند فتحه أول مرة. الألوان تبين مواضع مخالفة الرواية لحفص.</string>
+</resources>

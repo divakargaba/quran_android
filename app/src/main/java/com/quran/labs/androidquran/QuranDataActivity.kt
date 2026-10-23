@@ -8,6 +8,8 @@ import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
+import android.widget.FrameLayout
+import android.widget.ProgressBar
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -20,6 +22,7 @@ import com.quran.common.upgrade.PreferencesUpgrade
 import com.quran.data.model.Page
 import com.quran.data.model.QuranDataStatus
 import com.quran.data.model.SuraAyah
+import com.quran.data.source.PageProvider
 import com.quran.labs.androidquran.data.Constants
 import com.quran.labs.androidquran.presenter.data.QuranDataPresenter
 import com.quran.labs.androidquran.service.QuranDownloadService
@@ -31,17 +34,22 @@ import com.quran.labs.androidquran.service.util.ServiceIntentHelper
 import com.quran.labs.androidquran.ui.PagerActivity
 import com.quran.labs.androidquran.ui.QuranActivity
 import com.quran.labs.androidquran.ui.helpers.QuranNavigator
+import com.quran.labs.androidquran.ui.qiraat.RiwayahSwitcher
 import com.quran.labs.androidquran.ui.whatsnew.AnnouncementActivity
 import com.quran.labs.androidquran.util.QuranFileUtils
 import com.quran.labs.androidquran.util.QuranScreenInfo
 import com.quran.labs.androidquran.util.QuranSettings
 import com.quran.labs.androidquran.widget.ShowJumpFragmentActivity
 import com.quran.labs.androidquran.worker.WorkerConstants
+import com.quran.mobile.feature.qiraat.pages.QiraatPagePreparer
+import com.quran.mobile.feature.qiraat.pages.QiraatPageProvider
 import dev.zacsweers.metro.Inject
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.Disposable
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
@@ -79,6 +87,9 @@ class QuranDataActivity : AppCompatActivity(), SimpleDownloadListener, OnRequest
   @Inject
   lateinit var preferencesUpgrade: PreferencesUpgrade
 
+  @Inject
+  lateinit var quranPageProvider: PageProvider
+
   private lateinit var quranSettings: QuranSettings
 
   private var errorDialog: AlertDialog? = null
@@ -87,6 +98,8 @@ class QuranDataActivity : AppCompatActivity(), SimpleDownloadListener, OnRequest
   private var downloadReceiver: DefaultDownloadReceiver? = null
   private var quranDataStatus: QuranDataStatus? = null
   private var updateDialog: AlertDialog? = null
+  private var qiraatDialog: AlertDialog? = null
+  private var qiraatJob: Job? = null
   private var disposable: Disposable? = null
   private var lastForceValue: Boolean = false
   private var didCheckPermissions: Boolean = false
@@ -230,6 +243,11 @@ class QuranDataActivity : AppCompatActivity(), SimpleDownloadListener, OnRequest
   }
 
   private fun checkPages() {
+    (quranPageProvider as? QiraatPageProvider)?.let {
+      // riwayah pages are made on the device, and the blank space below the last line of short
+      // pages must not be taken for a partial download (which would delete the page)
+      quranSettings.setCheckedPartialImages(it.pageType())
+    }
     showMigrationDialog()
     quranDataPresenter.checkPages()
   }
@@ -315,7 +333,10 @@ class QuranDataActivity : AppCompatActivity(), SimpleDownloadListener, OnRequest
     hideMigrationDialog()
 
     this.quranDataStatus = quranDataStatus
-    if (!quranDataStatus.havePages()) {
+    val pageProvider = quranPageProvider
+    if (!quranDataStatus.havePages() && pageProvider is QiraatPageProvider) {
+      prepareQiraatPages(pageProvider)
+    } else if (!quranDataStatus.havePages()) {
       val lastErrorItem = quranSettings.lastDownloadItemWithError
       Timber.d("checkPages: need to download pages... lastError: %s", lastErrorItem)
       when {
@@ -341,6 +362,113 @@ class QuranDataActivity : AppCompatActivity(), SimpleDownloadListener, OnRequest
         runListView()
       }
     }
+  }
+
+  /**
+   * a riwayah mushaf's pages are made on the device from its PDF rather than downloaded as images
+   */
+  private fun prepareQiraatPages(provider: QiraatPageProvider) {
+    if (qiraatJob?.isActive == true) return
+    val progressBar = ProgressBar(this, null, android.R.attr.progressBarStyleHorizontal).apply {
+      max = 1000
+      isIndeterminate = true
+    }
+    val padding = (24 * resources.displayMetrics.density).toInt()
+    val dialog = AlertDialog.Builder(this)
+      .setTitle(provider.getPreviewTitle())
+      .setMessage(R.string.qiraat_preparing)
+      .setView(FrameLayout(this).apply {
+        setPadding(padding, 0, padding, 0)
+        addView(progressBar)
+      })
+      .setCancelable(false)
+      .setNegativeButton(R.string.download_cancel) { _, _ -> cancelQiraatPages() }
+      .create()
+    qiraatDialog = dialog
+    dialog.show()
+
+    val widths = listOf(quranScreenInfo.widthParam, quranScreenInfo.tabletWidthParam)
+      .let { if (quranScreenInfo.isDualPageMode) it else it.take(1) }
+    val qari = provider.qari
+    val audioDirectory = quranFileUtils.getQuranAudioDirectory(this)
+    if (audioDirectory == null) {
+      dismissQiraatDialog()
+      showQiraatError(provider)
+      return
+    }
+    qiraatJob = scope.launch {
+      try {
+        QiraatPagePreparer(this@QuranDataActivity).prepare(
+          provider = provider,
+          widthParams = widths,
+          imagesDirectory = { quranFileUtils.getQuranImagesDirectory(it) },
+          ayahInfoFile = {
+            File(
+              quranFileUtils.quranAyahDatabaseDirectory,
+              quranFileUtils.getAyaPositionFileName(it)
+            )
+          },
+          timingDatabase = File(audioDirectory + qari.path, qari.databaseName + ".db"),
+          onProgress = { progress ->
+            runOnUiThread {
+              when (progress) {
+                is QiraatPagePreparer.Progress.Downloading -> {
+                  progressBar.isIndeterminate = false
+                  progressBar.progress = (progress.fraction * 1000).toInt()
+                  dialog.setMessage(getString(R.string.qiraat_downloading_mushaf))
+                }
+                is QiraatPagePreparer.Progress.Rendering -> {
+                  progressBar.isIndeterminate = false
+                  progressBar.progress = progress.page * 1000 / progress.pages
+                  dialog.setMessage(
+                    getString(R.string.qiraat_preparing_page, progress.page, progress.pages)
+                  )
+                }
+              }
+            }
+          }
+        )
+        dismissQiraatDialog()
+        checkPages()
+      } catch (e: CancellationException) {
+        throw e
+      } catch (e: Exception) {
+        Timber.e(e)
+        dismissQiraatDialog()
+        showQiraatError(provider)
+      }
+    }
+  }
+
+  private fun dismissQiraatDialog() {
+    qiraatDialog?.dismiss()
+    qiraatDialog = null
+  }
+
+  private fun cancelQiraatPages() {
+    qiraatJob?.cancel()
+    qiraatDialog = null
+    // back to the Madinah mushaf
+    RiwayahSwitcher.switchTo(this, "madani", 1, 1, 1)
+  }
+
+  private fun showQiraatError(provider: QiraatPageProvider) {
+    errorDialog = AlertDialog.Builder(this)
+      .setTitle(provider.getPreviewTitle())
+      .setMessage(R.string.qiraat_prepare_failed)
+      .setCancelable(false)
+      .setPositiveButton(R.string.download_retry) { dialog, _ ->
+        dialog.dismiss()
+        errorDialog = null
+        prepareQiraatPages(provider)
+      }
+      .setNegativeButton(R.string.download_cancel) { dialog, _ ->
+        dialog.dismiss()
+        errorDialog = null
+        cancelQiraatPages()
+      }
+      .create()
+      .also { it.show() }
   }
 
   /**
