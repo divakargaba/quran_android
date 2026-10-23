@@ -389,7 +389,6 @@ class QuranDataActivity : AppCompatActivity(), SimpleDownloadListener, OnRequest
 
     val widths = listOf(quranScreenInfo.widthParam, quranScreenInfo.tabletWidthParam)
       .let { if (quranScreenInfo.isDualPageMode) it else it.take(1) }
-    val qari = provider.qari
     val audioDirectory = quranFileUtils.getQuranAudioDirectory(this)
     if (audioDirectory == null) {
       dismissQiraatDialog()
@@ -408,7 +407,7 @@ class QuranDataActivity : AppCompatActivity(), SimpleDownloadListener, OnRequest
               quranFileUtils.getAyaPositionFileName(it)
             )
           },
-          timingDatabase = File(audioDirectory + qari.path, qari.databaseName + ".db"),
+          timingDatabase = { qari -> File(audioDirectory + qari.path, qari.databaseName + ".db") },
           onProgress = { progress ->
             runOnUiThread {
               when (progress) {

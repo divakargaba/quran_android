@@ -5,12 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
@@ -63,16 +63,17 @@ class AyahMutashabihatFragment : AyahActionFragment() {
       setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
       setContent {
         QuranTheme {
-          MutashabihatPanel(
-            state = state.value,
-            arabicFont = arabicFont,
-            suraName = { suraNames[it - 1] },
-            onVerseClick = ::openVerse,
-            contentPadding = WindowInsets.navigationBars.asPaddingValues(),
-            modifier = Modifier
-              .fillMaxSize()
-              .background(MaterialTheme.colorScheme.surface)
-          )
+          // a surface, so that text and icons take the theme's colours (light in the dark theme)
+          Surface(color = MaterialTheme.colorScheme.surface, modifier = Modifier.fillMaxSize()) {
+            MutashabihatPanel(
+              state = state.value,
+              arabicFont = arabicFont,
+              suraName = { suraNames[it - 1] },
+              onVerseClick = ::openVerse,
+              contentPadding = WindowInsets.navigationBars.asPaddingValues(),
+              modifier = Modifier.fillMaxSize()
+            )
+          }
         }
       }
     }

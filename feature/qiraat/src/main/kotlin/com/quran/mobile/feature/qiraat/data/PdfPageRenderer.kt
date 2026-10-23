@@ -7,6 +7,7 @@ import android.graphics.RectF
 import android.graphics.pdf.PdfRenderer
 import android.os.ParcelFileDescriptor
 import android.util.LruCache
+import android.util.SizeF
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -29,23 +30,40 @@ class PdfPageRenderer(private val file: File) {
     throw e
   }
   private var closed = false
+  private val sizes = java.util.concurrent.ConcurrentHashMap<Int, SizeF>()
 
   /**
-   * renders the [region] of a page (fractions of the page size) at the given width, or returns
-   * null if it cannot be rendered.
+   * renders the [region] of a page (fractions of the page size) at the given width, on a
+   * transparent background when [transparent] (otherwise white), or returns null if it cannot be
+   * rendered.
    */
-  suspend fun render(page: Int, region: RectF, width: Int): Bitmap? = withContext(Dispatchers.IO) {
-    val key = "${file.name}:$page:$region:$width"
+  suspend fun render(
+    page: Int,
+    region: RectF,
+    width: Int,
+    transparent: Boolean = false
+  ): Bitmap? = withContext(Dispatchers.IO) {
+    val key = "${file.name}:$page:$region:$width:$transparent"
     cache.get(key)?.let { return@withContext it }
     lock.withLock {
       try {
-        renderLocked(page, region, width)?.also { cache.put(key, it) }
+        renderLocked(page, region, width, transparent)?.also { cache.put(key, it) }
       } catch (e: Exception) {
         null
       } catch (e: OutOfMemoryError) {
         cache.evictAll()
         null
       }
+    }
+  }
+
+  /** the size of a page in pt, or null if there is no such page */
+  suspend fun pageSize(page: Int): SizeF? = withContext(Dispatchers.IO) {
+    sizes[page]?.let { return@withContext it }
+    lock.withLock {
+      if (closed || page < 1 || page > renderer.pageCount) return@withLock null
+      renderer.openPage(page - 1).use { SizeF(it.width.toFloat(), it.height.toFloat()) }
+        .also { sizes[page] = it }
     }
   }
 

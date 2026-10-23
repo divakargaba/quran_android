@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
@@ -13,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -28,16 +28,17 @@ import com.quran.data.core.QuranInfo
 import com.quran.data.model.SuraAyah
 import com.quran.labs.androidquran.common.ui.core.QuranTheme
 import com.quran.labs.androidquran.ui.PagerActivity
+import com.quran.labs.androidquran.ui.qiraat.RiwayahSwitcher
 import com.quran.mobile.di.AyahActionFragmentProvider
-import com.quran.mobile.feature.qiraat.QiraatActivity
-import com.quran.mobile.feature.qiraat.audio.RiwayahPlayer
 import com.quran.mobile.feature.qiraat.data.RiwayahRepository
+import com.quran.mobile.feature.qiraat.model.Riwayah
+import com.quran.mobile.feature.qiraat.pages.QiraatPageProvider
 import com.quran.mobile.feature.qiraat.ui.CompareList
 import dev.zacsweers.metro.Inject
 
 /**
  * ayah panel showing the selected ayah in all twenty riwayat of the ten qira'at, each of which can
- * be played on its own
+ * be recited on its own (with the reader's audio, so from the downloaded recordings when there are)
  */
 class AyahQiraatFragment : AyahActionFragment() {
 
@@ -45,7 +46,6 @@ class AyahQiraatFragment : AyahActionFragment() {
   lateinit var quranInfo: QuranInfo
 
   private val selection = mutableStateOf<SuraAyah?>(null)
-  private var player: RiwayahPlayer? = null
 
   object Provider : AyahActionFragmentProvider {
     override val order = 3
@@ -65,55 +65,47 @@ class AyahQiraatFragment : AyahActionFragment() {
   ): View {
     val context = requireContext()
     val repository = RiwayahRepository.get(context)
-    val riwayahPlayer = RiwayahPlayer(context).also { player = it }
     return ComposeView(context).apply {
       setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
       setContent {
         QuranTheme {
-          val downloadStates by repository.downloadStates.collectAsState()
-          val modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.surface)
-          val verse = selection.value
-          if (verse == null) {
-            Box(modifier.padding(24.dp), contentAlignment = Alignment.TopCenter) {
-              Text(
-                stringResource(com.quran.mobile.feature.qiraat.R.string.qiraat_long_press_hint),
-                textAlign = TextAlign.Center
+          // a surface, so that text and icons take the theme's colours (light in the dark theme)
+          Surface(color = MaterialTheme.colorScheme.surface, modifier = Modifier.fillMaxSize()) {
+            val downloadStates by repository.downloadStates.collectAsState()
+            val verse = selection.value
+            if (verse == null) {
+              Box(Modifier.padding(24.dp), contentAlignment = Alignment.TopCenter) {
+                Text(
+                  stringResource(com.quran.mobile.feature.qiraat.R.string.qiraat_long_press_hint),
+                  textAlign = TextAlign.Center
+                )
+              }
+            } else {
+              CompareList(
+                sura = verse.sura,
+                ayah = verse.ayah,
+                repository = repository,
+                downloadStates = downloadStates,
+                canPlay = { QiraatPageProvider.qariFor(it, verse.sura) != null },
+                onPlay = { riwayah ->
+                  (activity as? PagerActivity)?.playRiwayahAyah(riwayah, verse.sura, verse.ayah)
+                },
+                onOpenInReader = { riwayah -> openInReader(riwayah, verse) },
+                contentPadding = WindowInsets.navigationBars.asPaddingValues(),
+                modifier = Modifier.fillMaxSize()
               )
             }
-          } else {
-            CompareList(
-              sura = verse.sura,
-              ayah = verse.ayah,
-              repository = repository,
-              downloadStates = downloadStates,
-              player = riwayahPlayer,
-              onOpenInReader = { riwayah ->
-                startActivity(
-                  QiraatActivity.ayahIntent(
-                    context, riwayah.id, verse.sura, verse.ayah,
-                    quranInfo.getPageFromSuraAyah(verse.sura, verse.ayah)
-                  )
-                )
-              },
-              contentPadding = WindowInsets.navigationBars.asPaddingValues(),
-              modifier = modifier
-            )
           }
         }
       }
     }
   }
 
-  override fun onToggleDetailsPanel(isVisible: Boolean) {
-    if (!isVisible) player?.stop()
-  }
-
-  override fun onDestroyView() {
-    player?.release()
-    player = null
-    super.onDestroyView()
+  /** the reader, switched to the riwayah's mushaf, at the ayah */
+  private fun openInReader(riwayah: Riwayah, verse: SuraAyah) {
+    val activity = activity ?: return
+    val page = quranInfo.getPageFromSuraAyah(verse.sura, verse.ayah)
+    RiwayahSwitcher.switchTo(activity, RiwayahSwitcher.pageTypeOf(riwayah), verse.sura, verse.ayah, page)
   }
 
   override fun refreshView() {

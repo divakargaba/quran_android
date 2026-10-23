@@ -138,7 +138,9 @@ import com.quran.mobile.feature.ayahbookmark.readingbookmark.ReadingBookmarkShee
 import com.quran.mobile.feature.ayahbookmark.readingbookmark.di.ReadingBookmarkSheetWrapperInjector
 import com.quran.mobile.feature.qarilist.QariListWrapper
 import com.quran.mobile.feature.qarilist.di.QariListWrapperInjector
-import com.quran.mobile.feature.qiraat.QiraatActivity
+import com.quran.mobile.feature.qiraat.model.Riwayah
+import com.quran.mobile.feature.qiraat.pages.QiraatPagePreparer
+import com.quran.mobile.feature.qiraat.pages.QiraatPageProvider
 import com.quran.mobile.translation.model.LocalTranslation
 import com.quran.page.common.data.QuranNaming
 import com.quran.page.common.factory.PageViewFactoryProvider
@@ -165,6 +167,7 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.io.File
 import java.lang.ref.WeakReference
 import java.util.concurrent.CancellationException
 import java.util.concurrent.TimeUnit
@@ -1232,9 +1235,6 @@ class PagerActivity : AppCompatActivity(), AudioBarListener, OnBookmarkTagsUpdat
       val range = quranInfo.getVerseRangeForPage(currentPage)
       RiwayahSwitcher.showPicker(this, range.startSura, range.startAyah, currentPage)
       return true
-    } else if (itemId == R.id.qiraat) {
-      startActivity(QiraatActivity.readerIntent(this, currentPage))
-      return true
     }
     return super.onOptionsItemSelected(item)
   }
@@ -1594,6 +1594,22 @@ class PagerActivity : AppCompatActivity(), AudioBarListener, OnBookmarkTagsUpdat
         playbackSpeed,
         shouldStream
       )
+    }
+  }
+
+  /**
+   * recites one ayah in a riwayah of the qira'at (from the comparison panel), from its downloaded
+   * recording, or asking to download it as for the reader's own reciters
+   */
+  fun playRiwayahAyah(riwayah: Riwayah, sura: Int, ayah: Int) {
+    val qari = QiraatPageProvider.qariFor(riwayah, sura) ?: return
+    val item = fromQari(this, qari)
+    lifecycleScope.launch {
+      audioUtils.getQariDatabasePathIfGapless(item)?.let { database ->
+        QiraatPagePreparer(this@PagerActivity).prepareTimings(riwayah, File(database))
+      }
+      val verse = SuraAyah(sura, ayah)
+      audioPresenter.play(verse, verse, item, 0, 0, true, 1.0f, quranSettings.shouldStream())
     }
   }
 

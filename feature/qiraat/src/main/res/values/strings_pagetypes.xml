@@ -22,13 +22,13 @@
   <string name="qiraat_pagetype_khalaf">Khalaf ʿan Hamzah</string>
   <string name="qiraat_reciter_khalaf">Abdur-Rashid Sufi – Khalaf ʿan Hamzah</string>
   <string name="qiraat_pagetype_khallad">Khallad ʿan Hamzah</string>
-  <string name="qiraat_reciter_khallad">Abdur-Rashid Sufi – Khalaf ʿan Hamzah (no Khallad recording exists)</string>
+  <string name="qiraat_reciter_khallad">Muftah al-Saltany – Khallad ʿan Hamzah (nquran.com)</string>
   <string name="qiraat_pagetype_abulharith">Abu al-Harith ʿan al-Kisaʾi</string>
   <string name="qiraat_reciter_abulharith">Abdur-Rashid Sufi – Abu al-Harith ʿan al-Kisaʾi</string>
   <string name="qiraat_pagetype_duri_kisai">Ad-Duri ʿan al-Kisaʾi</string>
   <string name="qiraat_reciter_duri_kisai">Muftah al-Saltany – Ad-Duri ʿan al-Kisaʾi</string>
   <string name="qiraat_pagetype_ibnwardan">Ibn Wardan ʿan Abi Jaʿfar</string>
-  <string name="qiraat_reciter_ibnwardan">Ahmad Deban – Ibn Jammaz ʿan Abi Jaʿfar (no Ibn Wardan recording exists)</string>
+  <string name="qiraat_reciter_ibnwardan">Muftah al-Saltany – Ibn Wardan ʿan Abi Jaʿfar (nquran.com)</string>
   <string name="qiraat_pagetype_ibnjammaz">Ibn Jammaz ʿan Abi Jaʿfar</string>
   <string name="qiraat_reciter_ibnjammaz">Ahmad Deban – Ibn Jammaz ʿan Abi Jaʿfar</string>
   <string name="qiraat_pagetype_ruways">Ruways ʿan Yaʿqub</string>
@@ -36,8 +36,11 @@
   <string name="qiraat_pagetype_rawh">Rawh ʿan Yaʿqub</string>
   <string name="qiraat_reciter_rawh">Yasser Al-Mazroyee – Ruways and Rawh</string>
   <string name="qiraat_pagetype_ishaq">Ishaq ʿan Khalaf</string>
-  <string name="qiraat_reciter_ishaq">Abdur-Rashid Sufi – Khalaf ʿan Hamzah (no Ishaq recording exists)</string>
+  <string name="qiraat_reciter_ishaq">Muftah al-Saltany – Ishaq ʿan Khalaf (nquran.com)</string>
   <string name="qiraat_pagetype_idris">Idris ʿan Khalaf</string>
-  <string name="qiraat_reciter_idris">Abdur-Rashid Sufi – Khalaf ʿan Hamzah (no Idris recording exists)</string>
+  <string name="qiraat_reciter_idris">Muftah al-Saltany – Idris ʿan Khalaf (nquran.com)</string>
+  <string name="qiraat_reciter_hisham_nquran">Muftah al-Saltany – Hisham ʿan Ibn ʿAmir (nquran.com)</string>
+  <string name="qiraat_reciter_ibnjammaz_nquran">Muftah al-Saltany – Ibn Jammaz ʿan Abi Jaʿfar (nquran.com)</string>
+  <string name="qiraat_reciter_hafs">Mahmoud Khalil Al-Husary – Hafs ʿan ʿAsim</string>
   <string name="qiraat_pagetype_description">Mushaf of the riwayah (islamweb.net), prepared on this device the first time it is opened. Colours mark where the riwayah differs from Hafs.</string>
 </resources>

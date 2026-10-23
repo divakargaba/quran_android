@@ -32,6 +32,7 @@ import com.quran.labs.androidquran.util.UrlUtil
 import com.quran.labs.androidquran.util.ZipUtils
 import com.quran.labs.androidquran.util.ZipUtils.ZipListener
 import com.quran.mobile.common.download.DownloadInfoStreams
+import com.quran.mobile.feature.qiraat.audio.NquranAudio
 import dev.zacsweers.metro.Inject
 import okhttp3.Call
 import okhttp3.OkHttpClient
@@ -465,6 +466,14 @@ class QuranDownloadService : Service(), ZipListener<NotificationDetails> {
     notificationInfo: NotificationDetails
   ): Int {
     Timber.d("downloading %s", url)
+    if (NquranAudio.handles(url)) {
+      // a qira'at recording assembled from nquran.com's files
+      return if (NquranAudio.download(this, okHttpClient, url, File(path, filename))) {
+        DOWNLOAD_SUCCESS
+      } else {
+        notifyError(QuranDownloadNotifier.ERROR_NETWORK, false, filename, notificationInfo)
+      }
+    }
     val builder: Request.Builder = Request.Builder()
       .url(url).tag(DEFAULT_TAG)
     val partialFile = File(path, filename + PARTIAL_EXT)

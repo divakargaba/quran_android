@@ -5,7 +5,9 @@ import com.quran.data.source.DisplaySize
 import com.quran.data.source.PageProvider
 import com.quran.data.source.PageSizeCalculator
 import com.quran.labs.androidquran.pages.common.madani.size.DefaultPageSizeCalculator
+import com.quran.labs.androidquran.pages.data.madani.MadaniDataSource
 import com.quran.mobile.feature.qiraat.R
+import com.quran.mobile.feature.qiraat.audio.NquranAudio
 import com.quran.mobile.feature.qiraat.model.Qiraat
 import com.quran.mobile.feature.qiraat.model.Riwayah
 
@@ -13,25 +15,23 @@ import com.quran.mobile.feature.qiraat.model.Riwayah
  * A riwayah mushaf as a page type of the main reader, like the Madinah (Hafs) mushaf.
  *
  * Nothing is downloaded from a page server: the first time the page type is opened, the riwayah's
- * PDF is downloaded and [QiraatPagePreparer] renders its pages and writes the ayah position and
+ * PDF is downloaded and [QiraatPagePreparer] draws its pages and writes the ayah position and
  * audio timing databases the reader expects.
  */
 class QiraatPageProvider(val riwayah: Riwayah) : PageProvider {
-  private val riwayahDataSource by lazy { RiwayahDataSource(riwayah.id) }
+  // the pages hold the same ayat as the Madinah mushaf's
+  private val riwayahDataSource by lazy { MadaniDataSource() }
 
-  /** the riwayah whose recording is played; a sibling riwayah's when this one has none */
-  val audioRiwayah: Riwayah
-    get() = if (riwayah.audio != null) riwayah else Qiraat.byId(AUDIO_FALLBACK[riwayah.id])!!
-
-  val qari: Qari
-    get() = Qari(
-      id = QARI_ID_BASE + Qiraat.all.indexOf(riwayah),
-      nameResource = RECITER_NAMES.getValue(riwayah.id),
-      url = audioRiwayah.audio!!.baseUrl,
-      path = "qiraat_${riwayah.id}",
-      hasGaplessAlternative = false,
-      db = "qiraat_${riwayah.id}_timings"
-    )
+  /** the riwayah's recordings: a complete one first (the default) */
+  private val riwayahQaris: List<Qari> by lazy {
+    val recording = recordingQari(riwayah)
+    val nquran = nquranQari(riwayah)
+    if (recording != null && riwayah.audio?.suras == null) {
+      listOf(recording)
+    } else {
+      listOfNotNull(nquran, recording)
+    }
+  }
 
   override fun getDataSource() = riwayahDataSource
 
@@ -50,29 +50,66 @@ class QiraatPageProvider(val riwayah: Riwayah) : PageProvider {
 
   override fun getAudioDirectoryName() = "audio"
   override fun getDatabaseDirectoryName() = "databases"
-  override fun getAyahInfoDirectoryName() = "qiraat/${riwayah.id}"
-  override fun getImagesDirectoryName() = "qiraat/${riwayah.id}"
+  override fun getAyahInfoDirectoryName() = "qiraat/${riwayah.id}$DIRECTORY_SUFFIX"
+  override fun getImagesDirectoryName() = "qiraat/${riwayah.id}$DIRECTORY_SUFFIX"
 
   override fun getPreviewTitle() = TITLES.getValue(riwayah.id)
   override fun getPreviewDescription() = R.string.qiraat_pagetype_description
 
   override fun getFallbackPageType() = "madani"
 
-  override fun getQaris(): List<Qari> = listOf(qari)
-  override fun getDefaultQariId() = qari.id
+  override fun getQaris(): List<Qari> = riwayahQaris
+  override fun getDefaultQariId() = riwayahQaris.first().id
 
   override fun pageType() = PAGE_TYPE_PREFIX + riwayah.id
 
   companion object {
     const val PAGE_TYPE_PREFIX = "qiraat_"
+
+    /** of the page and ayah position directories: pages of the 15 line layout */
+    const val DIRECTORY_SUFFIX = "_15"
     private const val QARI_ID_BASE = 2000
+    private const val NQURAN_QARI_ID_BASE = 2100
     private const val UNUSED_URL = "https://android.quran.com/data/qiraat/unavailable/"
 
-    private val AUDIO_FALLBACK = mapOf(
-      "khallad" to "khalaf",
-      "ibnwardan" to "ibnjammaz",
-      "ishaq" to "khalaf",
-      "idris" to "khalaf"
+    /** the riwayah's recording with ayah timings, played as one file per sura */
+    fun recordingQari(riwayah: Riwayah): Qari? {
+      val audio = riwayah.audio?.takeIf { riwayah.timingsAsset != null } ?: return null
+      return Qari(
+        id = QARI_ID_BASE + Qiraat.all.indexOf(riwayah),
+        nameResource = RECITER_NAMES.getValue(riwayah.id),
+        url = audio.baseUrl,
+        path = "qiraat_${riwayah.id}",
+        hasGaplessAlternative = false,
+        db = "qiraat_${riwayah.id}_timings"
+      )
+    }
+
+    /** the riwayah's ayah by ayah recording from nquran.com, if it has one there */
+    fun nquranQari(riwayah: Riwayah): Qari? {
+      if (!NquranAudio.has(riwayah)) return null
+      return Qari(
+        id = NQURAN_QARI_ID_BASE + Qiraat.all.indexOf(riwayah),
+        nameResource = NQURAN_RECITER_NAMES[riwayah.id] ?: RECITER_NAMES.getValue(riwayah.id),
+        url = NquranAudio.baseUrl(riwayah),
+        path = "qiraat_${riwayah.id}_nquran",
+        hasGaplessAlternative = false,
+        db = null
+      )
+    }
+
+    /** the recording to play an ayah of a sura in, if the riwayah has one */
+    fun qariFor(riwayah: Riwayah, sura: Int): Qari? =
+      recordingQari(riwayah)?.takeIf { riwayah.audio?.hasSura(sura) == true }
+        ?: nquranQari(riwayah)
+
+    private val NQURAN_RECITER_NAMES = mapOf(
+      "hisham" to R.string.qiraat_reciter_hisham_nquran,
+      "ibnjammaz" to R.string.qiraat_reciter_ibnjammaz_nquran,
+      "khallad" to R.string.qiraat_reciter_khallad,
+      "ibnwardan" to R.string.qiraat_reciter_ibnwardan,
+      "ishaq" to R.string.qiraat_reciter_ishaq,
+      "idris" to R.string.qiraat_reciter_idris
     )
 
     private val TITLES = mapOf(
@@ -98,6 +135,7 @@ class QiraatPageProvider(val riwayah: Riwayah) : PageProvider {
     )
 
     private val RECITER_NAMES = mapOf(
+    "hafs" to R.string.qiraat_reciter_hafs,
     "qalun" to R.string.qiraat_reciter_qalun,
     "warsh" to R.string.qiraat_reciter_warsh,
     "bazzi" to R.string.qiraat_reciter_bazzi,

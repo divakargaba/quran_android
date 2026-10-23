@@ -7,6 +7,7 @@ import androidx.appcompat.app.AlertDialog
 import com.quran.labs.androidquran.QuranDataActivity
 import com.quran.labs.androidquran.R
 import com.quran.labs.androidquran.util.QuranSettings
+import com.quran.mobile.feature.qiraat.model.Riwayah
 import com.quran.mobile.feature.qiraat.pages.QiraatPageProvider
 
 /**
@@ -15,6 +16,10 @@ import com.quran.mobile.feature.qiraat.pages.QiraatPageProvider
  */
 object RiwayahSwitcher {
   private const val HAFS_PAGE_TYPE = "madani"
+
+  /** the page type of a riwayah's mushaf (Hafs is the Madinah mushaf) */
+  fun pageTypeOf(riwayah: Riwayah) =
+    if (riwayah.id == "hafs") HAFS_PAGE_TYPE else QiraatPageProvider.PAGE_TYPE_PREFIX + riwayah.id
 
   fun isQiraatPageType(pageType: String?) =
     pageType?.startsWith(QiraatPageProvider.PAGE_TYPE_PREFIX) == true

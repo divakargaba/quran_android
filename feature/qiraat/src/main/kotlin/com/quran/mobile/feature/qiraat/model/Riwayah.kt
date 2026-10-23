@@ -34,6 +34,10 @@ data class Riwayah(
   val locationsAsset: String
     get() = "qiraat/$id.qrx"
 
+  /** the riwayah's text laid out on the 15 line pages of the Madinah mushaf */
+  val layoutAsset: String
+    get() = "qiraat/$id.qrl"
+
   /** per ayah start and end times in [audio]'s recording, if it has any */
   val timingsAsset: String?
     get() = if (audio != null && audio.timings != Timings.NONE) "qiraat/$id.qrt" else null

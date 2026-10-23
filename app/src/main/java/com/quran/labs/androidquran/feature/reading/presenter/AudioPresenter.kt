@@ -17,6 +17,7 @@ import com.quran.labs.androidquran.util.AudioFileUtils
 import com.quran.labs.androidquran.util.AudioUtils
 import com.quran.labs.androidquran.util.AudioUtilsInterface
 import com.quran.mobile.di.qualifier.ApplicationContext
+import com.quran.mobile.feature.qiraat.audio.NquranAudio
 import dev.zacsweers.metro.Inject
 import timber.log.Timber
 import java.io.File
@@ -44,8 +45,8 @@ constructor(
   ) {
     val audioPathInfo = getLocalAudioPathInfo(qari)
     if (audioPathInfo != null) {
-      // override streaming if all the files are already downloaded
-      val stream = if (shouldStream) {
+      // override streaming if all the files are already downloaded (or can't be streamed)
+      val stream = if (shouldStream && !NquranAudio.handles(qari.url)) {
         !haveAllFiles(audioPathInfo, start, end)
       } else {
         false
