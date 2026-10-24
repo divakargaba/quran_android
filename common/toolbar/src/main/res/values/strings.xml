@@ -10,4 +10,6 @@
   <string name="copy_ayah">Copy Ayah</string>
   <string name="qiraat_ayah">Ayah in the Ten Qira\'at</string>
   <string name="mutashabihat_ayah">Mutashabihat (similar ayat)</string>
+  <string name="differences_ayah">Differences in a riwayah</string>
+  <string name="tafsir_ayah">Tafsir</string>
 </resources>

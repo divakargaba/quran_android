@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">Koran</string>
+  <string name="app_name">مصحف القراءات العشر</string>
   <string name="downloadPrompt_title">Benodigde bestanden downloaden?</string>
   <string name="downloadPrompt">Om Koran Android goed te laten werken,
     moeten we enkele bestanden downloaden. Doe je dit nu niet, dan is de app

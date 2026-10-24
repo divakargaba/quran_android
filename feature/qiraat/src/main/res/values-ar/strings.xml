@@ -25,4 +25,9 @@
   <string name="qiraat_riwayah_label">%1$s عن %2$s</string>
   <string name="qiraat_source">صفحات المصحف: مصاحف الروايات من الشبكة الإسلامية. الألوان تبين مواضع مخالفة الرواية لحفص.</string>
   <string name="qiraat_play_ayah">تشغيل هذه الآية</string>
+  <string name="differences_compare_to">مقارنة مع</string>
+  <string name="differences_base">%1$s (هذا المصحف)</string>
+  <string name="differences_none">لا خلاف بين %1$s و%2$s في هذه الآية.</string>
+  <string name="differences_select_ayah">اضغط مطولاً على آية لترى ما تخالف فيه رواية أخرى.</string>
+  <string name="differences_source">وصف القراءات من موقع nquran.com (طريق الشاطبية والدرة).</string>
 </resources>

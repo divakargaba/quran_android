@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">Quran</string>
+  <string name="app_name">مصحف القراءات العشر</string>
   <string name="downloadPrompt_title">Unduh Berkas yang Diperlukan?</string>
   <string name="downloadPrompt">Quran Android memerlukan beberapa berkas tambahan agar dapat berfungsi dengan baik. Jika tidak diunduh sekarang, aplikasi mungkin tidak berjalan optimal dan membutuhkan koneksi internet saat membaca. Apakah Anda ingin mengunduh berkas tersebut sekarang?</string>
   <string name="downloadTabletPrompt">Kami baru saja menambahkan gambar dengan kualitas lebih baik untuk tablet. Apakah Anda ingin mengunduh gambar tersebut sekarang?</string>

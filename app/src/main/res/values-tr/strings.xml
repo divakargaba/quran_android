@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources>
-  <string name="app_name">"Kur'an"</string>
+  <string name="app_name">مصحف القراءات العشر</string>
   <string name="downloadPrompt_title">Gerekli dosyalari indirelim mi?</string>
   <string name="downloadPrompt">Daha iyi performans için bazı dosyalar SD karta kopyalanmalı.
     Eğer şimdi bu işlemi gerçekleştirmezseniz sayfaların ayrı-ayrı indirilmesi daha uzun sürebilir.

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">Kur\'an</string>
+  <string name="app_name">مصحف القراءات العشر</string>
   <string name="downloadPrompt_title">Preuzmite neophodne datoteke?</string>
   <string name="downloadPrompt">Da bi Kur\'an za Android radio ispravno,
         potrebno je preuzeti neke datoteke. Ako ne preuzmete sada, aplikacija

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="tafsir_title">Tafsir</string>
+  <string name="tafsir_manager">Tafsir downloads</string>
+  <string name="tafsir_manager_summary">Download tafaseer (Ibn Kathir, as-Sa\'di and others) to read with each ayah</string>
+  <string name="tafsir_none_downloaded">No tafsir is downloaded yet.</string>
+  <string name="tafsir_get">Download tafaseer</string>
+  <string name="tafsir_select_ayah">Select an ayah to read its tafsir.</string>
+  <string name="tafsir_no_entry">This tafsir has no commentary on this ayah.</string>
+  <string name="tafsir_covers">Commentary on ayat %1$d to %2$d</string>
+  <string name="tafsir_arabic">Arabic</string>
+  <string name="tafsir_english">English</string>
+  <string name="tafsir_download">Download</string>
+  <string name="tafsir_delete">Delete</string>
+  <string name="tafsir_cancel">Cancel</string>
+  <string name="tafsir_retry">Retry</string>
+  <string name="tafsir_downloading">Downloading… %1$d%%</string>
+  <string name="tafsir_failed">Download failed</string>
+  <string name="tafsir_source">Texts from quran.com (QUL, tarteel.ai), via the open tafsir_api project.</string>
+</resources>

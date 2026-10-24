@@ -25,4 +25,9 @@
   <string name="qiraat_riwayah_label">%1$s ʿan %2$s</string>
   <string name="qiraat_source">Mushaf pages: islamweb.net riwayah mushaf series. Colours mark where the riwayah differs from Hafs.</string>
   <string name="qiraat_play_ayah">Play this ayah</string>
+  <string name="differences_compare_to">Compare to</string>
+  <string name="differences_base">%1$s (this mushaf)</string>
+  <string name="differences_none">%1$s and %2$s read this ayah alike.</string>
+  <string name="differences_select_ayah">Long press an ayah to see how another riwayah reads it differently.</string>
+  <string name="differences_source">The readings as described by nquran.com (ash-Shatibiyyah and ad-Durrah).</string>
 </resources>

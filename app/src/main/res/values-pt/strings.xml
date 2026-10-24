@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">Quran</string>
+  <string name="app_name">مصحف القراءات العشر</string>
   <string name="downloadPrompt_title">Baixar Arquivos Necessários?</string>
   <string name="downloadPrompt">Para uma performance ótima, alguns arquivos precisam
             ser baixados. Se voce optar para não fazer isso agora, cada página irá demorar

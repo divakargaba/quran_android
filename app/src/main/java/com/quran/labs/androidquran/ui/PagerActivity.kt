@@ -93,8 +93,10 @@ import com.quran.labs.androidquran.service.util.PermissionUtil.canRequestPostNot
 import com.quran.labs.androidquran.service.util.PermissionUtil.havePostNotificationPermission
 import com.quran.labs.androidquran.service.util.ServiceIntentHelper.getDownloadIntent
 import com.quran.labs.androidquran.ui.fragment.AddTagDialog
+import com.quran.labs.androidquran.ui.fragment.AyahDifferencesFragment
 import com.quran.labs.androidquran.ui.fragment.AyahMutashabihatFragment
 import com.quran.labs.androidquran.ui.fragment.AyahQiraatFragment
+import com.quran.labs.androidquran.ui.fragment.AyahTafsirFragment
 import com.quran.labs.androidquran.ui.fragment.JumpFragment
 import com.quran.labs.androidquran.ui.fragment.TabletFragment
 import com.quran.labs.androidquran.ui.fragment.TagBookmarkDialog.OnBookmarkTagsUpdateListener
@@ -1895,6 +1897,10 @@ class PagerActivity : AppCompatActivity(), AudioBarListener, OnBookmarkTagsUpdat
         sliderPage = slidingPagerAdapter.getPagePosition(AyahQiraatFragment.Provider)
       } else if (itemId == com.quran.labs.androidquran.common.toolbar.R.id.cab_mutashabihat) {
         sliderPage = slidingPagerAdapter.getPagePosition(AyahMutashabihatFragment.Provider)
+      } else if (itemId == com.quran.labs.androidquran.common.toolbar.R.id.cab_differences) {
+        sliderPage = slidingPagerAdapter.getPagePosition(AyahDifferencesFragment.Provider)
+      } else if (itemId == com.quran.labs.androidquran.common.toolbar.R.id.cab_tafsir) {
+        sliderPage = slidingPagerAdapter.getPagePosition(AyahTafsirFragment.Provider)
       } else if (itemId == com.quran.labs.androidquran.common.toolbar.R.id.cab_recite_from_here) {
         onEndSessionBackCallback.isEnabled = true
         pagerActivityRecitationPresenter.onRecitationPressed()

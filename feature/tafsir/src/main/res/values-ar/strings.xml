@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="tafsir_title">التفسير</string>
+  <string name="tafsir_manager">تنزيل التفاسير</string>
+  <string name="tafsir_manager_summary">نزّل التفاسير (ابن كثير والسعدي وغيرهما) لقراءتها مع كل آية</string>
+  <string name="tafsir_none_downloaded">لم يُنزَّل أي تفسير بعد.</string>
+  <string name="tafsir_get">تنزيل التفاسير</string>
+  <string name="tafsir_select_ayah">اختر آية لقراءة تفسيرها.</string>
+  <string name="tafsir_no_entry">لا يوجد في هذا التفسير كلام على هذه الآية.</string>
+  <string name="tafsir_covers">تفسير الآيات من %1$d إلى %2$d</string>
+  <string name="tafsir_arabic">بالعربية</string>
+  <string name="tafsir_english">بالإنجليزية</string>
+  <string name="tafsir_download">تنزيل</string>
+  <string name="tafsir_delete">حذف</string>
+  <string name="tafsir_cancel">إلغاء</string>
+  <string name="tafsir_retry">إعادة المحاولة</string>
+  <string name="tafsir_downloading">جارٍ التنزيل… %1$d%%</string>
+  <string name="tafsir_failed">تعذّر التنزيل</string>
+  <string name="tafsir_source">النصوص من quran.com (QUL من tarteel.ai)، عبر مشروع tafsir_api المفتوح.</string>
+</resources>

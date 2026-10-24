@@ -10,4 +10,6 @@
   <string name="copy_ayah">نسخ الآية</string>
   <string name="qiraat_ayah">الآية في القراءات العشر</string>
   <string name="mutashabihat_ayah">المتشابهات</string>
+  <string name="differences_ayah">الفروق في رواية</string>
+  <string name="tafsir_ayah">التفسير</string>
 </resources>

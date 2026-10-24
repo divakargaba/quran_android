@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">Құран</string>
+  <string name="app_name">مصحف القراءات العشر</string>
   <string name="downloadPrompt_title">Керекті файлдар жүктелінсін бе?</string>
   <string name="downloadPrompt">Бағдарламаның дұрыс істеуі үшін тағы басқа файлдар жазу керек.
         Егер файлдар дәл қазір жазылмаса, Құран беттерінің жүктелуі біраз уақыт алуы мүмкін

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">Qurʼon</string>
+  <string name="app_name">مصحف القراءات العشر</string>
   <string name="downloadPrompt_title">Kerakli fayllar yuklansinmi?</string>
   <string name="downloadPrompt">Ilova toʻliq ishlashi uchun baʼzi fayllarni koʻchirib olish lozim.
         Agar fayllarni hozir saqlab olmasangiz, Qurʼon sahifalarining ochilishi biroz sekin amalga oshishi mumkin

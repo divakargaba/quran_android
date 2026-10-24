@@ -239,6 +239,7 @@ dependencies {
   implementation(project(":feature:qarilist"))
   implementation(project(":feature:mutashabihat"))
   implementation(project(":feature:qiraat"))
+  implementation(project(":feature:tafsir"))
   implementation(project(":feature:sync"))
 
   // android auto support

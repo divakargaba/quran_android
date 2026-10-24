@@ -6,13 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -69,8 +64,10 @@ class AyahQiraatFragment : AyahActionFragment() {
       setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
       setContent {
         QuranTheme {
-          // a surface, so that text and icons take the theme's colours (light in the dark theme)
-          Surface(color = MaterialTheme.colorScheme.surface, modifier = Modifier.fillMaxSize()) {
+          AyahPanelScaffold(
+            onPrevious = { readingEventPresenter.selectPreviousAyah() },
+            onNext = { readingEventPresenter.selectNextAyah() }
+          ) { padding ->
             val downloadStates by repository.downloadStates.collectAsState()
             val verse = selection.value
             if (verse == null) {
@@ -91,7 +88,7 @@ class AyahQiraatFragment : AyahActionFragment() {
                   (activity as? PagerActivity)?.playRiwayahAyah(riwayah, verse.sura, verse.ayah)
                 },
                 onOpenInReader = { riwayah -> openInReader(riwayah, verse) },
-                contentPadding = WindowInsets.navigationBars.asPaddingValues(),
+                contentPadding = padding,
                 modifier = Modifier.fillMaxSize()
               )
             }

@@ -81,6 +81,10 @@
         android:theme="@style/QuranToolBar.Overlay"
         android:exported="false"/>
     <activity
+        android:name=".ui.TafsirManagerActivity"
+        android:theme="@style/QuranToolBarDayNight"
+        android:exported="false"/>
+    <activity
         android:name=".ui.TranslationManagerActivity"
         android:theme="@style/QuranToolBarDayNight"
         android:configChanges="keyboardHidden|orientation|screenSize"

@@ -20,6 +20,7 @@ import com.quran.labs.androidquran.QuranApplication
 import com.quran.labs.androidquran.R
 import com.quran.labs.androidquran.data.Constants
 import com.quran.labs.androidquran.pageselect.PageSelectActivity
+import com.quran.labs.androidquran.ui.TafsirManagerActivity
 import com.quran.labs.androidquran.ui.TranslationManagerActivity
 import com.quran.labs.androidquran.util.OrientationLockUtils
 import com.quran.labs.androidquran.util.QuranUtils
@@ -79,6 +80,13 @@ class QuranSettingsFragment : PreferenceFragmentCompat() {
     val translationPref: Preference? = findPreference(Constants.PREF_TRANSLATION_MANAGER)
     translationPref?.setOnPreferenceClickListener {
       startActivity(Intent(activity, TranslationManagerActivity::class.java))
+      true
+    }
+
+    // handle tafsir manager click
+    val tafsirPref: Preference? = findPreference(Constants.PREF_TAFSIR_MANAGER)
+    tafsirPref?.setOnPreferenceClickListener {
+      startActivity(Intent(activity, TafsirManagerActivity::class.java))
       true
     }
 

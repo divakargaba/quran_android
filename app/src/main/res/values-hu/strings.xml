@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Korán</string>
+    <string name="app_name">مصحف القراءات العشر</string>
     <string name="downloadPrompt_title">Letöltse a szükséges fájlokat?</string>
     <string name="downloadPrompt">A Korán Android megfelelő működéséhez
         néhány fájlt le kell tölteni. Ha ezt most nem teszi meg, akkor az app

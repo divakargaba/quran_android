@@ -3,16 +3,25 @@ package com.quran.labs.androidquran.qiraat
 import android.app.Application
 import android.os.Looper
 import androidx.activity.ComponentActivity
+import androidx.compose.foundation.layout.Column
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.text.font.FontFamily
 import androidx.test.core.app.ApplicationProvider
 import com.google.common.truth.Truth.assertThat
 import com.quran.labs.androidquran.common.ui.core.QuranTheme
 import com.quran.mobile.feature.qiraat.data.DownloadState
+import com.quran.mobile.feature.qiraat.data.QiraatDifferences
 import com.quran.mobile.feature.qiraat.data.RiwayahLayout
 import com.quran.mobile.feature.qiraat.data.RiwayahRepository
 import com.quran.mobile.feature.qiraat.model.Qiraat
 import com.quran.mobile.feature.qiraat.pages.QiraatPageProvider
 import com.quran.mobile.feature.qiraat.ui.CompareList
+import com.quran.mobile.feature.qiraat.ui.DifferencesPanel
+import com.quran.mobile.feature.qiraat.ui.DifferencesState
+import com.quran.mobile.feature.tafsir.data.TafsirEntry
+import com.quran.mobile.feature.tafsir.model.Tafaseer
+import com.quran.mobile.feature.tafsir.ui.TafsirPanel
+import com.quran.mobile.feature.tafsir.ui.TafsirPanelState
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -47,6 +56,42 @@ class QiraatInAppTest {
                 onPlay = {},
                 onOpenInReader = {}
               )
+            }
+          }
+        }
+      )
+      shadowOf(Looper.getMainLooper()).idle()
+      assertThat(activity.isFinishing).isFalse()
+    }
+  }
+
+  @Test
+  fun showsDifferencesAndTafsirPanels() {
+    val context = ApplicationProvider.getApplicationContext<Application>()
+    val words = QiraatDifferences.get(context).between("hafs", "qalun", 2, 98)
+    assertThat(words).isNotEmpty()
+    Robolectric.buildActivity(ComponentActivity::class.java).use { controller ->
+      val activity = controller.setup().get()
+      activity.setContentView(
+        ComposeView(activity).apply {
+          setContent {
+            QuranTheme {
+              Column {
+                DifferencesPanel(
+                  state = DifferencesState.Loaded(words),
+                  base = Qiraat.byId("hafs")!!,
+                  compareTo = Qiraat.byId("qalun")!!,
+                  onCompareToChange = {},
+                  arabicFont = FontFamily.Serif
+                )
+                TafsirPanel(
+                  state = TafsirPanelState.Loaded(TafsirEntry(2, 98, 98, "tafsir")),
+                  tafaseer = Tafaseer.all.take(2),
+                  selected = Tafaseer.all.first(),
+                  onSelect = {},
+                  onManage = {}
+                )
+              }
             }
           }
         }

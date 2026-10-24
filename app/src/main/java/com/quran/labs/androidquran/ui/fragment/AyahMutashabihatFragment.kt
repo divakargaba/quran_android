@@ -5,12 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.navigationBars
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
@@ -41,7 +36,7 @@ class AyahMutashabihatFragment : AyahActionFragment() {
   private val state = mutableStateOf<MutashabihatState>(MutashabihatState.NoSelection)
 
   object Provider : AyahActionFragmentProvider {
-    override val order = 4
+    override val order = 5
     override val iconResId = com.quran.labs.androidquran.common.toolbar.R.drawable.ic_mutashabihat
     override fun newAyahActionFragment() = AyahMutashabihatFragment()
   }
@@ -63,14 +58,16 @@ class AyahMutashabihatFragment : AyahActionFragment() {
       setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
       setContent {
         QuranTheme {
-          // a surface, so that text and icons take the theme's colours (light in the dark theme)
-          Surface(color = MaterialTheme.colorScheme.surface, modifier = Modifier.fillMaxSize()) {
+          AyahPanelScaffold(
+            onPrevious = { readingEventPresenter.selectPreviousAyah() },
+            onNext = { readingEventPresenter.selectNextAyah() }
+          ) { padding ->
             MutashabihatPanel(
               state = state.value,
               arabicFont = arabicFont,
               suraName = { suraNames[it - 1] },
               onVerseClick = ::openVerse,
-              contentPadding = WindowInsets.navigationBars.asPaddingValues(),
+              contentPadding = padding,
               modifier = Modifier.fillMaxSize()
             )
           }

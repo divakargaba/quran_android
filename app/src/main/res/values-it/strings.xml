@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">Corano</string>
+  <string name="app_name">مصحف القراءات العشر</string>
   <string name="downloadPrompt_ok">Sì</string>
   <string name="downloadPrompt_no">No</string>
   <string name="extracting_title">Elaborazione&#8230;</string>

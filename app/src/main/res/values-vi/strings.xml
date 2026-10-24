@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">Kinh Quran</string>
+  <string name="app_name">مصحف القراءات العشر</string>
   <string name="downloadPrompt_title">Tải xuống tệp cần thiết?</string>
   <string name="downloadPrompt">Để Kinh Quran Android hoạt động bình thường,
          chúng tôi cần tải xuống một số tệp. Nếu bạn không làm điều này bây giờ, ứng dụng
