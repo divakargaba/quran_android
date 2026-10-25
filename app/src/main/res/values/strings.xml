@@ -447,4 +447,7 @@
   <string name="qiraat_downloading_mushaf">Downloading the mushaf…</string>
   <string name="qiraat_preparing_page">Preparing page %1$d of %2$d… (only needed once)</string>
   <string name="qiraat_prepare_failed">The mushaf could not be prepared. Check your connection and try again.</string>
+  <string name="qiraat_downloading_recitation">Downloading the recitation…</string>
+  <string name="qiraat_downloading_recitation_percent">Downloading the recitation… %1$d%%</string>
+  <string name="qiraat_recitation_failed">The recitation could not be downloaded. Check your connection and try again.</string>
 </resources>

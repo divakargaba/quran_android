@@ -17,4 +17,5 @@
   <string name="tafsir_downloading">Downloading… %1$d%%</string>
   <string name="tafsir_failed">Download failed</string>
   <string name="tafsir_source">Texts from quran.com (QUL, tarteel.ai), via the open tafsir_api project.</string>
+  <string name="tafsir_size">%1$d MB</string>
 </resources>

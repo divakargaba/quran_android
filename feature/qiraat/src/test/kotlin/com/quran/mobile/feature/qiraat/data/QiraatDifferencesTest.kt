@@ -22,7 +22,35 @@ class QiraatDifferencesTest {
     assertThat(bazzi).contains("وجبريل")
     val qalun = differences.between("hafs", "qalun", 2, 98)
     assertThat(qalun.map { it.word }).contains("وميكال")
-    assertThat(qalun.first { it.word == "وميكال" }.other).contains("همزة مكسورة")
+    val mikal = qalun.first { it.word == "وميكال" }
+    assertThat(mikal.other.arabic).contains("همزة مكسورة")
+    assertThat(mikal.other.english).contains("hamzah")
+    assertThat(mikal.firstWord).isAtLeast(0)
+  }
+
+  @Test
+  fun everyDescriptionHasEnglish() {
+    (1..286).forEach { ayah ->
+      differences.between("hafs", "qalun", 2, ayah).forEach {
+        assertThat(it.base.english).isNotEmpty()
+        assertThat(it.other.english).isNotEmpty()
+      }
+    }
+  }
+
+  @Test
+  fun wordsAreShownAsEachRiwayahWritesThem() {
+    val texts = RiwayahTexts.forTesting { sura ->
+      File("src/main/assets/qiraat/text/%03d.qtx".format(sura)).inputStream()
+    }
+    // al-Baqarah 6: Qalun eases the second hamzah of "a-andhartahum"
+    val word = differences.between("hafs", "qalun", 2, 6).first { it.word == "أأنذرتهم" }
+    val ayah = texts.ayah(2, 6)
+    assertThat(ayah.keys).containsAtLeastElementsIn(Qiraat.all.map { it.id })
+    assertThat(ayah.getValue("hafs").words(word.firstWord, word.wordCount)).isEqualTo("ءَأَنذَرۡتَهُمۡ")
+    assertThat(ayah.getValue("qalun").font).isEqualTo("qaloon")
+    assertThat(ayah.getValue("qalun").words(word.firstWord, word.wordCount)).isNotEqualTo("ءَأَنذَرۡتَهُمۡ")
+    assertThat(ayah.getValue("hafs").text.split(" ")).hasSize(11)
   }
 
   @Test

@@ -8,13 +8,7 @@
   <string name="qiraat_selected_ayah">Ayah %1$d:%2$d</string>
   <string name="qiraat_clear_selection">Clear selection</string>
   <string name="qiraat_download_prompt">The %1$s mushaf (riwayah of %2$s) is downloaded once, when you first open it.</string>
-  <string name="qiraat_download">Download (%1$s)</string>
-  <string name="qiraat_download_all">Download all remaining (%1$s)</string>
-  <string name="qiraat_downloading">Downloading… %1$d%%</string>
-  <string name="qiraat_download_failed">Download failed: %1$s</string>
-  <string name="qiraat_retry">Retry</string>
   <string name="qiraat_delete">Delete downloaded mushaf</string>
-  <string name="qiraat_not_downloaded">Not downloaded</string>
   <string name="qiraat_long_press_hint">Long press an ayah, then tap Compare to see it in every riwayah.</string>
   <string name="qiraat_audio_unavailable">No recitation available for this riwayah</string>
   <string name="qiraat_audio_sura_unavailable">%1$s: not recorded for this sura</string>
@@ -29,5 +23,4 @@
   <string name="differences_base">%1$s (this mushaf)</string>
   <string name="differences_none">%1$s and %2$s read this ayah alike.</string>
   <string name="differences_select_ayah">Long press an ayah to see how another riwayah reads it differently.</string>
-  <string name="differences_source">The readings as described by nquran.com (ash-Shatibiyyah and ad-Durrah).</string>
 </resources>

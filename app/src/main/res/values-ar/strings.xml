@@ -337,4 +337,7 @@
   <string name="qiraat_downloading_mushaf">جاري تحميل المصحف…</string>
   <string name="qiraat_preparing_page">جاري تجهيز الصفحة %1$d من %2$d… (مرة واحدة فقط)</string>
   <string name="qiraat_prepare_failed">تعذر تجهيز المصحف. تحقق من الاتصال وحاول مرة أخرى.</string>
+  <string name="qiraat_downloading_recitation">جاري تحميل التلاوة…</string>
+  <string name="qiraat_downloading_recitation_percent">جاري تحميل التلاوة… %1$d%%</string>
+  <string name="qiraat_recitation_failed">تعذر تحميل التلاوة. تحقق من الاتصال وحاول مرة أخرى.</string>
 </resources>

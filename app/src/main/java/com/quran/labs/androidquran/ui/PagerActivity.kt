@@ -22,6 +22,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.FrameLayout
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResultLauncher
@@ -71,6 +72,7 @@ import com.quran.labs.androidquran.common.audio.model.QariItem.Companion.fromQar
 import com.quran.labs.androidquran.common.audio.model.playback.AudioRequest
 import com.quran.labs.androidquran.common.audio.repository.AudioStatusRepository
 import com.quran.labs.androidquran.common.audio.repository.CurrentQariManager
+import com.quran.labs.androidquran.common.audio.util.AudioExtensionDecider
 import com.quran.labs.androidquran.data.Constants
 import com.quran.labs.androidquran.data.QuranDataProvider
 import com.quran.labs.androidquran.data.QuranDisplayData
@@ -109,6 +111,7 @@ import com.quran.labs.androidquran.ui.helpers.QuranNavigator
 import com.quran.labs.androidquran.ui.helpers.QuranPage
 import com.quran.labs.androidquran.ui.helpers.QuranPageAdapter
 import com.quran.labs.androidquran.ui.helpers.SlidingPagerAdapter
+import com.quran.labs.androidquran.ui.qiraat.RiwayahAyahAudio
 import com.quran.labs.androidquran.ui.qiraat.RiwayahSwitcher
 import com.quran.labs.androidquran.ui.listener.AudioBarListener
 import com.quran.labs.androidquran.ui.readingbookmark.createReadingBookmarkToastView
@@ -168,6 +171,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.launch
+import okhttp3.OkHttpClient
 import timber.log.Timber
 import java.io.File
 import java.lang.ref.WeakReference
@@ -257,12 +261,15 @@ class PagerActivity : AppCompatActivity(), AudioBarListener, OnBookmarkTagsUpdat
   @Inject lateinit var downloadInfoStreams: DownloadInfoStreams
   @Inject lateinit var qariManager: CurrentQariManager
   @Inject lateinit var downloadBridge: DownloadBridge
+  @Inject lateinit var okHttpClient: OkHttpClient
+  @Inject lateinit var audioExtensionDecider: AudioExtensionDecider
 
   private lateinit var audioStatusRepositoryBridge: AudioStatusRepositoryBridge
   private lateinit var readingEventPresenterBridge: ReadingEventPresenterBridge
   private lateinit var windowInsetsController: WindowInsetsControllerCompat
 
   private var translationJob: Job? = null
+  private var riwayahAudioJob: Job? = null
   private lateinit var compositeDisposable: CompositeDisposable
   private val foregroundDisposable = CompositeDisposable()
   private val scope = MainScope()
@@ -1600,18 +1607,74 @@ class PagerActivity : AppCompatActivity(), AudioBarListener, OnBookmarkTagsUpdat
   }
 
   /**
-   * recites one ayah in a riwayah of the qira'at (from the comparison panel), from its downloaded
-   * recording, or asking to download it as for the reader's own reciters
+   * recites one ayah in a riwayah of the qira'at (from the comparison panel), downloading its
+   * recording first if needed (with a dialog showing the progress, which can cancel it)
    */
   fun playRiwayahAyah(riwayah: Riwayah, sura: Int, ayah: Int) {
     val qari = QiraatPageProvider.qariFor(riwayah, sura) ?: return
     val item = fromQari(this, qari)
-    lifecycleScope.launch {
+    val directory = audioUtils.getLocalQariUrl(item) ?: return
+    val extension = audioExtensionDecider.audioExtensionForQari(item)
+    val audio = RiwayahAyahAudio(
+      this, okHttpClient, item, directory, audioUtils.getQariUrl(item, extension), extension
+    )
+    val verse = SuraAyah(sura, ayah)
+    riwayahAudioJob?.cancel()
+    riwayahAudioJob = lifecycleScope.launch {
       audioUtils.getQariDatabasePathIfGapless(item)?.let { database ->
         QiraatPagePreparer(this@PagerActivity).prepareTimings(riwayah, File(database))
       }
-      val verse = SuraAyah(sura, ayah)
-      audioPresenter.play(verse, verse, item, 0, 0, true, 1.0f, quranSettings.shouldStream())
+      if (!audio.isDownloaded(verse) && !downloadRiwayahAyah(audio, verse, item.name)) return@launch
+      audioPresenter.play(verse, verse, item, 0, 0, true, 1.0f, false)
+    }
+  }
+
+  /** downloads what the ayah's recitation needs, in a dialog; false if cancelled or failed */
+  private suspend fun downloadRiwayahAyah(audio: RiwayahAyahAudio, verse: SuraAyah, title: String): Boolean {
+    val progressBar = ProgressBar(this, null, android.R.attr.progressBarStyleHorizontal).apply {
+      max = 1000
+      isIndeterminate = true
+    }
+    val padding = (24 * resources.displayMetrics.density).toInt()
+    val job = riwayahAudioJob
+    val dialog = AlertDialog.Builder(this)
+      .setTitle(title)
+      .setMessage(R.string.qiraat_downloading_recitation)
+      .setView(FrameLayout(this).apply {
+        setPadding(padding, 0, padding, 0)
+        addView(progressBar)
+      })
+      .setCancelable(false)
+      .setNegativeButton(R.string.download_cancel) { _, _ -> job?.cancel() }
+      .create()
+    dialog.show()
+    return try {
+      audio.download(verse) { fraction ->
+        runOnUiThread {
+          if (fraction == null) {
+            progressBar.isIndeterminate = true
+          } else {
+            progressBar.isIndeterminate = false
+            progressBar.progress = (fraction * 1000).toInt()
+            dialog.setMessage(
+              getString(R.string.qiraat_downloading_recitation_percent, (fraction * 100).toInt())
+            )
+          }
+        }
+      }
+      true
+    } catch (e: CancellationException) {
+      throw e
+    } catch (e: Exception) {
+      Timber.e(e)
+      AlertDialog.Builder(this)
+        .setTitle(title)
+        .setMessage(R.string.qiraat_recitation_failed)
+        .setPositiveButton(R.string.dialog_ok, null)
+        .show()
+      false
+    } finally {
+      dialog.dismiss()
     }
   }
 

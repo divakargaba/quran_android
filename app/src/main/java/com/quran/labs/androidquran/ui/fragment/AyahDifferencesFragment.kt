@@ -23,6 +23,7 @@ import com.quran.labs.androidquran.ui.util.TypefaceManager
 import com.quran.labs.androidquran.util.QuranSettings
 import com.quran.mobile.di.AyahActionFragmentProvider
 import com.quran.mobile.feature.qiraat.data.QiraatDifferences
+import com.quran.mobile.feature.qiraat.data.RiwayahTexts
 import com.quran.mobile.feature.qiraat.model.Qiraat
 import com.quran.mobile.feature.qiraat.model.Riwayah
 import com.quran.mobile.feature.qiraat.pages.QiraatPageProvider
@@ -86,16 +87,22 @@ class AyahDifferencesFragment : AyahActionFragment() {
                 DifferencesState.NoSelection
               } else {
                 state = DifferencesState.Loading
-                val words = withContext(Dispatchers.IO) {
-                  try {
+                withContext(Dispatchers.IO) {
+                  val words = try {
                     QiraatDifferences.get(context.applicationContext)
                       .between(base.id, compareTo.id, verse.sura, verse.ayah)
                   } catch (e: Exception) {
                     Timber.e(e)
                     emptyList()
                   }
+                  val texts = try {
+                    RiwayahTexts.get(context).ayah(verse.sura, verse.ayah)
+                  } catch (e: Exception) {
+                    Timber.e(e)
+                    emptyMap()
+                  }
+                  DifferencesState.Loaded(words, texts)
                 }
-                DifferencesState.Loaded(words)
               }
             }
             DifferencesPanel(

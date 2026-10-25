@@ -3,6 +3,7 @@ package com.quran.mobile.feature.tafsir.data
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
+import android.util.Log
 import androidx.core.content.edit
 import com.quran.mobile.feature.tafsir.model.Tafaseer
 import com.quran.mobile.feature.tafsir.model.Tafsir
@@ -11,6 +12,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -77,31 +79,37 @@ class TafsirRepository private constructor(context: Context) {
     if (jobs[tafsir.id]?.isActive == true) return
     setState(tafsir, TafsirState.Downloading(0f))
     jobs[tafsir.id] = scope.launch {
+      // kept between attempts: a failed or interrupted download continues where it stopped
       val partial = File(directory, tafsir.id + ".db.part")
       try {
-        partial.delete()
         SQLiteDatabase.openOrCreateDatabase(partial, null).use { db ->
-          db.execSQL("CREATE TABLE texts(id INTEGER PRIMARY KEY, text TEXT NOT NULL)")
+          db.execSQL("CREATE TABLE IF NOT EXISTS texts(id INTEGER PRIMARY KEY, text TEXT NOT NULL)")
           db.execSQL(
-            "CREATE TABLE ayat(sura INTEGER NOT NULL, ayah INTEGER NOT NULL, " +
+            "CREATE TABLE IF NOT EXISTS ayat(sura INTEGER NOT NULL, ayah INTEGER NOT NULL, " +
               "text_id INTEGER NOT NULL, PRIMARY KEY(sura, ayah))"
           )
+          db.execSQL("CREATE TABLE IF NOT EXISTS done(sura INTEGER PRIMARY KEY)")
+          val done = HashSet<Int>()
+          db.rawQuery("SELECT sura FROM done", null).use { while (it.moveToNext()) done.add(it.getInt(0)) }
           for (sura in 1..SURAS) {
+            if (sura in done) continue
             coroutineContext.ensureActive()
-            val json = fetch(tafsir.suraUrl(sura))
+            val json = fetch(tafsir.suraUrls(sura))
             write(db, sura, JSONArray(json))
+            db.execSQL("INSERT INTO done VALUES ($sura)")
             setState(tafsir, TafsirState.Downloading(sura / SURAS.toFloat()))
           }
+          db.execSQL("DROP TABLE done")
         }
+        File(partial.path + "-journal").delete()
         if (!partial.renameTo(file(tafsir))) throw IOException("Unable to save the tafsir")
         setState(tafsir, TafsirState.Downloaded)
         if (_selected.value == null) select(tafsir)
       } catch (e: CancellationException) {
-        partial.delete()
         setState(tafsir, TafsirState.NotDownloaded)
         throw e
       } catch (e: Exception) {
-        partial.delete()
+        Log.w(TAG, "unable to download ${tafsir.id}", e)
         setState(tafsir, TafsirState.Failed(e.message))
       }
     }
@@ -115,6 +123,7 @@ class TafsirRepository private constructor(context: Context) {
     cancel(tafsir)
     synchronized(databases) { databases.remove(tafsir.id)?.close() }
     file(tafsir).delete()
+    File(directory, tafsir.id + ".db.part").delete()
     setState(tafsir, TafsirState.NotDownloaded)
   }
 
@@ -149,19 +158,29 @@ class TafsirRepository private constructor(context: Context) {
     }
   }
 
-  private fun fetch(url: String): String {
-    var failure: IOException? = null
-    repeat(3) {
-      try {
-        client.newCall(Request.Builder().url(url).build()).execute().use { response ->
-          if (!response.isSuccessful) throw IOException("HTTP ${response.code}")
-          return response.body?.string() ?: throw IOException("empty response")
+  /** the first of [urls] that can be downloaded (each is tried a few times) */
+  private suspend fun fetch(urls: List<String>): String {
+    var failure: Exception? = null
+    repeat(ATTEMPTS) { attempt ->
+      for (url in urls) {
+        coroutineContext.ensureActive()
+        try {
+          client.newCall(Request.Builder().url(url).build()).execute().use { response ->
+            if (!response.isSuccessful) throw IOException("HTTP ${response.code} for $url")
+            val body = response.body?.string() ?: throw IOException("empty response")
+            // make sure it is the json we expect, not an error page
+            JSONArray(body)
+            return body
+          }
+        } catch (e: IOException) {
+          failure = e
+        } catch (e: org.json.JSONException) {
+          failure = e
         }
-      } catch (e: IOException) {
-        failure = e
       }
+      delay(RETRY_DELAY_MS * (attempt + 1))
     }
-    throw failure ?: IOException("unable to download")
+    throw IOException("unable to download", failure)
   }
 
   private fun setState(tafsir: Tafsir, state: TafsirState) {
@@ -170,6 +189,9 @@ class TafsirRepository private constructor(context: Context) {
 
   companion object {
     private const val SURAS = 114
+    private const val ATTEMPTS = 4
+    private const val RETRY_DELAY_MS = 2000L
+    private const val TAG = "TafsirRepository"
     private const val PREFERENCES = "tafsir"
     private const val PREF_SELECTED = "selected"
 

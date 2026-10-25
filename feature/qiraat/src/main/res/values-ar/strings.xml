@@ -8,13 +8,7 @@
   <string name="qiraat_selected_ayah">الآية %1$d:%2$d</string>
   <string name="qiraat_clear_selection">إلغاء التحديد</string>
   <string name="qiraat_download_prompt">يتم تحميل مصحف رواية %1$s عن %2$s مرة واحدة عند فتحه لأول مرة.</string>
-  <string name="qiraat_download">تحميل (%1$s)</string>
-  <string name="qiraat_download_all">تحميل الباقي (%1$s)</string>
-  <string name="qiraat_downloading">جاري التحميل… %1$d%%</string>
-  <string name="qiraat_download_failed">فشل التحميل: %1$s</string>
-  <string name="qiraat_retry">إعادة المحاولة</string>
   <string name="qiraat_delete">حذف المصحف المحمل</string>
-  <string name="qiraat_not_downloaded">غير محمل</string>
   <string name="qiraat_long_press_hint">اضغط مطولا على آية ثم اختر المقارنة لرؤيتها في كل الروايات.</string>
   <string name="qiraat_audio_unavailable">لا توجد تلاوة متاحة لهذه الرواية</string>
   <string name="qiraat_audio_sura_unavailable">%1$s: غير مسجلة لهذه السورة</string>
@@ -29,5 +23,4 @@
   <string name="differences_base">%1$s (هذا المصحف)</string>
   <string name="differences_none">لا خلاف بين %1$s و%2$s في هذه الآية.</string>
   <string name="differences_select_ayah">اضغط مطولاً على آية لترى ما تخالف فيه رواية أخرى.</string>
-  <string name="differences_source">وصف القراءات من موقع nquran.com (طريق الشاطبية والدرة).</string>
 </resources>

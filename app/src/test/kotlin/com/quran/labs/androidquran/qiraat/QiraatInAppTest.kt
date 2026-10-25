@@ -11,6 +11,7 @@ import com.google.common.truth.Truth.assertThat
 import com.quran.labs.androidquran.common.ui.core.QuranTheme
 import com.quran.mobile.feature.qiraat.data.DownloadState
 import com.quran.mobile.feature.qiraat.data.QiraatDifferences
+import com.quran.mobile.feature.qiraat.data.RiwayahTexts
 import com.quran.mobile.feature.qiraat.data.RiwayahLayout
 import com.quran.mobile.feature.qiraat.data.RiwayahRepository
 import com.quran.mobile.feature.qiraat.model.Qiraat
@@ -70,6 +71,8 @@ class QiraatInAppTest {
     val context = ApplicationProvider.getApplicationContext<Application>()
     val words = QiraatDifferences.get(context).between("hafs", "qalun", 2, 98)
     assertThat(words).isNotEmpty()
+    val texts = RiwayahTexts.get(context).ayah(2, 98)
+    assertThat(texts).isNotEmpty()
     Robolectric.buildActivity(ComponentActivity::class.java).use { controller ->
       val activity = controller.setup().get()
       activity.setContentView(
@@ -78,7 +81,7 @@ class QiraatInAppTest {
             QuranTheme {
               Column {
                 DifferencesPanel(
-                  state = DifferencesState.Loaded(words),
+                  state = DifferencesState.Loaded(words, texts),
                   base = Qiraat.byId("hafs")!!,
                   compareTo = Qiraat.byId("qalun")!!,
                   onCompareToChange = {},

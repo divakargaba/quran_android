@@ -85,7 +85,7 @@ private fun TafsirRow(
       Column(Modifier.weight(1f)) {
         Text(tafsir.name(arabic), style = MaterialTheme.typography.bodyLarge)
         Text(
-          tafsir.author(arabic),
+          tafsir.author(arabic) + " · " + stringResource(R.string.tafsir_size, tafsir.downloadMb),
           style = MaterialTheme.typography.bodySmall,
           color = MaterialTheme.colorScheme.onSurfaceVariant
         )
