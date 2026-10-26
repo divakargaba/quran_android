@@ -10,14 +10,17 @@ import java.util.zip.GZIPInputStream
  * page, the words of the riwayah's mushaf (its pdf) that go on it, so that a page holds the same
  * ayat, line for line, as the Hafs mushaf of the reader.
  *
- * File format (gzipped, big endian): "QRL2", u16 typical line height, u16 line pitch, u16 typical
+ * File format (gzipped, big endian): "QRL4", u16 typical line height, u16 line pitch, u16 typical
  * line width, u32 pdf page width, u32 pdf page height (all in 1/100 pt), then per page: u8 line
  * count, and per line: u8 kind (0 empty, 1 text, 2 sura title, 3 basmalah); for a title or
  * basmalah: u8 sura, u16 pdf page (0 if the mushaf has none), u16 left, right, top, bottom; for
  * text: u8 strip count, and per strip (words from one line of the pdf): u16 pdf page, u16 top,
  * u16 bottom, u16 ayah index of its first word, u8 word count, and per word, right to left:
  * u16 left, u16 right, u8 flags (bit 0: an ayah marker, bits 1-7: the change of ayah index from
- * the previous word). Positions are fractions of the pdf page scaled by 65535.
+ * the previous word), u8 slice count, and per slice (from the left): u8 end (x 1/255 of the
+ * word's width), s8 top, s8 bottom (how far in from the top and bottom of the line's band, its
+ * pitch around its middle, in 1/100 of the band; out where negative). Positions are fractions of
+ * the pdf page scaled by 65535.
  */
 class RiwayahLayout private constructor(
   /** in pt: the height of the text of a line, the distance between lines, a typical line width */
@@ -49,11 +52,29 @@ class RiwayahLayout private constructor(
   /** words of a line that are on the same line of the pdf, right to left */
   class Strip(val pdfPage: Int, val top: Float, val bottom: Float, val words: List<Word>)
 
-  /** [ayahIndex]: the (Hafs) ayah of the word, an index for [AyahIndex.suraAyahOf] */
-  class Word(val left: Float, val right: Float, val isMarker: Boolean, val ayahIndex: Int)
+  /**
+   * [ayahIndex]: the (Hafs) ayah of the word, an index for [AyahIndex.suraAyahOf]; [slices]: how
+   * it is cut out of the pdf, from the left, so that it has its own marks and not those of the
+   * words around it
+   */
+  class Word(
+    val left: Float,
+    val right: Float,
+    val isMarker: Boolean,
+    val ayahIndex: Int,
+    val slices: List<Slice> = listOf(Slice(1f, 0f, 0f))
+  )
+
+  /**
+   * a vertical slice of a word, to [end] (a fraction of its width, from its left), its top and
+   * bottom [top] and [bottom] in from those of its line's band (fractions of the line's pitch;
+   * out where negative)
+   */
+  class Slice(val end: Float, val top: Float, val bottom: Float)
 
   companion object {
-    private const val MAGIC = 0x51524c32 // "QRL2"
+    private const val MAGIC = 0x51524c34 // "QRL4"
+    private const val EDGE_UNIT = 100f
     private const val PAGES = 604
 
     fun load(context: Context, asset: String): RiwayahLayout = load(context.assets.open(asset))
@@ -83,8 +104,11 @@ class RiwayahLayout private constructor(
                     val left = fraction()
                     val right = fraction()
                     val flags = u8()
+                    val slices = List(u8()) {
+                      Slice(u8() / 255f, input.readByte() / EDGE_UNIT, input.readByte() / EDGE_UNIT)
+                    }
                     ayah += flags shr 1
-                    Word(left, right, flags and 1 == 1, ayah)
+                    Word(left, right, flags and 1 == 1, ayah, slices)
                   }
                   Strip(pdfPage, top, bottom, words)
                 }

@@ -65,6 +65,9 @@ class QiraatPagePreparerTest {
         .use { RiwayahLayout.load(it) }
       layout.pages.forEachIndexed { index, lines ->
         assertThat(lines.size).isEqualTo(if (index < 2) 8 else 15)
+        // every word is cut out across its whole width
+        lines.filterIsInstance<RiwayahLayout.Line.Text>().flatMap { it.strips }.flatMap { it.words }
+          .forEach { word -> assertThat(word.slices.last().end).isWithin(0.01f).of(1f) }
       }
       val pageLayout = PageLayout(layout, 1260, 2038)
       (1..604).forEach { page ->

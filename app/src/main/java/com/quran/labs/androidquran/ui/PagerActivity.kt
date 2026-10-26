@@ -143,6 +143,7 @@ import com.quran.mobile.feature.ayahbookmark.readingbookmark.ReadingBookmarkShee
 import com.quran.mobile.feature.ayahbookmark.readingbookmark.di.ReadingBookmarkSheetWrapperInjector
 import com.quran.mobile.feature.qarilist.QariListWrapper
 import com.quran.mobile.feature.qarilist.di.QariListWrapperInjector
+import com.quran.mobile.feature.qiraat.data.RiwayahRepository
 import com.quran.mobile.feature.qiraat.model.Riwayah
 import com.quran.mobile.feature.qiraat.pages.QiraatPagePreparer
 import com.quran.mobile.feature.qiraat.pages.QiraatPageProvider
@@ -1607,8 +1608,10 @@ class PagerActivity : AppCompatActivity(), AudioBarListener, OnBookmarkTagsUpdat
   }
 
   /**
-   * recites one ayah in a riwayah of the qira'at (from the comparison panel), downloading its
-   * recording first if needed (with a dialog showing the progress, which can cancel it)
+   * recites an ayah in a riwayah of the qira'at (from the comparison panel): the whole of the
+   * riwayah's ayah that contains it, where the riwayah counts the ayat differently (Warsh's first
+   * ayah of al-Baqarah is the first two of Hafs), downloading its recording first if needed (with
+   * a dialog showing the progress, which can cancel it)
    */
   fun playRiwayahAyah(riwayah: Riwayah, sura: Int, ayah: Int) {
     val qari = QiraatPageProvider.qariFor(riwayah, sura) ?: return
@@ -1618,19 +1621,28 @@ class PagerActivity : AppCompatActivity(), AudioBarListener, OnBookmarkTagsUpdat
     val audio = RiwayahAyahAudio(
       this, okHttpClient, item, directory, audioUtils.getQariUrl(item, extension), extension
     )
-    val verse = SuraAyah(sura, ayah)
     riwayahAudioJob?.cancel()
     riwayahAudioJob = lifecycleScope.launch {
+      val ayat = RiwayahRepository.get(this@PagerActivity).locations(riwayah)
+        ?.hafsAyatOfRiwayahAyah(sura, ayah)
+        ?: ayah..ayah
+      val start = SuraAyah(sura, ayat.first)
+      val end = SuraAyah(sura, ayat.last)
       audioUtils.getQariDatabasePathIfGapless(item)?.let { database ->
         QiraatPagePreparer(this@PagerActivity).prepareTimings(riwayah, File(database))
       }
-      if (!audio.isDownloaded(verse) && !downloadRiwayahAyah(audio, verse, item.name)) return@launch
-      audioPresenter.play(verse, verse, item, 0, 0, true, 1.0f, false)
+      if (!audio.isDownloaded(start, end) && !downloadRiwayahAyah(audio, start, end, item.name)) return@launch
+      audioPresenter.play(start, end, item, 0, 0, true, 1.0f, false)
     }
   }
 
-  /** downloads what the ayah's recitation needs, in a dialog; false if cancelled or failed */
-  private suspend fun downloadRiwayahAyah(audio: RiwayahAyahAudio, verse: SuraAyah, title: String): Boolean {
+  /** downloads what the ayat's recitation needs, in a dialog; false if cancelled or failed */
+  private suspend fun downloadRiwayahAyah(
+    audio: RiwayahAyahAudio,
+    start: SuraAyah,
+    end: SuraAyah,
+    title: String
+  ): Boolean {
     val progressBar = ProgressBar(this, null, android.R.attr.progressBarStyleHorizontal).apply {
       max = 1000
       isIndeterminate = true
@@ -1649,7 +1661,7 @@ class PagerActivity : AppCompatActivity(), AudioBarListener, OnBookmarkTagsUpdat
       .create()
     dialog.show()
     return try {
-      audio.download(verse) { fraction ->
+      audio.download(start, end) { fraction ->
         runOnUiThread {
           if (fraction == null) {
             progressBar.isIndeterminate = true

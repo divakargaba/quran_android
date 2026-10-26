@@ -15,11 +15,12 @@ LINES = 15
 STRIP_GAP = 5.5  # pt, as in build_layout.py
 WORD_GAP = 3.2  # pt: narrower gaps are within a word, and are not widened
 MAX_STRETCH = 0.05  # how much wider than in the mushaf the words of a line can be drawn
+HEADING_MARGIN = 3.0  # pt of room above and below the ink of a basmalah
 
 
 def read_layout(path):
     data = gzip.decompress(open(path, 'rb').read())
-    assert data[:4] == b'QRL2'
+    assert data[:4] == b'QRL4'
     line_h, pitch, line_w, pw, ph = (v / 100 for v in struct.unpack_from('>HHHII', data, 4))
     off = 18
     pages = []
@@ -41,9 +42,13 @@ def read_layout(path):
                     page, y0, y1, ayah, nw = struct.unpack_from('>HHHHB', data, off); off += 9
                     words = []
                     for _ in range(nw):
-                        x0, x1, flags = struct.unpack_from('>HHB', data, off); off += 5
+                        x0, x1, flags, n = struct.unpack_from('>HHBB', data, off); off += 6
+                        slices = []
+                        for _ in range(n):
+                            end, top, bottom = struct.unpack_from('>Bbb', data, off); off += 3
+                            slices.append((end / 255, top / 100, bottom / 100))
                         ayah += flags >> 1
-                        words.append((x0 / 65535, x1 / 65535, flags & 1, ayah))
+                        words.append((x0 / 65535, x1 / 65535, flags & 1, ayah, slices))
                     strips.append((page, y0 / 65535, y1 / 65535, words))
                 slots.append(('text', strips))
         pages.append(slots)
@@ -112,10 +117,9 @@ def render_page(L, doc, page):
     scale = min(pitch_px / L['pitch'], avail / L['line_w'])
     pw, ph, half = L['pw'], L['ph'], L['pitch'] / 2
 
-    def crop(pdf_page, x0, x1, yc, s):
-        """the pdf region [x0, x1] (fractions) x [yc - half, yc + half] (pt) at s px/pt"""
-        clip = pymupdf.Rect(x0 * pw, yc - half, x1 * pw, yc + half)
-        pix = doc[pdf_page - 1].get_pixmap(matrix=pymupdf.Matrix(s, s), clip=clip)
+    def crop(pdf_page, x0, x1, y0, y1, s):
+        """the pdf region [x0, x1] x [y0, y1] (pt) at s px/pt"""
+        pix = doc[pdf_page - 1].get_pixmap(matrix=pymupdf.Matrix(s, s), clip=pymupdf.Rect(x0, y0, x1, y1))
         return Image.frombytes('RGB', (pix.width, pix.height), pix.samples)
 
     for i, slot in enumerate(slots):
@@ -126,9 +130,17 @@ def render_page(L, doc, page):
             placed, s = layout_line(strips, L, scale, avail, page <= 2)
             for si, w, left, width in placed:
                 pdf_page, y0, y1, _ = strips[si]
-                im = crop(pdf_page, w[0], w[1], (y0 + y1) / 2 * ph, s)
-                im = im.resize((max(1, round(width)), im.height))
-                img.paste(im, (round(mx + left), round(y_mid - im.height / 2)))
+                yc = (y0 + y1) / 2 * ph
+                start = 0.0
+                for end, cut_top, cut_bottom in w[4]:
+                    sy0, sy1 = yc - half + cut_top * 2 * half, yc + half - cut_bottom * 2 * half
+                    if end > start and sy1 > sy0:
+                        sx0 = (w[0] + (w[1] - w[0]) * start) * pw; sx1 = (w[0] + (w[1] - w[0]) * end) * pw
+                        im = crop(pdf_page, sx0, sx1, sy0, sy1, s)
+                        im = im.resize((max(1, round(width * (end - start))), im.height))
+                        mask = im.convert('L').point(lambda v: 255 if v < 250 else 0)
+                        img.paste(im, (round(mx + left + width * start), round(y_mid - half * s + cut_top * 2 * half * s)), mask)
+                    start = end
         else:
             kind, sura, pdf_page, x0, x1, y0, y1 = slot
             if kind == 'title':
@@ -137,7 +149,9 @@ def render_page(L, doc, page):
                 draw.rounded_rectangle((mx + 8, fy0 + 8, WIDTH - mx - 8, fy1 - 8), radius=pitch_px * 0.15, outline=(60, 60, 60), width=1)
             if pdf_page == 0: continue
             s = min(scale, avail * 0.8 / ((x1 - x0) * pw))
-            im = crop(pdf_page, x0, x1, (y0 + y1) / 2 * ph, s)
+            yc = (y0 + y1) / 2 * ph
+            if kind == 'title': im = crop(pdf_page, x0 * pw, x1 * pw, yc - half, yc + half, s)
+            else: im = crop(pdf_page, x0 * pw, x1 * pw, y0 * ph - HEADING_MARGIN, y1 * ph + HEADING_MARGIN, s)
             img.paste(im, (round(WIDTH / 2 - im.width / 2), round(y_mid - im.height / 2)))
     return img
 

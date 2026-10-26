@@ -24,6 +24,17 @@ class RiwayahLocationsTest {
   }
 
   @Test
+  fun anAyahIsPlayedAsTheWholeRiwayahAyahContainingIt() {
+    // Warsh's first ayah of al-Baqarah is the first two of Hafs
+    val warsh = load("warsh")
+    assertThat(warsh.hafsAyatOfRiwayahAyah(2, 1)).isEqualTo(1..2)
+    assertThat(warsh.hafsAyatOfRiwayahAyah(2, 2)).isEqualTo(1..2)
+    assertThat(warsh.hafsAyatOfRiwayahAyah(2, 3)).isEqualTo(3..3)
+    val hafs = load("hafs")
+    for (ayah in 1..286) assertThat(hafs.hafsAyatOfRiwayahAyah(2, ayah)).isEqualTo(ayah..ayah)
+  }
+
+  @Test
   fun hafsPagesMatchTheMadinahMushaf() {
     val hafs = load("hafs")
     assertThat(hafs.pageFor(1, 7)).isEqualTo(1)

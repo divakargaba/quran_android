@@ -8,19 +8,22 @@ the ayah's text. The device then draws the words of each line from the PDF, just
 line (QiraatPagePreparer).
 
 usage: build_layout.py <work dir> <line data dir> <out dir> <pdf index>=<riwayah> ...
-format (gzipped, big endian): "QRL2", u16 typical line height, u16 line pitch, u16 typical line
+format (gzipped, big endian): "QRL4", u16 typical line height, u16 line pitch, u16 typical line
 width, u32 page width, u32 page height (all in 1/100 pt), then per page: u8 slot count, and per
 slot: u8 kind (0 empty, 1 text, 2 sura title, 3 basmalah), then for a title or basmalah: u8 sura,
 u16 pdf page (0: none), u16 left, u16 right, u16 top, u16 bottom of its line in the riwayah
 mushaf; for text: u8 strip count, and per strip:
 u16 pdf page, u16 top, u16 bottom (page fractions * 65535), u16 hafs ayah index of its first word,
 u8 word count, and per word: u16 left, u16 right, u8 flags (bit 0: ayah marker, bits 1-7: change
-of hafs ayah index from the previous word).
+of hafs ayah index from the previous word), u8 slice count, and per slice (from the left): u8 end
+(x 1/255 of the word's width), s8 top, s8 bottom: how far its top and bottom are in from those of
+the line's band (its pitch, around its middle), in 1/100 of the band (out where < 0): where the
+word is cut out of the mushaf, with its own marks and without those of its neighbours (crops.py).
 """
 import sys, os, json, glob, gzip, struct, pickle, collections, unicodedata
 import numpy as np, pymupdf
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import align, segment
+import align, segment, crops
 from madani import AYAHS
 
 STARTS = [0]
@@ -31,6 +34,7 @@ STRIP_GAP = 5.5  # pt between words of a madinah line that come from two lines o
 # a madinah line break inside an ayah is drawn to the start of a line of the mushaf, when it is
 # this close (x 0.02 of the ayah text)
 LINE_START_BONUS = 1.0
+DEBUG = False
 TITLE_WIDTH = 170  # pt: a wider sura title line holds more than the title
 
 def madinah_lines(line_dir):
@@ -70,36 +74,91 @@ def madinah_lines(line_dir):
     return words, slots
 
 def headings(R, res, fatiha_basmalah):
-    """{sura: (title line, basmalah line)} (either can be None): the lines without an ayah marker,
-    narrow and before the first ayah of each sura; and the keys of all the lines that are not
-    text: those, and the running header and footer of the pages"""
+    """{sura: (title line, basmalah line)} (either can be None), and the keys of all the lines that
+    are not text: the heading lines, and the running header and footer of the pages.
+
+    The headings are the runs of narrow lines without an ayah marker, each sura given the one
+    nearest the place of its first ayah, in order. [res] is corrected where it has text of the
+    sura before a sura's heading (the end of the sura before, where the riwayah counts it with
+    more ayat than Hafs): that goes with the last ayah of the sura before."""
     has_m = {(t[0], t[1]) for t in R if t[6] == 'm'}
     ext, text = {}, {}
+    order = []  # the lines in the order of the mushaf
     for t in R:
         key = (t[0], t[1])
+        if not order or order[-1] != key: order.append(key)
         e = ext.setdefault(key, [1, 0, 1, 0])
         e[0] = min(e[0], t[3]); e[1] = max(e[1], t[5]); e[2] = min(e[2], t[2]); e[3] = max(e[3], t[4])
         text[key] = text.get(key, '') + str(t[7])
+    order = list(dict.fromkeys(order))
+    position = {key: i for i, key in enumerate(order)}
     freq = collections.Counter(text.values())
     body_width = float(np.median([ext[k][3] - ext[k][2] for k in has_m]))
+    def foreign(t):
+        """written in another font than the mushaf's text (its glyph codes are Latin and symbols):
+        the pages' running header and footer, a legend of the colours"""
+        other = sum(1 for c in t if 0xFB50 <= ord(c) <= 0xFEFF or 0x0590 <= ord(c) <= 0x05FF or 0xF200 <= ord(c) <= 0xF2FF)
+        return other > len(t.strip()) * 0.5
     def running(key):
         e = ext[key]
-        return key not in has_m and ((e[0] + e[1]) / 2 < 0.11 or freq[text[key]] > 300)
-    rm = [k for k, t in enumerate(R) if t[6] == 'm']
+        return key not in has_m and ((e[0] + e[1]) / 2 < 0.11 or freq[text[key]] > 300 or foreign(text[key]))
+    def narrow(key):
+        return key not in has_m and ext[key][3] - ext[key][2] <= 0.75 * body_width
+    blocks = []; cur = []
+    for key in order:
+        if running(key): continue
+        if narrow(key): cur.append(key)
+        elif cur: blocks.append(cur); cur = []
+    if cur: blocks.append(cur)
     last_ayah = {}
     for (s, a) in res: last_ayah[s] = max(a, last_ayah.get(s, 0))
+    def first_line(s):
+        """the position of the first line of the sura's first ayah, as res has it"""
+        best = None
+        for (p, x0, y0, x1, y1) in res[(s, 1)][1]:
+            yc = (y0 + y1) / 2
+            for key in order:
+                if key[0] == p and not running(key) and ext[key][0] <= yc <= ext[key][1]:
+                    best = position[key] if best is None else min(best, position[key]); break
+        return best
     out = {}; all_keys = set()
+    b = 0
     for s in range(1, 115):
-        k0 = rm[res[(s - 1, last_ayah[s - 1])][4]] + 1 if s > 1 else 0
-        found = []
-        for t in R[k0:]:
-            key = (t[0], t[1])
-            if running(key) or (found and found[-1] == key): continue
-            e = ext[key]
-            if key in has_m or e[3] - e[2] > 0.75 * body_width: break
-            found.append(key)
-            if len(found) > 5: break
-        out[s] = found
+        target = first_line(s)
+        # the nearest of the next runs (a few false ones, as narrow lines of text, can be passed)
+        if s == 1:
+            # the lines before the first with an ayah marker (as the lines of al-Fatiha are narrow,
+            # and some have no marker)
+            found = []
+            for key in order:
+                if running(key) or (found and found[-1] == key): continue
+                if not narrow(key): break
+                found.append(key)
+                if len(found) > 5: break
+            out[1] = found
+            b = next((i + 1 for i, blk in enumerate(blocks) if found and blk[0] == found[0]), 0)
+            continue
+        choices = [i for i in range(b, min(len(blocks), b + 4))]
+        if target is None or not choices: out[s] = []; continue
+        i = min(choices, key=lambda i: (abs(position[blocks[i][-1]] + 1 - target), i))
+        if abs(position[blocks[i][-1]] + 1 - target) > 8:
+            if DEBUG: print('no heading for', s, target, [(position[blocks[j][0]], blocks[j]) for j in choices])
+            out[s] = []; continue
+        out[s] = list(blocks[i]); b = i + 1
+        # text the riwayah has before the heading goes with the sura before
+        if s > 1:
+            start = position[blocks[i][0]]
+            before = [r for r in res[(s, 1)][1] if any(
+                key[0] == r[0] and position[key] < start and ext[key][0] <= (r[2] + r[4]) / 2 <= ext[key][1]
+                for key in order[max(0, start - 6):start])]
+            if before:
+                # (in every ayah that shares the riwayah ayah, as they are laid out together)
+                for keys, change in (([k for k in res if res[k][4] == res[(s, 1)][4]],
+                                      lambda rects: [r for r in rects if r not in before]),
+                                     ([k for k in res if res[k][4] == res[(s - 1, last_ayah[s - 1])][4]],
+                                      lambda rects: list(rects) + before)):
+                    for k in keys:
+                        v = res[k]; res[k] = (v[0], change(v[1])) + tuple(v[2:])
     # the basmalah is the same on every sura; a mushaf without sura titles has only it. It is
     # the last line before the text (the narrow first lines of page 2 are text)
     common = collections.Counter(text[f[-1]] for f in out.values() if f).most_common(1)[0][0]
@@ -172,6 +231,34 @@ def build(work, line_dir, out_dir, pdf, name, words, slots):
             mk = markers.get((p, line), [])
             segs[(p, line)] = [(a, b, any(a - 0.004 <= (m0 + m1) / 2 <= b + 0.004 for m0, m1 in mk))
                                for a, b in ws]
+    # lines the text layer leaves out (in some pdfs), but not the sura titles of pdfs whose title
+    # frames have no text: away from where each sura starts, after the end of the one before
+    skip = {}
+    last_ayah = {}
+    for (s_, a_) in res: last_ayah[s_] = max(a_, last_ayah.get(s_, 0))
+    for s_ in range(1, 115):
+        end = max(((t[0], t[4]) for t in res[(s_ - 1, last_ayah[s_ - 1])][1]), default=None) if s_ > 1 else (1, 0.0)
+        # from its heading's first line where it has one (the sura before can end in more ayat
+        # than Hafs counts, on a line the text layer leaves out)
+        first_head = heads[s_][0]
+        if first_head:
+            g = segment.lines_of_page(R, first_head[0]).get(first_head[1])
+            if g: end = (first_head[0], g[0] - 0.005)
+        start = min(((t[0], t[2]) for t in res[(s_, 1)][1]), default=None)
+        if end is None or start is None: continue
+        for p in range(end[0], start[0] + 1):
+            skip.setdefault(p, []).append((end[1] if p == end[0] else 0.0, start[1] if p == start[0] else 1.0))
+    unlisted = 0
+    for p in range(1, 605):
+        found = segment.unlisted_lines(doc, r, segment.lines_of_page(R, p), p, skip.get(p, []))
+        geo = segment.lines_of_page(r, p)
+        for (y0, y1), ws in found.items():
+            # its key sorts it after the line of the text layer above it
+            above = [l for l, g in geo.items() if (g[0] + g[1]) / 2 < (y0 + y1) / 2]
+            key = (p, (max(above) if above else min(geo, default=0) - 1) + 0.5)
+            lines[key] = (y0, y1)
+            segs[key] = [(a, b, False) for a, b in ws]
+            unlisted += 1
 
     # hafs ayat sharing a riwayah ayah are matched as one group
     keys = list(res)
@@ -187,8 +274,9 @@ def build(work, line_dir, out_dir, pdf, name, words, slots):
     used = set()
     placed = {}  # (page, line) -> list of (pdf page, pdf line, x0, x1, marker, ayah index)
     widths = []
+    # the riwayah words of each group: segments inside its line rectangles
+    grouped = []
     for grp in groups:
-        # the riwayah words of the group: segments inside its line rectangles
         units = []
         for (p, x0, y0, x1, y1) in res[grp[0]][1]:
             yc = (y0 + y1) / 2
@@ -197,7 +285,62 @@ def build(work, line_dir, out_dir, pdf, name, words, slots):
             for i, (a, b, m) in enumerate(segs[key]):
                 if x0 - 0.003 <= (a + b) / 2 <= x1 + 0.003 and (key, i) not in used:
                     used.add((key, i))
-                    units.append((key, a, b, m))
+                    units.append((key, a, b, m, i))
+        grouped.append([grp, units])
+    # a word the ayah rectangles missed goes with the words next to it on its line
+    where = {}
+    for g, (_, units) in enumerate(grouped):
+        for u in units: where[(u[0], u[4])] = g
+    orphans = 0
+    order = [(key, i) for key in sorted(lines) for i in range(len(segs[key]))]
+    def adopt(pos, g):
+        nonlocal orphans
+        key, i = pos
+        a, b, m = segs[key][i]
+        units = grouped[g][1]
+        k = next((n for n, u in enumerate(units) if (u[0], u[4]) > pos), len(units))
+        units.insert(k, (key, a, b, m, i)); used.add(pos); where[pos] = g; orphans += 1
+    changed = True
+    while changed:  # next to a word of the same line, on either side
+        changed = False
+        for key, i in order:
+            if (key, i) in used: continue
+            g = where.get((key, i - 1), where.get((key, i + 1)))
+            if g is not None: adopt((key, i), g); changed = True
+    # else (a whole line missed) with the words before it, or, after the end of an ayah, after it
+    nxt = {}
+    following = None
+    for pos in reversed(order):
+        if pos in used: following = where.get(pos, following)
+        nxt[pos] = following
+    last = None; after_marker = False
+    for pos in order:
+        if pos in used:
+            last = where.get(pos, last); after_marker = segs[pos[0]][pos[1]][2]
+        else:
+            g = nxt[pos] if (after_marker or last is None) and nxt[pos] is not None else last
+            if g is not None: adopt(pos, g)
+    # where a riwayah ayah ends inside a hafs ayah (as Qalun's "wa wajada 'indaha qawma" in
+    # al-Kahf 86), a group has much more or less text than its hafs words: such a group is laid out
+    # with the next, so that their text is shared out over all their hafs words
+    def ratio(entry):
+        grp, units = entry
+        width = sum(u[2] - u[1] for u in units if not u[3])
+        letters = sum(w[2] for k in grp for w in hafs_by_ayah[k])
+        return width / letters if letters >= 20 else None
+    ratios = sorted(r for r in map(ratio, grouped) if r)
+    typical = ratios[len(ratios) // 2]
+    merged = []
+    for entry in grouped:
+        if merged and merged[-1][2]:
+            merged[-1][0] = merged[-1][0] + entry[0]; merged[-1][1] = merged[-1][1] + entry[1]
+        else:
+            merged.append([entry[0], entry[1], False])
+        r = ratio(merged[-1][:2])
+        merged[-1][2] = r is not None and not (0.7 < r / typical < 1.4) and (1, 1) not in merged[-1][0]
+    joined = sum(len(m[0]) > 1 and any(res[a][4] != res[b][4] for a, b in zip(m[0], m[0][1:])) for m in merged)
+    for grp, units, _ in merged:
+        units = [u[:4] for u in units]
         jobs = [(grp, units)]
         if (1, 1) in grp and len(grp) > 1:
             # outside the Kufi count al-Fatiha's basmalah is not an ayah, but it has a line of its own
@@ -231,7 +374,8 @@ def build(work, line_dir, out_dir, pdf, name, words, slots):
                 # a line or ayah change: the riwayah word starting nearest the same share (a new
                 # madinah line gets a word at least, and starts with a line of the mushaf if close)
                 new_line = (prev[3], prev[4]) != (w[3], w[4])
-                first = last + 1 if new_line and last < len(text) else last
+                # a new line, or a new ayah, starts after at least one word of the one before
+                first = last + 1 if (new_line or prev[1] != w[1]) and last < len(text) else last
                 def cost(j):
                     if j >= len(text): return abs(1.0 - share) + 1
                     bonus = gap_before(j)
@@ -272,7 +416,25 @@ def build(work, line_dir, out_dir, pdf, name, words, slots):
         widths.append(width + (strip[2] - strip[1]) * pw)
     line_w = float(np.percentile(widths, 75))
 
-    buf = bytearray(b'QRL2') + struct.pack('>HHHII', *(int(v * 100) for v in (line_h, pitch, line_w, pw, ph)))
+    # where each word is cut out of its pdf page (crops.py)
+    cut = {}
+    by_pdf = {}
+    for units in placed.values():
+        for u in units: by_pdf.setdefault(u[0][0], []).append(u)
+    sliced = 0
+    heading_middles = {}
+    for key in {k for pair in heads.values() for k in pair if k}:
+        g = segment.lines_of_page(R, key[0]).get(key[1])
+        if g: heading_middles.setdefault(key[0], []).append((g[0] + g[1]) / 2)
+    for pp, units in sorted(by_pdf.items()):
+        centers = {u[0]: (lines[u[0]][0] + lines[u[0]][1]) / 2 for u in units}
+        result = crops.word_crops(crops.page_ink(doc, pp), [(u[0], u[1], u[2]) for u in units],
+                                  centers, pitch, pw, ph, heading_middles.get(pp, ()))
+        for u, c in zip(units, result):
+            cut[(u[0], u[1], u[2])] = c
+            sliced += len(c[2]) > 1 or c[2][0][1:] != (0, 0)
+
+    buf = bytearray(b'QRL4') + struct.pack('>HHHII', *(int(v * 100) for v in (line_h, pitch, line_w, pw, ph)))
     q = lambda v: max(0, min(65535, int(round(v * 65535))))
     for p in range(1, 605):
         page_slots = slots[p]
@@ -301,11 +463,15 @@ def build(work, line_dir, out_dir, pdf, name, words, slots):
                     prev = us[0][4]
                     for u in us:
                         delta = min(127, max(0, u[4] - prev)); prev = u[4]
-                        buf += struct.pack('>HHB', q(u[1]), q(u[2]), (delta << 1) | (1 if u[3] else 0))
+                        x0, x1, pieces = cut[(u[0], u[1], u[2])]
+                        buf += struct.pack('>HHBB', q(x0), q(x1), (delta << 1) | (1 if u[3] else 0), len(pieces))
+                        for end, top, bottom in pieces:
+                            buf += struct.pack('>Bbb', max(0, min(255, int(round(end * 255)))), top, bottom)
     open(f'{out_dir}/{name}.qrl', 'wb').write(gzip.compress(bytes(buf), 9))
     empty_lines = sum(1 for p in range(1, 605) for l, k in slots[p].items() if k == ('text',) and not placed.get((p, l)))
     print(name, 'line height %.1fpt pitch %.1fpt width %.0fpt' % (line_h, pitch, line_w),
           'missing titles', sum(1 for t, _ in heads.values() if t is None), 'empty text lines', empty_lines,
+          'lines the text layer leaves out', unlisted, 'words added back', orphans, 'groups joined', joined, 'words cut out in slices or moved bands', sliced,
           'raw', len(buf), flush=True)
 
 if __name__ == '__main__':

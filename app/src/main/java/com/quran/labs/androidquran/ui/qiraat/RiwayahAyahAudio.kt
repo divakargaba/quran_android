@@ -15,9 +15,9 @@ import java.util.Locale
 import kotlin.coroutines.coroutineContext
 
 /**
- * The recording files the reader needs to recite one ayah in a riwayah: the sura's file for a
- * gapless recording, or the ayah's (and the basmalah's, when the ayah opens a sura) for an ayah
- * by ayah one, named as the reader's download service names them.
+ * The recording files the reader needs to recite some ayat of a sura in a riwayah: the sura's
+ * file for a gapless recording, or the ayat's (and the basmalah's, when they open a sura) for an
+ * ayah by ayah one, named as the reader's download service names them.
  */
 class RiwayahAyahAudio(
   private val context: Context,
@@ -30,15 +30,15 @@ class RiwayahAyahAudio(
 
   private class Needed(val url: String, val file: File)
 
-  /** whether every file the ayah needs is already downloaded */
-  fun isDownloaded(verse: SuraAyah): Boolean = needed(verse).all { it.file.exists() }
+  /** whether every file the ayat need is already downloaded */
+  fun isDownloaded(start: SuraAyah, end: SuraAyah): Boolean = needed(start, end).all { it.file.exists() }
 
   /**
-   * downloads the files the ayah still needs, reporting the fraction done (or null while its
-   * size is unknown); throws an [IOException] when one cannot be downloaded
+   * downloads the files the ayat (of one sura) still need, reporting the fraction done (or null
+   * while its size is unknown); throws an [IOException] when one cannot be downloaded
    */
-  suspend fun download(verse: SuraAyah, onProgress: (Float?) -> Unit) = withContext(Dispatchers.IO) {
-    val missing = needed(verse).filterNot { it.file.exists() }
+  suspend fun download(start: SuraAyah, end: SuraAyah, onProgress: (Float?) -> Unit) = withContext(Dispatchers.IO) {
+    val missing = needed(start, end).filterNot { it.file.exists() }
     missing.forEachIndexed { index, needed ->
       needed.file.parentFile?.mkdirs()
       if (NquranAudio.handles(needed.url)) {
@@ -55,18 +55,21 @@ class RiwayahAyahAudio(
     }
   }
 
-  private fun needed(verse: SuraAyah): List<Needed> {
+  private fun needed(start: SuraAyah, end: SuraAyah): List<Needed> {
+    val sura = start.sura
     return if (qari.isGapless) {
-      listOf(Needed(urlFormat.format(Locale.US, verse.sura), File(directory, "%03d.$extension".format(Locale.US, verse.sura))))
+      listOf(Needed(urlFormat.format(Locale.US, sura), File(directory, "%03d.$extension".format(Locale.US, sura))))
     } else {
-      val ayah = Needed(
-        urlFormat.format(Locale.US, verse.sura, verse.ayah),
-        File(directory, "${verse.sura}${File.separator}${verse.ayah}.$extension")
-      )
-      if (verse.ayah == 1 && verse.sura != 1 && verse.sura != 9) {
-        listOf(Needed(urlFormat.format(Locale.US, 1, 1), File(directory, "1${File.separator}1.$extension")), ayah)
+      val ayat = (start.ayah..end.ayah).map { ayah ->
+        Needed(
+          urlFormat.format(Locale.US, sura, ayah),
+          File(directory, "$sura${File.separator}$ayah.$extension")
+        )
+      }
+      if (start.ayah == 1 && sura != 1 && sura != 9) {
+        listOf(Needed(urlFormat.format(Locale.US, 1, 1), File(directory, "1${File.separator}1.$extension"))) + ayat
       } else {
-        listOf(ayah)
+        ayat
       }
     }
   }

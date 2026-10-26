@@ -60,14 +60,6 @@ fun TafsirManagerScreen(
         HorizontalDivider()
       }
     }
-    item(key = "source") {
-      Text(
-        stringResource(R.string.tafsir_source),
-        style = MaterialTheme.typography.labelSmall,
-        color = MaterialTheme.colorScheme.onSurfaceVariant,
-        modifier = Modifier.padding(16.dp)
-      )
-    }
   }
 }
 

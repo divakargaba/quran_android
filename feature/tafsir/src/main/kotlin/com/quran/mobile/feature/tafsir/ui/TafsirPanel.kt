@@ -183,11 +183,5 @@ private fun TafsirText(entry: TafsirEntry?, tafsir: Tafsir?, contentPadding: Pad
         )
       }
     }
-    Text(
-      stringResource(R.string.tafsir_source),
-      style = MaterialTheme.typography.labelSmall,
-      color = MaterialTheme.colorScheme.onSurfaceVariant,
-      modifier = Modifier.padding(top = 16.dp, bottom = 8.dp)
-    )
   }
 }

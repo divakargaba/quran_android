@@ -10,13 +10,14 @@
 # 4. writes one compact file per riwayah (build_index.py)
 # 5. splits the lines of each mushaf into words (segment.py) and places them, ayah by ayah, on
 #    the lines of the Madinah mushaf (build_layout.py, with api.quran.com's line data);
-#    preview_layout.py draws pages of a layout the way the app does
+#    preview_layout.py draws pages of a layout the way the app does, and check_layout.py checks
+#    that a layout draws every piece of the text of its mushaf once, whole
 #
 # Audio timings (*.qrt) are built separately: build_timing.py from mp3quran.net's ayat_timing data
 # (using the *.meta.json files written here), and build_estimated_timing.py, with
 # silence_align.py, for recordings without published timings.
 #
-# requires: python3, pymupdf (pip install pymupdf), numpy, pillow (for previews), ffmpeg, curl
+# requires: python3, pymupdf (pip install pymupdf), numpy, scipy, pillow (for previews), ffmpeg, curl
 set -euo pipefail
 here="$(cd "$(dirname "$0")" && pwd)"
 work="${1:-$(mktemp -d)}"

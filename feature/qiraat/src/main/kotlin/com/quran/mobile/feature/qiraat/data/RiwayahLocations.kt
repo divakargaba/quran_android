@@ -42,6 +42,20 @@ class RiwayahLocations private constructor(
   fun riwayahAyahNumber(sura: Int, ayah: Int): Int =
     riwayahNumbers[AyahIndex.indexOf(sura, ayah)]
 
+  /**
+   * the (Hafs) ayat of the sura that the riwayah ayat containing the (Hafs) ayah are made of: the
+   * ayah alone where the two counts agree, else, e.g. for Warsh's first ayah of al-Baqarah, both
+   * of the Hafs ayat it joins
+   */
+  fun hafsAyatOfRiwayahAyah(sura: Int, ayah: Int): IntRange {
+    val number = riwayahAyahNumber(sura, ayah)
+    var first = ayah
+    while (first > 1 && riwayahAyahNumber(sura, first - 1) == number) first--
+    var last = ayah
+    while (last < AyahIndex.ayahCount(sura) && riwayahAyahNumber(sura, last + 1) == number) last++
+    return first..last
+  }
+
   /** line rectangles (fractions of the page size) of the ayah, grouped by page */
   fun rectsFor(sura: Int, ayah: Int): Map<Int, List<RectF>> {
     val index = AyahIndex.indexOf(sura, ayah)

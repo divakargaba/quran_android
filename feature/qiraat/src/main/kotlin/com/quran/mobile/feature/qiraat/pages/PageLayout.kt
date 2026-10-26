@@ -12,7 +12,10 @@ import kotlin.math.min
  */
 class PageLayout(private val layout: RiwayahLayout, val width: Int, val height: Int) {
 
-  /** a word of a text line: the [source] region of the pdf page (in pt) drawn at [target] */
+  /**
+   * a word (or a slice of one) of a text line: the [source] region of the pdf page (in pt) drawn
+   * at [target]
+   */
   class PlacedWord(
     val pdfPage: Int,
     val source: RectF,
@@ -33,6 +36,9 @@ class PageLayout(private val layout: RiwayahLayout, val width: Int, val height: 
   private val available = width - 2 * marginX
   private val pitch = height * (1 - 2 * MARGIN_Y) / LINES
 
+  /** the distance of the lines of the pdf, in pt */
+  val pdfLinePitch: Float get() = layout.linePitch
+
   /** the pixels per pt that pdf text is drawn at: a line fills the line height or the width */
   val scale = min(pitch / layout.linePitch, available / layout.lineWidth)
 
@@ -52,7 +58,13 @@ class PageLayout(private val layout: RiwayahLayout, val width: Int, val height: 
 
   /** where a sura title or basmalah from the pdf goes: centered, and narrower than the page */
   fun placeHeading(heading: RiwayahLayout.Line.Heading, line: PlacedLine): Pair<RectF, RectF> {
-    val source = sourceRect(heading.left, heading.right, (heading.top + heading.bottom) / 2)
+    val band = sourceRect(heading.left, heading.right, (heading.top + heading.bottom) / 2)
+    // a basmalah is cut out to its own ink (the band of its line can take the marks of the line
+    // after it); a title with its frame's band
+    val source = if (heading.isTitle) band else RectF(
+      band.left, heading.top * layout.pdfPageHeight - HEADING_MARGIN,
+      band.right, heading.bottom * layout.pdfPageHeight + HEADING_MARGIN
+    )
     val s = min(scale, available * HEADING_WIDTH / source.width())
     val middle = (line.top + line.bottom) / 2
     val w = source.width() * s
@@ -129,19 +141,36 @@ class PageLayout(private val layout: RiwayahLayout, val width: Int, val height: 
     var x = marginX + available - offset
     pieces.forEachIndexed { i, piece ->
       x -= gaps[i]
-      val source = sourceRect(
+      val band = sourceRect(
         piece.word.left, piece.word.right, (piece.strip.top + piece.strip.bottom) / 2
       )
-      val w = source.width() * s * stretch
-      val h = source.height() * s
-      result.add(
-        PlacedWord(
-          piece.strip.pdfPage,
-          source,
-          RectF(x - w, middle - h / 2, x, middle + h / 2),
-          piece.word
+      val h = band.height() * s
+      val w = band.width() * s * stretch
+      // the word's slices, each from its own part of the pdf (with the word's marks, without
+      // those of the words around it)
+      var start = 0f
+      piece.word.slices.forEach { slice ->
+        val top = slice.top * band.height()
+        val bottom = slice.bottom * band.height()
+        val source = RectF(
+          band.left + band.width() * start, band.top + top,
+          band.left + band.width() * slice.end, band.bottom - bottom
         )
-      )
+        if (source.width() > 0f && source.height() > 0f) {
+          result.add(
+            PlacedWord(
+              piece.strip.pdfPage,
+              source,
+              RectF(
+                x - w + w * start, middle - h / 2 + top * s,
+                x - w + w * slice.end, middle + h / 2 - bottom * s
+              ),
+              piece.word
+            )
+          )
+        }
+        start = slice.end
+      }
       x -= w
     }
     return result
@@ -164,6 +193,9 @@ class PageLayout(private val layout: RiwayahLayout, val width: Int, val height: 
 
     /** how much wider than in the riwayah's mushaf the words of a line can be drawn */
     private const val MAX_STRETCH = 0.05f
+
+    /** pt of room above and below the ink of a basmalah */
+    private const val HEADING_MARGIN = 3f
 
     /** the most of the page width a sura title or basmalah takes */
     private const val HEADING_WIDTH = 0.8f

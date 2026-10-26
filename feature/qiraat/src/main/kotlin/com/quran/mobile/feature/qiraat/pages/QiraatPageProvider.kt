@@ -66,8 +66,11 @@ class QiraatPageProvider(val riwayah: Riwayah) : PageProvider {
   companion object {
     const val PAGE_TYPE_PREFIX = "qiraat_"
 
-    /** of the page and ayah position directories: pages of the 15 line layout */
-    const val DIRECTORY_SUFFIX = "_15"
+    /**
+     * of the page and ayah position directories: pages of the 15 line layout (its second version,
+     * with no letters cut at the edges of the words)
+     */
+    const val DIRECTORY_SUFFIX = "_15v2"
     private const val QARI_ID_BASE = 2000
     private const val NQURAN_QARI_ID_BASE = 2100
     private const val UNUSED_URL = "https://android.quran.com/data/qiraat/unavailable/"

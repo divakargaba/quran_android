@@ -63,11 +63,18 @@ fun CompareList(
 ) {
   val context = LocalContext.current
   val arabic = isArabicLocale()
+  // each riwayah's ayah containing this one, as text (and as it is recited): where the riwayah
+  // counts the ayat differently, its ayah may be made of more than one Hafs ayah
   var texts by remember(sura, ayah) { mutableStateOf<Map<String, RiwayahTexts.AyahText>>(emptyMap()) }
   LaunchedEffect(sura, ayah) {
     texts = withContext(Dispatchers.IO) {
       try {
-        RiwayahTexts.get(context).ayah(sura, ayah)
+        val riwayahTexts = RiwayahTexts.get(context)
+        Qiraat.all.mapNotNull { riwayah ->
+          val ayat = repository.locations(riwayah)?.hafsAyatOfRiwayahAyah(sura, ayah) ?: ayah..ayah
+          val parts = ayat.mapNotNull { riwayahTexts.ayah(sura, it)[riwayah.id] }
+          parts.firstOrNull()?.let { riwayah.id to RiwayahTexts.AyahText(it.font, parts.flatMap { part -> part.slots }) }
+        }.toMap()
       } catch (e: Exception) {
         emptyMap()
       }
@@ -149,7 +156,15 @@ private fun ComparedAyah(
 ) {
   var rects by remember(riwayah.id, sura, ayah) { mutableStateOf<Map<Int, List<RectF>>?>(null) }
   LaunchedEffect(riwayah.id, sura, ayah) {
-    rects = repository.locations(riwayah)?.rectsFor(sura, ayah).orEmpty()
+    val locations = repository.locations(riwayah)
+    val ayat = locations?.hafsAyatOfRiwayahAyah(sura, ayah) ?: ayah..ayah
+    val byPage = LinkedHashMap<Int, MutableList<RectF>>()
+    ayat.forEach { hafsAyah ->
+      locations?.rectsFor(sura, hafsAyah)?.forEach { (page, pageRects) ->
+        byPage.getOrPut(page) { mutableListOf() }.addAll(pageRects)
+      }
+    }
+    rects = byPage
   }
   val renderer = repository.renderer(riwayah) ?: return
   val ayahRects = rects ?: return

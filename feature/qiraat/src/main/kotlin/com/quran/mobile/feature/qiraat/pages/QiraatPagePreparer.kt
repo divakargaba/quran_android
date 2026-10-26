@@ -109,15 +109,17 @@ class QiraatPagePreparer(private val context: Context) {
     if (!file.exists()) writeTimings(riwayah, file)
   }
 
-  /** pages and ayah positions of the earlier layout (the mushaf pages as they are), if any */
+  /** pages and ayah positions of the riwayah's earlier layouts, if any */
   private fun removeEarlierVersion(directory: File?, riwayahId: String) {
-    // ".../qiraat/<id>_15/width_1260" (or ".../qiraat/<id>_15") replaced ".../qiraat/<id>/..."
+    // ".../qiraat/<id>_15v2/width_1260" (or ".../qiraat/<id>_15v2") replaced ".../qiraat/<id>_15/..."
+    // and ".../qiraat/<id>/..."
+    val current = riwayahId + QiraatPageProvider.DIRECTORY_SUFFIX
     generateSequence(directory) { it.parentFile }
-      .firstOrNull { it.name == riwayahId + QiraatPageProvider.DIRECTORY_SUFFIX }
+      .firstOrNull { it.name == current }
       ?.parentFile
-      ?.let { File(it, riwayahId) }
-      ?.takeIf { it.isDirectory }
-      ?.deleteRecursively()
+      ?.let { parent -> EARLIER_SUFFIXES.map { File(parent, riwayahId + it) } }
+      ?.filter { it.isDirectory }
+      ?.forEach { it.deleteRecursively() }
   }
 
   private suspend fun drawPage(
@@ -134,7 +136,7 @@ class QiraatPagePreparer(private val context: Context) {
     // the words of each line, from bands of the pdf pages rendered once at the page's scale
     val words = lines.flatMap { it.words }
     words.groupBy { it.pdfPage }.forEach { (pdfPage, onPage) ->
-      for (band in bands(onPage)) {
+      for (band in bands(onPage, layout.pdfLinePitch)) {
         val region = RectF(
           band.minOf { it.source.left }, band.minOf { it.source.top },
           band.maxOf { it.source.right }, band.maxOf { it.source.bottom }
@@ -172,12 +174,12 @@ class QiraatPagePreparer(private val context: Context) {
   }
 
   /** the words of a pdf page in groups of nearby lines, each rendered as one image */
-  private fun bands(words: List<PageLayout.PlacedWord>): List<List<PageLayout.PlacedWord>> {
+  private fun bands(words: List<PageLayout.PlacedWord>, pitch: Float): List<List<PageLayout.PlacedWord>> {
     val result = ArrayList<MutableList<PageLayout.PlacedWord>>()
     var top = 0f
     words.sortedBy { it.source.top }.forEach { word ->
       val band = result.lastOrNull()
-      if (band != null && word.source.bottom - top <= word.source.height() * BAND_LINES) {
+      if (band != null && word.source.bottom - top <= pitch * BAND_LINES) {
         band.add(word)
       } else {
         result.add(mutableListOf(word))
@@ -352,6 +354,9 @@ class QiraatPagePreparer(private val context: Context) {
 
   companion object {
     private const val PAGES = 604
+
+    /** of the directories of earlier layouts: the mushaf pages as they are, then 15 lines */
+    private val EARLIER_SUFFIXES = listOf("", "_15")
 
     /** the most lines of a pdf page rendered as one image */
     private const val BAND_LINES = 6
