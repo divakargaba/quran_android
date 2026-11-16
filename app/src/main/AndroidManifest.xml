@@ -85,6 +85,14 @@
         android:theme="@style/QuranToolBarDayNight"
         android:exported="false"/>
     <activity
+        android:name=".ui.library.PoemActivity"
+        android:theme="@style/QuranToolBarDayNight"
+        android:exported="false"/>
+    <activity
+        android:name=".ui.library.DocumentActivity"
+        android:theme="@style/QuranToolBarDayNight"
+        android:exported="false"/>
+    <activity
         android:name=".ui.TranslationManagerActivity"
         android:theme="@style/QuranToolBarDayNight"
         android:configChanges="keyboardHidden|orientation|screenSize"

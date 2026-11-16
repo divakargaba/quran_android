@@ -1,0 +1,1530 @@
+{
+ "poems": [
+  {
+   "id": "shatibiyyah",
+   "title_ar": "متن الشاطبية: حرز الأماني ووجه التهاني",
+   "title_en": "Ash-Shatibiyyah (Hirz al-Amani wa Wajh al-Tahani)",
+   "author_ar": "القاسم بن فِيرُّه الشاطبي (ت ٥٩٠هـ)",
+   "author_en": "Al-Qasim ibn Firruh al-Shatibi (d. 590 AH)",
+   "subject_ar": "القراءات السبع",
+   "subject_en": "The seven qira'at",
+   "verses": 1173,
+   "source_ar": "نص المتن من المكتبة الشاملة (shamela.ws)",
+   "source_en": "Text from al-Maktabah al-Shamilah (shamela.ws)",
+   "audio": {
+    "reciter_ar": "مشاري بن راشد العفاسي",
+    "reciter_en": "Mishary Rashid al-Afasy",
+    "base": "https://archive.org/download/shatibiyyah_afasy/",
+    "tracks": [
+     {
+      "f": "01.mp3",
+      "c": [
+       0
+      ]
+     },
+     {
+      "f": "02.mp3",
+      "c": [
+       1
+      ]
+     },
+     {
+      "f": "03.mp3",
+      "c": [
+       2
+      ]
+     },
+     {
+      "f": "04.mp3",
+      "c": [
+       3
+      ]
+     },
+     {
+      "f": "05.mp3",
+      "c": [
+       4
+      ]
+     },
+     {
+      "f": "06.mp3",
+      "c": [
+       5
+      ]
+     },
+     {
+      "f": "07.mp3",
+      "c": [
+       6
+      ]
+     },
+     {
+      "f": "08.mp3",
+      "c": [
+       7
+      ]
+     },
+     {
+      "f": "09.mp3",
+      "c": [
+       8
+      ]
+     },
+     {
+      "f": "10.mp3",
+      "c": [
+       9
+      ]
+     },
+     {
+      "f": "11.mp3",
+      "c": [
+       10
+      ]
+     },
+     {
+      "f": "12.mp3",
+      "c": [
+       11
+      ]
+     },
+     {
+      "f": "13.mp3",
+      "c": [
+       12
+      ]
+     },
+     {
+      "f": "14.mp3",
+      "c": [
+       13
+      ]
+     },
+     {
+      "f": "15.mp3",
+      "c": [
+       14
+      ]
+     },
+     {
+      "f": "16.mp3",
+      "c": [
+       15
+      ]
+     },
+     {
+      "f": "17.mp3",
+      "c": [
+       16
+      ]
+     },
+     {
+      "f": "18.mp3",
+      "c": [
+       17
+      ]
+     },
+     {
+      "f": "19.mp3",
+      "c": [
+       18
+      ]
+     },
+     {
+      "f": "20.mp3",
+      "c": [
+       19
+      ]
+     },
+     {
+      "f": "21.mp3",
+      "c": [
+       20
+      ]
+     },
+     {
+      "f": "22.mp3",
+      "c": [
+       21
+      ]
+     },
+     {
+      "f": "23.mp3",
+      "c": [
+       22
+      ]
+     },
+     {
+      "f": "24.mp3",
+      "c": [
+       23
+      ]
+     },
+     {
+      "f": "25.mp3",
+      "c": [
+       24
+      ]
+     },
+     {
+      "f": "26.mp3",
+      "c": [
+       25
+      ]
+     },
+     {
+      "f": "27.mp3",
+      "c": [
+       26
+      ]
+     },
+     {
+      "f": "28.mp3",
+      "c": [
+       27
+      ]
+     },
+     {
+      "f": "29.mp3",
+      "c": [
+       28
+      ]
+     },
+     {
+      "f": "30.mp3",
+      "c": [
+       29
+      ]
+     },
+     {
+      "f": "31.mp3",
+      "c": [
+       30
+      ]
+     },
+     {
+      "f": "32.mp3",
+      "c": [
+       31
+      ]
+     },
+     {
+      "f": "33.mp3",
+      "c": [
+       32
+      ]
+     },
+     {
+      "f": "34.mp3",
+      "c": [
+       33
+      ]
+     },
+     {
+      "f": "35.mp3",
+      "c": [
+       34
+      ]
+     },
+     {
+      "f": "36.mp3",
+      "c": [
+       35
+      ]
+     },
+     {
+      "f": "37.mp3",
+      "c": [
+       36
+      ]
+     },
+     {
+      "f": "38.mp3",
+      "c": [
+       37
+      ]
+     },
+     {
+      "f": "39.mp3",
+      "c": [
+       38
+      ]
+     },
+     {
+      "f": "40.mp3",
+      "c": [
+       39
+      ]
+     },
+     {
+      "f": "41.mp3",
+      "c": [
+       40
+      ]
+     },
+     {
+      "f": "42.mp3",
+      "c": [
+       41
+      ]
+     },
+     {
+      "f": "43.mp3",
+      "c": [
+       42
+      ]
+     },
+     {
+      "f": "44.mp3",
+      "c": [
+       43
+      ]
+     },
+     {
+      "f": "45.mp3",
+      "c": [
+       44
+      ]
+     },
+     {
+      "f": "46.mp3",
+      "c": [
+       45
+      ]
+     },
+     {
+      "f": "47.mp3",
+      "c": [
+       46
+      ]
+     },
+     {
+      "f": "48.mp3",
+      "c": [
+       47
+      ]
+     },
+     {
+      "f": "49.mp3",
+      "c": [
+       48
+      ]
+     },
+     {
+      "f": "50.mp3",
+      "c": [
+       49
+      ]
+     },
+     {
+      "f": "51.mp3",
+      "c": [
+       50
+      ]
+     },
+     {
+      "f": "52.mp3",
+      "c": [
+       51
+      ]
+     },
+     {
+      "f": "53.mp3",
+      "c": [
+       52
+      ]
+     },
+     {
+      "f": "54.mp3",
+      "c": [
+       53
+      ]
+     },
+     {
+      "f": "55.mp3",
+      "c": [
+       54
+      ]
+     },
+     {
+      "f": "56.mp3",
+      "c": [
+       55
+      ]
+     },
+     {
+      "f": "57.mp3",
+      "c": [
+       56
+      ]
+     },
+     {
+      "f": "58.mp3",
+      "c": [
+       57
+      ]
+     },
+     {
+      "f": "59.mp3",
+      "c": [
+       58
+      ]
+     },
+     {
+      "f": "60.mp3",
+      "c": [
+       59
+      ]
+     },
+     {
+      "f": "61.mp3",
+      "c": [
+       60
+      ]
+     },
+     {
+      "f": "62.mp3",
+      "c": [
+       61
+      ]
+     },
+     {
+      "f": "63.mp3",
+      "c": [
+       62
+      ]
+     },
+     {
+      "f": "64.mp3",
+      "c": [
+       63
+      ]
+     },
+     {
+      "f": "65.mp3",
+      "c": [
+       64
+      ]
+     },
+     {
+      "f": "66.mp3",
+      "c": [
+       65
+      ]
+     },
+     {
+      "f": "67.mp3",
+      "c": [
+       66
+      ]
+     },
+     {
+      "f": "68.mp3",
+      "c": [
+       67
+      ]
+     },
+     {
+      "f": "69.mp3",
+      "c": [
+       68
+      ]
+     },
+     {
+      "f": "70.mp3",
+      "c": [
+       69
+      ]
+     },
+     {
+      "f": "71.mp3",
+      "c": [
+       70
+      ]
+     },
+     {
+      "f": "72.mp3",
+      "c": [
+       71
+      ]
+     },
+     {
+      "f": "73.mp3",
+      "c": [
+       72
+      ]
+     },
+     {
+      "f": "74.mp3",
+      "c": [
+       73
+      ]
+     },
+     {
+      "f": "75.mp3",
+      "c": [
+       74
+      ]
+     },
+     {
+      "f": "76.mp3",
+      "c": [
+       75
+      ]
+     },
+     {
+      "f": "77.mp3",
+      "c": [
+       76,
+       77
+      ]
+     }
+    ]
+   },
+   "documents": [
+    "wafi",
+    "siraj",
+    "ibraz",
+    "irshad_murid",
+    "ghunyah"
+   ]
+  },
+  {
+   "id": "durrah",
+   "title_ar": "الدرة المضية في القراءات الثلاث المتممة للعشر",
+   "title_en": "Ad-Durrah al-Mudiyyah",
+   "author_ar": "محمد بن محمد ابن الجزري (ت ٨٣٣هـ)",
+   "author_en": "Ibn al-Jazari (d. 833 AH)",
+   "subject_ar": "القراءات الثلاث المتممة للعشر",
+   "subject_en": "The three qira'at that complete the ten",
+   "verses": 241,
+   "source_ar": "نص المتن من المكتبة الشاملة (shamela.ws)",
+   "source_en": "Text from al-Maktabah al-Shamilah (shamela.ws)",
+   "audio": {
+    "reciter_ar": "مشاري بن راشد العفاسي",
+    "reciter_en": "Mishary Rashid al-Afasy",
+    "base": "https://archive.org/download/al-Dura_Afassy-mp3/",
+    "tracks": [
+     {
+      "f": "ar_01_AlDora_Mishari.mp3"
+     },
+     {
+      "f": "ar_02_AlDora_Mishari.mp3"
+     },
+     {
+      "f": "ar_03_AlDora_Mishari.mp3"
+     },
+     {
+      "f": "ar_04_AlDora_Mishari.mp3"
+     },
+     {
+      "f": "ar_05_AlDora_Mishari.mp3"
+     },
+     {
+      "f": "ar_06_AlDora_Mishari.mp3"
+     },
+     {
+      "f": "ar_07_AlDora_Mishari.mp3"
+     },
+     {
+      "f": "ar_08_AlDora_Mishari.mp3"
+     },
+     {
+      "f": "ar_09_AlDora_Mishari.mp3"
+     },
+     {
+      "f": "ar_10_AlDora_Mishari.mp3"
+     },
+     {
+      "f": "ar_11_AlDora_Mishari.mp3"
+     },
+     {
+      "f": "ar_12_AlDora_Mishari.mp3"
+     },
+     {
+      "f": "ar_13_AlDora_Mishari.mp3"
+     },
+     {
+      "f": "ar_14_AlDora_Mishari.mp3"
+     },
+     {
+      "f": "ar_15_AlDora_Mishari.mp3"
+     },
+     {
+      "f": "ar_16_AlDora_Mishari.mp3"
+     },
+     {
+      "f": "ar_17_AlDora_Mishari.mp3"
+     },
+     {
+      "f": "ar_18_AlDora_Mishari.mp3"
+     },
+     {
+      "f": "ar_19_AlDora_Mishari.mp3"
+     },
+     {
+      "f": "ar_20_AlDora_Mishari.mp3"
+     },
+     {
+      "f": "ar_21_AlDora_Mishari.mp3"
+     },
+     {
+      "f": "ar_22_AlDora_Mishari.mp3"
+     },
+     {
+      "f": "ar_23_AlDora_Mishari.mp3"
+     },
+     {
+      "f": "ar_24_AlDora_Mishari.mp3"
+     },
+     {
+      "f": "ar_25_AlDora_Mishari.mp3"
+     },
+     {
+      "f": "ar_26_AlDora_Mishari.mp3"
+     },
+     {
+      "f": "ar_27_AlDora_Mishari.mp3"
+     },
+     {
+      "f": "ar_28_AlDora_Mishari.mp3"
+     },
+     {
+      "f": "ar_29_AlDora_Mishari.mp3"
+     },
+     {
+      "f": "ar_30_AlDora_Mishari.mp3"
+     },
+     {
+      "f": "ar_31_AlDora_Mishari.mp3"
+     },
+     {
+      "f": "ar_32_AlDora_Mishari.mp3"
+     },
+     {
+      "f": "ar_33_AlDora_Mishari.mp3"
+     },
+     {
+      "f": "ar_34_AlDora_Mishari.mp3"
+     },
+     {
+      "f": "ar_35_AlDora_Mishari.mp3"
+     },
+     {
+      "f": "ar_36_AlDora_Mishari.mp3"
+     },
+     {
+      "f": "ar_37_AlDora_Mishari.mp3"
+     },
+     {
+      "f": "ar_38_AlDora_Mishari.mp3"
+     },
+     {
+      "f": "ar_39_AlDora_Mishari.mp3"
+     },
+     {
+      "f": "ar_40_AlDora_Mishari.mp3"
+     }
+    ]
+   },
+   "documents": [
+    "bahjah",
+    "idah"
+   ]
+  },
+  {
+   "id": "tayyibah",
+   "title_ar": "طيبة النشر في القراءات العشر",
+   "title_en": "Tayyibat al-Nashr",
+   "author_ar": "محمد بن محمد ابن الجزري (ت ٨٣٣هـ)",
+   "author_en": "Ibn al-Jazari (d. 833 AH)",
+   "subject_ar": "القراءات العشر الكبرى",
+   "subject_en": "The ten qira'at by the ways of al-Nashr",
+   "verses": 1015,
+   "source_ar": "نص المتن من المكتبة الشاملة (shamela.ws)",
+   "source_en": "Text from al-Maktabah al-Shamilah (shamela.ws)",
+   "audio": {
+    "reciter_ar": "أيمن رشدي سويد",
+    "reciter_en": "Ayman Rushdi Suwaid",
+    "base": "https://archive.org/download/ramy_01_201609/",
+    "tracks": [
+     {
+      "f": "01%20-%20%D8%A7%D9%84%D9%85%D9%82%D8%AF%D9%85%D8%A9.mp3",
+      "t": "المقدمة"
+     },
+     {
+      "f": "02-%20%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D8%B9%D8%A7%D8%B0%D8%A9.mp3",
+      "t": "الاستعاذة"
+     },
+     {
+      "f": "03%20-%20%D8%A7%D9%84%D8%A8%D8%B3%D9%85%D9%84%D8%A9.mp3",
+      "t": "البسملة"
+     },
+     {
+      "f": "04%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A3%D9%85%20%D8%A7%D9%84%D9%82%D8%B1%D8%A2%D9%86.mp3",
+      "t": "سورة أم القرآن"
+     },
+     {
+      "f": "05%20-%20%D8%A7%D9%84%D8%A5%D8%AF%D8%BA%D8%A7%D9%85%20%D8%A7%D9%84%D9%83%D8%A8%D9%8A%D8%B1.mp3",
+      "t": "الإدغام الكبير"
+     },
+     {
+      "f": "06%20-%20%D9%87%D8%A7%D8%A1%20%D8%A7%D9%84%D9%83%D9%86%D8%A7%D9%8A%D8%A9.mp3",
+      "t": "هاء الكناية"
+     },
+     {
+      "f": "07%20-%20%D8%A7%D9%84%D9%85%D8%AF%20%D9%88%D8%A7%D9%84%D9%82%D8%B5%D8%B1.mp3",
+      "t": "المد والقصر"
+     },
+     {
+      "f": "08%20-%20%D8%A7%D9%84%D9%87%D9%85%D8%B2%D8%AA%D8%A7%D9%86%20%D9%85%D9%86%20%D9%83%D9%84%D9%85%D8%A9.mp3",
+      "t": "الهمزتان من كلمة"
+     },
+     {
+      "f": "09%20-%20%D8%A7%D9%84%D9%87%D9%85%D8%B2%D8%AA%D8%A7%D9%86%20%D9%85%D9%86%20%D9%83%D9%84%D9%85%D8%A9.mp3",
+      "t": "الهمزتان من كلمتين"
+     },
+     {
+      "f": "10%20-%20%D8%A7%D9%84%D9%87%D9%85%D8%B2%20%D8%A7%D9%84%D9%85%D9%81%D8%B1%D8%AF.mp3",
+      "t": "الهمز المفرد"
+     },
+     {
+      "f": "11%20-%20%D9%86%D9%82%D9%84%20%D8%AD%D8%B1%D9%83%D8%A9%20%D8%A7%D9%84%D9%87%D9%85%D8%B2%D8%A9%20%D8%A5%D9%84%D9%89%20%D8%A7%D9%84%D8%B3%D8%A7%D9%83%D9%86%20%D9%82%D8%A8%D9%84%D9%87%D8%A7.mp3",
+      "t": "نقل حركة الهمزة إلى الساكن قبلها"
+     },
+     {
+      "f": "12%20-%20%D8%A7%D9%84%D8%B3%D9%83%D8%AA%20%D8%B9%D9%84%D9%89%20%D8%A7%D9%84%D8%B3%D8%A7%D9%83%D9%86%20%D9%82%D8%A8%D9%84%20%D8%A7%D9%84%D9%87%D9%85%D8%B2%20%D9%88%D8%BA%D9%8A%D8%B1%D9%87.mp3",
+      "t": "السكت على الساكن قبل الهمز وغيره"
+     },
+     {
+      "f": "13%20-%20%D9%88%D9%82%D9%81%20%D8%AD%D9%85%D8%B2%D8%A9%20%D9%88%D9%87%D8%B4%D8%A7%D9%85%20%D8%B9%D9%84%D9%89%20%D8%A7%D9%84%D9%87%D9%85%D8%B2.mp3",
+      "t": "وقف حمزة وهشام على الهمز"
+     },
+     {
+      "f": "14%20-%20%D8%B0%D8%A7%D9%84%20%D8%A5%D8%B0.mp3",
+      "t": "ذال إذ"
+     },
+     {
+      "f": "15%20-%20%D8%AF%D8%A7%D9%84%20%D9%82%D8%AF.mp3",
+      "t": "دال قد"
+     },
+     {
+      "f": "17%20-%20%D9%84%D8%A7%D9%85%20%D9%87%D9%84%20%D9%88%D8%A8%D9%84.mp3",
+      "t": "لام هل وبل"
+     },
+     {
+      "f": "18%20-%20%D8%A8%D8%A7%D8%A8%20%D8%AD%D8%B1%D9%88%D9%81%20%D9%82%D8%B1%D8%A8%D8%AA%20%D9%85%D8%AE%D8%A7%D8%B1%D8%AC%D9%87%D8%A7.mp3",
+      "t": "باب حروف قربت مخارجها"
+     },
+     {
+      "f": "19%20-%20%D8%A7%D9%84%D9%86%D9%88%D9%86%20%D8%A7%D9%84%D8%B3%D8%A7%D9%83%D9%86%D8%A9%20%D9%88%D8%A7%D9%84%D8%AA%D9%86%D9%88%D9%8A%D9%86.mp3",
+      "t": "النون الساكنة والتنوين"
+     },
+     {
+      "f": "20%20-%20%D8%A7%D9%84%D9%81%D8%AA%D8%AD%20%D9%88%D8%A7%D9%84%D8%A5%D9%85%D8%A7%D9%84%D8%A9%20%D9%88%D8%A8%D9%8A%D9%86%20%D8%A7%D9%84%D9%84%D9%81%D8%B8%D9%8A%D9%86.mp3",
+      "t": "الفتح والإمالة وبين اللفظين"
+     },
+     {
+      "f": "21%20-%20%D8%A5%D9%85%D8%A7%D9%84%D8%A9%20%D9%87%D8%A7%D8%A1%20%D8%A7%D9%84%D8%AA%D8%A3%D9%86%D9%8A%D8%AB%20%D9%88%D9%85%D8%A7%20%D9%82%D8%A8%D9%84%D9%87%D8%A7%20%D9%81%D9%8A%20%D8%A7%D9%84%D9%88%D9%82%D9%81.mp3",
+      "t": "إمالة هاء التأنيث وما قبلها في الوقف"
+     },
+     {
+      "f": "22%20-%20%D8%A8%D8%A7%D8%A8%20%D9%85%D8%B0%D8%A7%D9%87%D8%A8%D9%85%20%D8%A7%D9%84%D8%B1%D8%A7%D8%A1%D8%A7%D8%AA.mp3",
+      "t": "باب مذاهبهم في الراءات"
+     },
+     {
+      "f": "23%20-%20%D8%A8%D8%A7%D8%A8%20%D8%A7%D9%84%D9%84%D8%A7%D9%85%D8%A7%D8%AA.mp3",
+      "t": "باب اللامات"
+     },
+     {
+      "f": "24%20-%20%D8%A8%D8%A7%D8%A8%20%D8%A7%D9%84%D9%88%D9%82%D9%81%20%D8%B9%D9%84%D9%89%20%D8%A3%D9%88%D8%A7%D8%AE%D8%B1%20%D8%A7%D9%84%D9%83%D9%84%D9%85.mp3",
+      "t": "باب الوقف على أواخر الكلم"
+     },
+     {
+      "f": "25%20-%20%D8%A8%D8%A7%D8%A8%20%D8%A7%D9%84%D9%88%D9%82%D9%81%20%D8%B9%D9%84%D9%89%20%D9%85%D8%B1%D8%B3%D9%88%D9%85%20%D8%A7%D9%84%D8%AE%D8%B7.mp3",
+      "t": "باب الوقف على مرسوم الخط"
+     },
+     {
+      "f": "26%20-%20%D8%A8%D8%A7%D8%A8%20%D9%8A%D8%A7%D8%A1%D8%A7%D8%AA%20%D8%A7%D9%84%D8%A5%D8%B6%D8%A7%D9%81%D8%A9.mp3",
+      "t": "باب ياءات الإضافة"
+     },
+     {
+      "f": "27%20-%20%D8%A8%D8%A7%D8%A8%20%D9%8A%D8%A7%D8%A1%D8%A7%D8%AA%20%D8%A7%D9%84%D8%B2%D9%88%D8%A7%D8%A6%D8%AF.mp3",
+      "t": "باب ياءات الزوائد"
+     },
+     {
+      "f": "28%20-%20%D8%A8%D8%A7%D8%A8%20%D8%A5%D9%81%D8%B1%D8%A7%D8%AF%20%D8%A7%D9%84%D9%82%D8%B1%D8%A7%D8%A1%D8%A7%D8%AA%20%D9%88%D8%AC%D9%85%D8%B9%D9%87%D8%A7.mp3",
+      "t": "باب إفراد القراءات وجمعها"
+     },
+     {
+      "f": "30-.mp3",
+      "t": "فرش الحروف: سورة البقرة"
+     },
+     {
+      "f": "31%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A2%D9%84%20%D8%B9%D9%85%D8%B1%D8%A7%D9%86.mp3",
+      "t": "سورة آل عمران"
+     },
+     {
+      "f": "32%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D9%86%D8%B3%D8%A7%D8%A1.mp3",
+      "t": "سورة النساء"
+     },
+     {
+      "f": "33%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D9%85%D8%A7%D8%A6%D8%AF%D8%A9.mp3",
+      "t": "سورة المائدة"
+     },
+     {
+      "f": "34%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D8%A3%D9%86%D8%B9%D8%A7%D9%85.mp3",
+      "t": "سورة الأنعام"
+     },
+     {
+      "f": "35%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D8%A3%D8%B9%D8%B1%D8%A7%D9%81.mp3",
+      "t": "سورة الأعراف"
+     },
+     {
+      "f": "36%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D8%A3%D9%86%D9%81%D8%A7%D9%84.mp3",
+      "t": "سورة الأنفال"
+     },
+     {
+      "f": "37%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D8%AA%D9%88%D8%A8%D8%A9.mp3",
+      "t": "سورة التوبة"
+     },
+     {
+      "f": "38%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D9%8A%D9%88%D9%86%D8%B3.mp3",
+      "t": "سورة يونس"
+     },
+     {
+      "f": "39%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D9%87%D9%88%D8%AF.mp3",
+      "t": "سورة هود"
+     },
+     {
+      "f": "40%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D9%8A%D9%88%D8%B3%D9%81.mp3",
+      "t": "سورة يوسف"
+     },
+     {
+      "f": "41%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D8%B1%D8%B9%D8%AF%20%D9%88%D8%A3%D8%AE%D8%AA%D9%8A%D9%87%D8%A7.mp3",
+      "t": "سورة الرعد وأختيها"
+     },
+     {
+      "f": "42%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D9%86%D8%AD%D9%84.mp3",
+      "t": "سورة النحل"
+     },
+     {
+      "f": "43%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D8%A5%D8%B3%D8%B1%D8%A7%D8%A1.mp3",
+      "t": "سورة الإسراء"
+     },
+     {
+      "f": "44%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D9%83%D9%87%D9%81.mp3",
+      "t": "سورة الكهف"
+     },
+     {
+      "f": "45%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D9%85%D8%B1%D9%8A%D9%85.mp3",
+      "t": "سورة مريم"
+     },
+     {
+      "f": "46%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%B7%D9%87.mp3",
+      "t": "سورة طه"
+     },
+     {
+      "f": "47%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D8%A3%D9%86%D8%A8%D9%8A%D8%A7%D8%A1.mp3",
+      "t": "سورة الأنبياء"
+     },
+     {
+      "f": "48%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D8%AD%D8%AC%20%D9%88%D8%A7%D9%84%D9%85%D8%A4%D9%85%D9%86%D9%88%D9%86.mp3",
+      "t": "سورة الحج والمؤمنون"
+     },
+     {
+      "f": "49%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D9%86%D9%88%D8%B1%20%D9%88%D8%A7%D9%84%D9%81%D8%B1%D9%82%D8%A7%D9%86.mp3",
+      "t": "سورة النور والفرقان"
+     },
+     {
+      "f": "50%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D8%B4%D8%B9%D8%B1%D8%A7%D8%A1%20%D9%88%D8%A3%D8%AE%D8%AA%D9%8A%D9%87%D8%A7.mp3",
+      "t": "سورة الشعراء وأختيها"
+     },
+     {
+      "f": "51%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D8%B9%D9%86%D9%83%D8%A8%D9%88%D8%AA%20%D9%88%D8%A7%D9%84%D8%B1%D9%88%D9%85.mp3",
+      "t": "سورة العنكبوت والروم"
+     },
+     {
+      "f": "52%20-%20%D9%88%D9%85%D9%86%20%D8%B3%D9%88%D8%B1%D8%A9%20%D9%84%D9%82%D9%85%D8%A7%D9%86%20%D8%A5%D9%84%D9%89%20%D8%B3%D9%88%D8%B1%D8%A9%20%D9%8A%D8%B3.mp3",
+      "t": "ومن سورة لقمان إلى سورة يس"
+     },
+     {
+      "f": "53%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D9%8A%D8%B3.mp3",
+      "t": "سورة يس"
+     },
+     {
+      "f": "54%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D9%88%D8%A7%D9%84%D8%B5%D8%A7%D9%81%D8%A7%D8%AA.mp3",
+      "t": "سورة والصافات"
+     },
+     {
+      "f": "55%20-%20%D9%88%D9%85%D9%86%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%B5%20%D8%A5%D9%84%D9%89%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D8%A3%D8%AD%D9%82%D8%A7%D9%81.mp3",
+      "t": "ومن سورة ص إلى سورة الأحقاف"
+     },
+     {
+      "f": "56%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D8%A3%D8%AD%D9%82%D8%A7%D9%81%20%D9%88%D8%A3%D8%AE%D8%AA%D9%8A%D9%87%D8%A7.mp3",
+      "t": "سورة الأحقاف وأختيها"
+     },
+     {
+      "f": "57%20-%20%D9%88%D9%85%D9%86%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D8%AD%D8%AC%D8%B1%D8%A7%D8%AA%20%D8%A5%D9%84%D9%89%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D8%B1%D8%AD%D9%85%D9%86.mp3",
+      "t": "ومن سورة الحجرات إلى سورة الرحمن"
+     },
+     {
+      "f": "58%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D8%B1%D8%AD%D9%85%D9%86.mp3",
+      "t": "سورة الرحمن"
+     },
+     {
+      "f": "59%20-%20%D9%88%D9%85%D9%86%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D9%88%D8%A7%D9%82%D8%B9%D8%A9%20%D8%A5%D9%84%D9%89%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D8%AA%D8%BA%D8%A7%D8%A8%D9%86.mp3",
+      "t": "ومن سورة الواقعة إلى سورة التغابن"
+     },
+     {
+      "f": "60%20-%20%D9%88%D9%85%D9%86%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D8%AA%D8%BA%D8%A7%D8%A8%D9%86%20%D8%A5%D9%84%D9%89%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D8%A5%D9%86%D8%B3%D8%A7%D9%86.mp3",
+      "t": "ومن سورة التغابن إلى سورة الإنسان"
+     },
+     {
+      "f": "61%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D8%A5%D9%86%D8%B3%D8%A7%D9%86%20%D9%88%D8%A7%D9%84%D9%85%D8%B1%D8%B3%D9%84%D8%A7%D8%AA.mp3",
+      "t": "سورة الإنسان والمرسلات"
+     },
+     {
+      "f": "62%20-%20%D9%88%D9%85%D9%86%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D9%86%D8%A8%D8%A3%20%D8%A5%D9%84%D9%89%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D8%AA%D8%B7%D9%81%D9%8A%D9%81.mp3",
+      "t": "ومن سورة النبأ إلى سورة التطفيف"
+     },
+     {
+      "f": "63%20-%20%D9%88%D9%85%D9%86%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D8%AA%D8%B7%D9%81%D9%8A%D9%81%20%D8%A5%D9%84%D9%89%20%D8%B3%D9%88%D8%B1%D8%A9%20%D9%88%D8%A7%D9%84%D8%B4%D9%85%D8%B3.mp3",
+      "t": "ومن سورة التطفيف إلى سورة والشمس"
+     },
+     {
+      "f": "64%20-%20%D9%88%D9%85%D9%86%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D8%B4%D9%85%D8%B3%20%D8%A5%D9%84%D9%89%20%D8%A2%D8%AE%D8%B1%20%D8%A7%D9%84%D9%82%D8%B1%D8%A2%D9%86.mp3",
+      "t": "ومن سورة الشمس إلى آخر القرآن"
+     },
+     {
+      "f": "65%20-%20%D8%A8%D8%A7%D8%A8%20%D8%A7%D9%84%D8%AA%D9%83%D8%A8%D9%8A%D8%B1.mp3",
+      "t": "باب التكبير"
+     }
+    ]
+   },
+   "documents": [
+    "sharh_tayyibah"
+   ]
+  },
+  {
+   "id": "jazariyyah",
+   "title_ar": "المقدمة الجزرية: المقدمة فيما يجب على قارئ القرآن أن يعلمه",
+   "title_en": "Al-Muqaddimah al-Jazariyyah",
+   "author_ar": "محمد بن محمد ابن الجزري (ت ٨٣٣هـ)",
+   "author_en": "Ibn al-Jazari (d. 833 AH)",
+   "subject_ar": "التجويد",
+   "subject_en": "Tajwid",
+   "verses": 107,
+   "source_ar": "نص المتن من المكتبة الشاملة (shamela.ws)",
+   "source_en": "Text from al-Maktabah al-Shamilah (shamela.ws)",
+   "audio": {
+    "reciter_ar": "أيمن رشدي سويد",
+    "reciter_en": "Ayman Rushdi Suwaid",
+    "base": "https://archive.org/download/sh-ayman-sowaid-matn-aljazareiiah/",
+    "tracks": [
+     {
+      "f": "00.mp3",
+      "t": "المتن كاملًا"
+     }
+    ]
+   },
+   "documents": [
+    "jazariyyah_en",
+    "minah"
+   ],
+   "verse_document": "jazariyyah_en",
+   "verse_pages": [
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    3,
+    3,
+    3,
+    3,
+    3,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    5,
+    5,
+    5,
+    5,
+    5,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    7,
+    7,
+    7,
+    7,
+    8,
+    8,
+    8,
+    9,
+    9,
+    9,
+    9,
+    9,
+    10,
+    10,
+    10,
+    11,
+    11,
+    11,
+    11,
+    11,
+    12,
+    12,
+    12,
+    12,
+    12,
+    13,
+    13,
+    13,
+    14,
+    14,
+    14,
+    14,
+    15,
+    15,
+    15,
+    15,
+    16,
+    16,
+    16,
+    16,
+    17,
+    17,
+    17,
+    17,
+    17,
+    18,
+    18,
+    18,
+    18,
+    19,
+    19,
+    19,
+    20,
+    20,
+    20,
+    20,
+    21,
+    22,
+    22,
+    22,
+    22,
+    23,
+    23,
+    23,
+    24,
+    24,
+    24,
+    25,
+    25,
+    25,
+    25
+   ]
+  },
+  {
+   "id": "tuhfah",
+   "title_ar": "تحفة الأطفال والغلمان في تجويد القرآن",
+   "title_en": "Tuhfat al-Atfal",
+   "author_ar": "سليمان بن حسين الجمزوري (ت بعد ١١٩٨هـ)",
+   "author_en": "Sulayman al-Jamzuri (d. after 1198 AH)",
+   "subject_ar": "التجويد",
+   "subject_en": "Tajwid",
+   "verses": 61,
+   "source_ar": "نص المتن من المكتبة الشاملة (shamela.ws)",
+   "source_en": "Text from al-Maktabah al-Shamilah (shamela.ws)",
+   "audio": {
+    "reciter_ar": "محمد غندر المصري",
+    "reciter_en": "Muhammad Ghandar al-Misri",
+    "base": "https://archive.org/download/to7ft-ala6fal/",
+    "tracks": [
+     {
+      "f": "A-moqadema.mp3",
+      "c": [
+       0
+      ]
+     },
+     {
+      "f": "B-noonsakinatanween.mp3",
+      "c": [
+       1
+      ]
+     },
+     {
+      "f": "C-noonmeem-moshadada.mp3",
+      "c": [
+       2
+      ]
+     },
+     {
+      "f": "D-almeem-alsakina.mp3",
+      "c": [
+       3
+      ]
+     },
+     {
+      "f": "E-lam-allam-alfe3l.mp3",
+      "c": [
+       4
+      ]
+     },
+     {
+      "f": "F-almethleenalmotaqarbenalmotagansen.mp3",
+      "c": [
+       5
+      ]
+     },
+     {
+      "f": "G-aqsam-almad.mp3",
+      "c": [
+       6
+      ]
+     },
+     {
+      "f": "H-a7kam-almad.mp3",
+      "c": [
+       7
+      ]
+     },
+     {
+      "f": "I-aqsam-almad-allazm.mp3",
+      "c": [
+       8
+      ]
+     },
+     {
+      "f": "J-5atema.mp3",
+      "c": [
+       9
+      ]
+     }
+    ]
+   },
+   "documents": [
+    "primer",
+    "fath_aqfal"
+   ]
+  }
+ ],
+ "usool": [
+  {
+   "title_ar": "القراءات العشر عامة",
+   "title_en": "All ten qira'at",
+   "documents": [
+    "idaah",
+    "budur",
+    "nayl_watar",
+    "mujtaba",
+    "ghunyah"
+   ]
+  },
+  {
+   "title_ar": "نافع: قالون وورش",
+   "title_en": "Nafi': Qalun and Warsh",
+   "documents": [
+    "qalun",
+    "warsh",
+    "usul_warsh_en"
+   ]
+  },
+  {
+   "title_ar": "ابن كثير: البزي وقنبل",
+   "title_en": "Ibn Kathir: al-Bazzi and Qunbul",
+   "documents": [
+    "ibn_kathir"
+   ]
+  },
+  {
+   "title_ar": "أبو عمرو: الدوري والسوسي",
+   "title_en": "Abu 'Amr: al-Duri and al-Susi",
+   "documents": [
+    "duri",
+    "susi"
+   ]
+  },
+  {
+   "title_ar": "ابن عامر: هشام وابن ذكوان",
+   "title_en": "Ibn 'Amir: Hisham and Ibn Dhakwan",
+   "documents": [
+    "ibn_amir"
+   ]
+  },
+  {
+   "title_ar": "عاصم: شعبة وحفص",
+   "title_en": "'Asim: Shu'bah and Hafs",
+   "documents": [
+    "rules_shuba_hafs",
+    "shubah",
+    "hafs"
+   ]
+  },
+  {
+   "title_ar": "حمزة: خلف وخلاد",
+   "title_en": "Hamzah: Khalaf and Khallad",
+   "documents": [
+    "hamzah"
+   ]
+  },
+  {
+   "title_ar": "الكسائي: أبو الحارث والدوري",
+   "title_en": "Al-Kisa'i: Abu al-Harith and al-Duri",
+   "documents": [
+    "kisai"
+   ]
+  },
+  {
+   "title_ar": "أبو جعفر: ابن وردان وابن جماز",
+   "title_en": "Abu Ja'far: Ibn Wardan and Ibn Jammaz",
+   "documents": [
+    "abu_jafar"
+   ]
+  },
+  {
+   "title_ar": "يعقوب: رويس وروح",
+   "title_en": "Ya'qub: Ruways and Rawh",
+   "documents": [
+    "yaqub"
+   ]
+  },
+  {
+   "title_ar": "خلف العاشر: إسحاق وإدريس",
+   "title_en": "Khalaf: Ishaq and Idris",
+   "documents": [
+    "khalaf"
+   ]
+  }
+ ],
+ "documents": {
+  "jazariyyah_en": {
+   "title_ar": "المقدمة الجزرية مع ترجمتها وشرحها بالإنجليزية",
+   "title_en": "The Jazariyyah Poem: translation and explanation",
+   "author_ar": "موقع abouttajweed.com",
+   "author_en": "The staff of abouttajweed.com",
+   "lang": "en",
+   "size": 847631,
+   "pages": 31,
+   "asset": "library/docs/jazariyyah_en.pdf"
+  },
+  "rules_shuba_hafs": {
+   "title_ar": "أحكام روايتي شعبة وحفص عن عاصم (بالإنجليزية)",
+   "title_en": "Rules of Shu'ba and Hafs 'an 'Aasim",
+   "author_ar": "مروة الجندي",
+   "author_en": "Marwa El Gindy",
+   "lang": "en",
+   "size": 722696,
+   "pages": 31,
+   "asset": "library/docs/rules_shuba_hafs.pdf"
+  },
+  "wafi": {
+   "title_ar": "الوافي في شرح الشاطبية في القراءات السبع",
+   "title_en": "Al-Wafi: commentary on the Shatibiyyah",
+   "author_ar": "عبد الفتاح عبد الغني القاضي (ت ١٤٠٣هـ)",
+   "author_en": "'Abd al-Fattah al-Qadi (d. 1403 AH)",
+   "lang": "ar",
+   "size": 16903515,
+   "pages": 590,
+   "url": "https://archive.org/download/rain_bow2020_yahoo_20180402/%D8%A7%D9%84%D9%88%D8%A7%D9%81%D9%8A%20%D9%81%D9%8A%20%D8%B4%D8%B1%D8%AD%20%D8%A7%D9%84%D8%B4%D8%A7%D8%B7%D8%A8%D9%8A%D8%A9%20%D9%81%D9%8A%20%D8%A7%D9%84%D9%82%D8%B1%D8%A7%D8%A1%D8%A7%D8%AA%20%D8%A7%D9%84%D8%B3%D8%A8%D8%B9.pdf"
+  },
+  "siraj": {
+   "title_ar": "سراج القارئ المبتدي وتذكار المقرئ المنتهي (شرح الشاطبية)",
+   "title_en": "Siraj al-Qari: commentary on the Shatibiyyah",
+   "author_ar": "ابن القاصح العذري (ت ٨٠١هـ)",
+   "author_en": "Ibn al-Qasih (d. 801 AH)",
+   "lang": "ar",
+   "size": 9608672,
+   "pages": 350,
+   "url": "https://archive.org/download/SeragQaree_IbnQaseh/%D8%B3%D8%B1%D8%A7%D8%AC%20%D8%A7%D9%84%D9%82%D8%A7%D8%B1%D8%A6%20%D8%A7%D9%84%D9%85%D8%A8%D8%AA%D8%AF%D9%8A%20%D9%88%D8%AA%D8%B0%D9%83%D8%A7%D8%B1%20%D8%A7%D9%84%D9%82%D8%A7%D8%B1%D8%A6%20%D8%A7%D9%84%D9%85%D9%86%D8%AA%D9%87%D9%8A.pdf"
+  },
+  "ibraz": {
+   "title_ar": "إبراز المعاني من حرز الأماني",
+   "title_en": "Ibraz al-Ma'ani: commentary on the Shatibiyyah",
+   "author_ar": "أبو شامة المقدسي (ت ٦٦٥هـ)",
+   "author_en": "Abu Shamah al-Maqdisi (d. 665 AH)",
+   "lang": "ar",
+   "size": 18641775,
+   "pages": 762,
+   "url": "https://archive.org/download/kamalkhamash_aol_20170528/%D8%A5%D8%A8%D8%B1%D8%A7%D8%B2%20%D8%A7%D9%84%D9%85%D8%B9%D8%A7%D9%86%D9%8A%20%D9%85%D9%86%20%D8%AD%D8%B1%D8%B2%20%D8%A7%D9%84%D8%A3%D9%85%D8%A7%D9%86%D9%8A%20%D9%84%D8%A3%D8%A8%D9%8A%20%D8%B4%D8%A7%D9%85%D8%A9.pdf"
+  },
+  "irshad_murid": {
+   "title_ar": "إرشاد المريد إلى مقصود القصيد في القراءات السبع",
+   "title_en": "Irshad al-Murid: commentary on the Shatibiyyah",
+   "author_ar": "علي محمد الضباع (ت ١٣٨٠هـ)",
+   "author_en": "'Ali Muhammad al-Dabba' (d. 1380 AH)",
+   "lang": "ar",
+   "size": 7312165,
+   "pages": 423,
+   "url": "https://archive.org/download/0078Pdf/0078%20%20%D8%A7%D9%82%D8%B1%D8%A7%20%D8%A7%D9%88%D9%86%D9%84%D8%A7%D9%8A%D9%86%20%D9%83%D8%AA%D8%A7%D8%A8%20%20%20%20pdf%20%20%20%D8%A5%D8%B1%D8%B4%D8%A7%D8%AF%20%D8%A7%D9%84%D9%85%D8%B1%D9%8A%D8%AF%20%D8%A5%D9%84%D9%89%20%D9%85%D9%82%D8%B5%D9%88%D8%AF%20%D8%A7%D9%84%D9%82%D8%B5%D9%8A%D8%AF%20%D9%81%D9%8A%20%D8%A7%D9%84%D9%82%D8%B1%D8%A7%D8%A1%D8%A7%D8%AA%20%D8%A7%D9%84%D8%B3%D8%A8%D8%B9.pdf"
+  },
+  "ghunyah": {
+   "title_ar": "غنية الطلبة في تيسير السبعة (بالإنجليزية)",
+   "title_en": "Ghunyah al-Talabah fi Taysir al-Sab'ah: the principles of the seven qira'at, on the Shatibiyyah",
+   "author_ar": "محمد سليم غيبي",
+   "author_en": "Muhammad Saleem Gaibie",
+   "lang": "en",
+   "size": 2095346,
+   "pages": 167,
+   "url": "https://archive.org/download/ghunyah_202307/ghunyah.pdf"
+  },
+  "bahjah": {
+   "title_ar": "البهجة المرضية شرح الدرة المضية",
+   "title_en": "Al-Bahjah al-Mardiyyah: commentary on the Durrah",
+   "author_ar": "علي محمد الضباع (ت ١٣٨٠هـ)",
+   "author_en": "'Ali Muhammad al-Dabba' (d. 1380 AH)",
+   "lang": "ar",
+   "size": 3111730,
+   "pages": 136,
+   "url": "https://archive.org/download/AlBohga/%D8%A7%D9%84%D8%A8%D9%87%D8%AC%D8%A9-%D8%A7%D9%84%D9%85%D8%B1%D8%B6%D9%8A%D8%A9-%D8%B9%D9%84%D9%8A-%D9%85%D8%AD%D9%85%D8%AF-%D8%A7%D9%84%D8%B6%D8%A8%D8%A7%D8%B9.pdf"
+  },
+  "idah": {
+   "title_ar": "الإيضاح لمتن الدرة في القراءات الثلاث المتممة للقراءات العشر",
+   "title_en": "Al-Idah: commentary on the Durrah",
+   "author_ar": "عبد الفتاح عبد الغني القاضي (ت ١٤٠٣هـ)",
+   "author_en": "'Abd al-Fattah al-Qadi (d. 1403 AH)",
+   "lang": "ar",
+   "size": 27456914,
+   "pages": 180,
+   "url": "https://archive.org/download/AAskZad-1105684/Book%20%D8%A7%D9%84%D8%A5%D9%8A%D8%B6%D8%A7%D8%AD%20%D9%84%D9%85%D8%AA%D9%86%20%D8%A7%D9%84%D8%AF%D8%B1%D8%A9%20%D9%81%D9%8A%20%D8%A7%D9%84%D9%82%D8%B1%D8%A7%D8%A1%D8%A7%D8%AA%20%D8%A7%D9%84%D8%AB%D9%84%D8%A7%D8%AB%20%D8%A7%D9%84%D9%85%D8%AA%D9%85%D9%85%D8%A9%20%D9%84%D9%84%D9%82%D8%B1%D8%A7%D8%A1%D8%A7%D8%AA%20%D8%A7%D9%84%D8%B9%D8%B4%D8%B1%20%D9%84%D9%84%D8%A5%D9%85%D8%A7%D9%85%20%D8%A7%D8%A8%D9%86%20%D8%A7%D9%84%D8%AC%D8%B2%D8%B1%D9%8A%20%5B1105684%5D%20---%20%D8%B9%D8%A8%D8%AF%D8%A7%D9%84%D9%81%D8%AA%D8%A7%D8%AD%20%D8%A7%D9%84%D9%82%D8%A7%D8%B6%D9%8A%20%28%D9%85%D8%A4%D9%84%D9%81%29.pdf"
+  },
+  "sharh_tayyibah": {
+   "title_ar": "شرح طيبة النشر في القراءات العشر",
+   "title_en": "Commentary on Tayyibat al-Nashr",
+   "author_ar": "أحمد بن محمد ابن الجزري، ابن الناظم (ت ٨٣٥هـ)",
+   "author_en": "Ahmad Ibn al-Jazari, the author's son (d. 835 AH)",
+   "lang": "ar",
+   "size": 6884534,
+   "pages": 344,
+   "url": "https://archive.org/download/sherhaltiba_a56646ljezery/sherhaltiba_aljezery.pdf"
+  },
+  "minah": {
+   "title_ar": "المنح الفكرية شرح المقدمة الجزرية",
+   "title_en": "Al-Minah al-Fikriyyah: commentary on the Jazariyyah",
+   "author_ar": "ملا علي القاري (ت ١٠١٤هـ)",
+   "author_en": "Mulla 'Ali al-Qari (d. 1014 AH)",
+   "lang": "ar",
+   "size": 3697427,
+   "pages": 85,
+   "url": "https://archive.org/download/0743Pdf_201804/0743%20%20%D9%83%D8%AA%D8%A7%D8%A8%20%D8%A7%D9%82%D8%B1%D8%A7%20%D8%A7%D9%88%D9%86%D9%84%D8%A7%D9%8A%D9%86%20%20%20%20pdf%20%20%D8%A7%D9%84%D9%85%D9%86%D8%AD%20%D8%A7%D9%84%D9%81%D9%83%D8%B1%D9%8A%D8%A9%20%D8%B4%D8%B1%D8%AD%20%D8%A7%D9%84%D9%85%D9%82%D8%AF%D9%85%D8%A9%20%D8%A7%D9%84%D8%AC%D8%B2%D8%B1%D9%8A%D8%A9%20%D9%85%D9%84%D8%A7%20%D8%B9%D9%84%D9%8A%20%D8%A7%D9%84%D9%82%D8%A7%D8%B1%D9%8A.pdf"
+  },
+  "fath_aqfal": {
+   "title_ar": "فتح الأقفال بشرح تحفة الأطفال",
+   "title_en": "Fath al-Aqfal: the author's own commentary on Tuhfat al-Atfal",
+   "author_ar": "سليمان الجمزوري (ناظم التحفة)",
+   "author_en": "Sulayman al-Jamzuri",
+   "lang": "ar",
+   "size": 1083575,
+   "pages": 87,
+   "url": "https://archive.org/download/20240517_20240517_1001/%D9%81%D8%AA%D8%AD%20%D8%A7%D9%84%D8%A7%D9%82%D9%81%D8%A7%D9%84%20%D8%B4%D8%B1%D8%AD%20%D9%85%D8%AA%D9%86%20%D8%AA%D8%AD%D9%81%D8%A9%20%D8%A7%D9%84%D8%A7%D8%B7%D9%81%D8%A7%D9%84%20-%20%D8%B3%D9%84%D9%8A%D9%85%D8%A7%D9%86%20%D8%A7%D9%84%D8%AC%D9%85%D8%B2%D9%88%D8%B1%D9%8A.pdf"
+  },
+  "primer": {
+   "title_ar": "تحفة الأطفال: ترجمة وشرح بالإنجليزية (A Classical Primer on Tajwid)",
+   "title_en": "A Classical Primer on Tajwid: Tuhfat al-Atfal translated and annotated",
+   "author_ar": "مصطفى القباني، مؤسسة آل البيت الملكية للفكر الإسلامي",
+   "author_en": "Moustafa Elqabbany (Royal Aal al-Bayt Institute for Islamic Thought)",
+   "lang": "en",
+   "size": 2419467,
+   "pages": 84,
+   "url": "https://rissc.jo/wp-content/uploads/2018/11/A_Classical_Primer_on_Tajwid_EN.pdf"
+  },
+  "idaah": {
+   "title_ar": "الإضاءة في بيان أصول القراءة",
+   "title_en": "Al-Ida'ah: the principles of recitation",
+   "author_ar": "علي محمد الضباع (ت ١٣٨٠هـ)",
+   "author_en": "'Ali Muhammad al-Dabba' (d. 1380 AH)",
+   "lang": "ar",
+   "size": 2670301,
+   "pages": 142,
+   "url": "https://archive.org/download/sa71mir_gmail_20171203/eda2h.pdf"
+  },
+  "budur": {
+   "title_ar": "البدور الزاهرة في القراءات العشر المتواترة من طريقي الشاطبية والدرة",
+   "title_en": "Al-Budur al-Zahirah: the ten qira'at, by the Shatibiyyah and the Durrah",
+   "author_ar": "عبد الفتاح عبد الغني القاضي (ت ١٤٠٣هـ)",
+   "author_en": "'Abd al-Fattah al-Qadi (d. 1403 AH)",
+   "lang": "ar",
+   "size": 9371497,
+   "pages": 458,
+   "url": "https://archive.org/download/bodour.g/bodour.g.pdf"
+  },
+  "nayl_watar": {
+   "title_ar": "نيل الوطر في أصول القراءات الأربعة عشر",
+   "title_en": "Nayl al-Watar: the principles of the fourteen qira'at",
+   "author_ar": "توفيق إبراهيم ضمرة",
+   "author_en": "Tawfiq Ibrahim Damra",
+   "lang": "ar",
+   "size": 9541193,
+   "pages": 437,
+   "url": "https://archive.org/download/2pdf_20191016/2-%20%D8%A3%D8%B5%D9%88%D9%84%20%D8%A7%D9%84%D9%82%D8%B1%D8%A7%D8%A1%D8%A7%D8%AA%20%20pdf%20%20%20%20%20%D8%A7%D9%82%D8%B1%D8%A7%20%20%D8%A7%D9%88%D9%86%D9%84%D8%A7%D9%8A%D9%86%20%20%20%20%D9%83%D8%AA%D8%A7%D8%A8%20%20%20%20%20%20%20%D8%A7%D9%84%D8%B4%D9%8A%D8%AE%20%D8%AA%D9%88%D9%81%D9%8A%D9%82%20%D8%B6%D9%85%D8%B1%D8%A9%20%D8%B6%D9%85%D8%B1%D9%87%20.pdf"
+  },
+  "mujtaba": {
+   "title_ar": "المجتبى في القراءات السبع، وبهامشه المنتقى في القراءات الثلاث (بالإنجليزية)",
+   "title_en": "Al-Mujtaba: rules of the seven qira'at, with al-Muntaqa on the three",
+   "author_ar": "إسماعيل إسحاق ومعاذ الإسلام شودري",
+   "author_en": "Qari Ismail Essack and Qari Muajul I. Chowdhury",
+   "lang": "en",
+   "size": 4047907,
+   "pages": 230,
+   "url": "https://archive.org/download/rules-of-the-10-qiraat/Rules%20of%20the%2010%20Qira%27at.pdf"
+  },
+  "qalun": {
+   "title_ar": "الجسر المأمون إلى رواية قالون",
+   "title_en": "The riwayah of Qalun",
+   "author_ar": "توفيق إبراهيم ضمرة",
+   "author_en": "Tawfiq Ibrahim Damra",
+   "lang": "ar",
+   "size": 1746430,
+   "pages": 154,
+   "url": "https://archive.org/download/3pdf_20191016/3-%20%D8%A7%D9%84%D8%AC%D8%B3%D8%B1%20%D8%A7%D9%84%D9%85%D8%A3%D9%85%D9%88%D9%86%20%D8%A5%D9%84%D9%89%20%D8%B1%D9%88%D8%A7%D9%8A%D8%A9%20%D9%82%D8%A7%D9%84%D9%88%D9%86%20%D9%85%D9%86%20%D8%B7%D8%B1%D9%8A%D9%82%D9%8A%20%D8%A7%D9%84%D8%B4%D8%A7%D8%B7%D8%A8%D9%8A%D8%A9%20%D9%88%D8%A7%D9%84%D8%B7%D9%8A%D8%A8%D8%A9%20%20pdf%20%20%20%20%20%D8%A7%D9%82%D8%B1%D8%A7%20%20%D8%A7%D9%88%D9%86%D9%84%D8%A7%D9%8A%D9%86%20%20%20%20%D9%83%D8%AA%D8%A7%D8%A8%20%20%20%20%20%20%20%D8%A7%D9%84%D8%B4%D9%8A%D8%AE%20%D8%AA%D9%88%D9%81%D9%8A%D9%82%20%D8%B6%D9%85%D8%B1%D8%A9%20%D8%B6%D9%85%D8%B1%D9%87%20.pdf"
+  },
+  "warsh": {
+   "title_ar": "الثمر اليانع في رواية ورش عن نافع",
+   "title_en": "The riwayah of Warsh",
+   "author_ar": "توفيق إبراهيم ضمرة",
+   "author_en": "Tawfiq Ibrahim Damra",
+   "lang": "ar",
+   "size": 11232497,
+   "pages": 432,
+   "url": "https://archive.org/download/4pdf_20191016/4-%20%D8%A7%D9%84%D8%AB%D9%85%D8%B1%20%D8%A7%D9%84%D9%8A%D8%A7%D9%86%D8%B9%20%D9%81%D9%8A%20%D8%B1%D9%88%D8%A7%D9%8A%D8%A9%20%D9%88%D8%B1%D8%B4%20%D8%B9%D9%86%20%D9%86%D8%A7%D9%81%D8%B9%20%D9%85%D9%86%20%D8%B7%D8%B1%D9%8A%D9%82%D9%8A%20%D8%A7%D9%84%D8%B4%D8%A7%D8%B7%D8%A8%D9%8A%D8%A9%20%D9%88%D8%A7%D9%84%D8%B7%D9%8A%D8%A8%D8%A9%20%20pdf%20%20%20%20%20%D8%A7%D9%82%D8%B1%D8%A7%20%20%D8%A7%D9%88%D9%86%D9%84%D8%A7%D9%8A%D9%86%20%20%20%20%D9%83%D8%AA%D8%A7%D8%A8%20%20%20%20%20%20%20%D8%A7%D9%84%D8%B4%D9%8A%D8%AE%20%D8%AA%D9%88%D9%81%D9%8A%D9%82%20%D8%B6%D9%85%D8%B1%D8%A9%20%D8%B6%D9%85%D8%B1%D9%87%20.pdf"
+  },
+  "usul_warsh_en": {
+   "title_ar": "الأصول والفرش في رواية ورش (بالإنجليزية)",
+   "title_en": "The Usul and Farsh in Rewayat Warsh",
+   "author_ar": "فاطمة ياقوت الإبياري",
+   "author_en": "Fatma Yacout Elibyari",
+   "lang": "en",
+   "size": 3753376,
+   "pages": 68,
+   "url": "https://archive.org/download/UsulWarsh/Usul%20Warsh.pdf"
+  },
+  "ibn_kathir": {
+   "title_ar": "الطريق المنير إلى قراءة ابن كثير بروايتي البزي وقنبل",
+   "title_en": "The qira'ah of Ibn Kathir",
+   "author_ar": "توفيق إبراهيم ضمرة",
+   "author_en": "Tawfiq Ibrahim Damra",
+   "lang": "ar",
+   "size": 3835551,
+   "pages": 194,
+   "url": "https://archive.org/download/56pdf_201910/5-6-%20%D8%A7%D9%84%D8%B7%D8%B1%D9%8A%D9%82%20%D8%A7%D9%84%D9%85%D9%86%D9%8A%D8%B1%20%D8%A5%D9%84%D9%89%20%D9%82%D8%B1%D8%A7%D8%A1%D8%A9%20%D8%A7%D8%A8%D9%86%20%D9%83%D8%AB%D9%8A%D8%B1%20%D8%A8%D8%B1%D9%88%D8%A7%D9%8A%D8%AA%D9%8A%20%D8%A7%D9%84%D8%A8%D8%B2%D9%8A%20%D9%88%D9%82%D9%86%D8%A8%D9%84%20%D9%85%D9%86%20%D8%B7%D8%B1%D9%8A%D9%82%D9%8A%20%D8%A7%D9%84%D8%B4%D8%A7%D8%B7%D8%A8%D9%8A%D8%A9%20%D9%88%D8%A7%D9%84%D8%B7%D9%8A%D8%A8%D8%A9%20%20pdf%20%20%20%20%20%D8%A7%D9%82%D8%B1%D8%A7%20%20%D8%A7%D9%88%D9%86%D9%84%D8%A7%D9%8A%D9%86%20%20%20%20%D9%83%D8%AA%D8%A7%D8%A8%20%20%20%20%20%20%20%D8%A7%D9%84%D8%B4%D9%8A%D8%AE%20%D8%AA%D9%88%D9%81%D9%8A%D9%82%20%D8%B6%D9%85%D8%B1%D8%A9%20%D8%B6%D9%85%D8%B1%D9%87%20.pdf"
+  },
+  "duri": {
+   "title_ar": "غاية سروري في رواية الدوري عن أبي عمرو البصري",
+   "title_en": "The riwayah of al-Duri from Abu 'Amr",
+   "author_ar": "توفيق إبراهيم ضمرة",
+   "author_en": "Tawfiq Ibrahim Damra",
+   "lang": "ar",
+   "size": 3328335,
+   "pages": 258,
+   "url": "https://archive.org/download/7pdf_20191016/7-%20%D8%BA%D8%A7%D9%8A%D8%A9%20%D8%B3%D8%B1%D9%88%D8%B1%D9%8A%20%D9%81%D9%8A%20%D8%B1%D9%88%D8%A7%D9%8A%D8%A9%20%D8%A7%D9%84%D8%AF%D9%88%D8%B1%D9%8A%20%D9%85%D9%86%20%D9%82%D8%B1%D8%A7%D8%A1%D8%A9%20%D8%A3%D8%A8%D9%8A%20%D8%B9%D9%85%D8%B1%D9%88%20%D8%A7%D9%84%D8%A8%D8%B5%D8%B1%D9%8A%20%D9%85%D9%86%20%D8%B7%D8%B1%D9%8A%D9%82%D9%8A%20%D8%A7%D9%84%D8%B4%D8%A7%D8%B7%D8%A8%D9%8A%D8%A9%20%D9%88%D8%A7%D9%84%D8%B7%D9%8A%D8%A8%D8%A9%20%20pdf%20%20%20%20%20%D8%A7%D9%82%D8%B1%D8%A7%20%20%D8%A7%D9%88%D9%86%D9%84%D8%A7%D9%8A%D9%86%20%20%20%20%D9%83%D8%AA%D8%A7%D8%A8%20%20%20%20%20%20%20%D8%A7%D9%84%D8%B4%D9%8A%D8%AE%20%D8%AA%D9%88%D9%81%D9%8A%D9%82%20%D8%B6%D9%85%D8%B1%D8%A9%20%D8%B6%D9%85%D8%B1%D9%87%20.pdf"
+  },
+  "susi": {
+   "title_ar": "أحلى دروسي في رواية السوسي عن أبي عمرو البصري",
+   "title_en": "The riwayah of al-Susi from Abu 'Amr",
+   "author_ar": "توفيق إبراهيم ضمرة",
+   "author_en": "Tawfiq Ibrahim Damra",
+   "lang": "ar",
+   "size": 6167463,
+   "pages": 375,
+   "url": "https://archive.org/download/8pdf_201910xxxxxxxxxxxxxxxxxxxxxxxx/8-%20%D8%A3%D8%AD%D9%84%D9%89%20%D8%AF%D8%B1%D9%88%D8%B3%D9%8A%20%D9%81%D9%8A%20%D8%B1%D9%88%D8%A7%D9%8A%D8%A9%20%D8%A7%D9%84%D8%B3%D9%88%D8%B3%D9%8A%20%D9%85%D9%86%20%D9%82%D8%B1%D8%A7%D8%A1%D8%A9%20%D8%A3%D8%A8%D9%8A%20%D8%B9%D9%85%D8%B1%D9%88%20%D8%A7%D9%84%D8%A8%D8%B5%D8%B1%D9%8A%20%D9%85%D9%86%20%D8%B7%D8%B1%D9%8A%D9%82%D9%8A%20%D8%A7%D9%84%D8%B4%D8%A7%D8%B7%D8%A8%D9%8A%D8%A9%20%D9%88%D8%A7%D9%84%D8%B7%D9%8A%D8%A8%D8%A9%20%20pdf%20%20%20%20%20%D8%A7%D9%82%D8%B1%D8%A7%20%20%D8%A7%D9%88%D9%86%D9%84%D8%A7%D9%8A%D9%86%20%20%20%20%D9%83%D8%AA%D8%A7%D8%A8%20%20%20%20%20%20%20%D8%A7%D9%84%D8%B4%D9%8A%D8%AE%20%D8%AA%D9%88%D9%81%D9%8A%D9%82%20%D8%B6%D9%85%D8%B1%D8%A9%20%D8%B6%D9%85%D8%B1%D9%87%20.pdf"
+  },
+  "ibn_amir": {
+   "title_ar": "زاد السائر إلى قراءة ابن عامر بروايتي هشام وابن ذكوان",
+   "title_en": "The qira'ah of Ibn 'Amir",
+   "author_ar": "توفيق إبراهيم ضمرة",
+   "author_en": "Tawfiq Ibrahim Damra",
+   "lang": "ar",
+   "size": 2524146,
+   "pages": 216,
+   "url": "https://archive.org/download/cccccccccccccccccccccf_201910/9-10-%D8%B2%D8%A7%D8%AF%20%D8%A7%D9%84%D8%B3%D8%A7%D8%A6%D8%B1%20%D8%A5%D9%84%D9%89%20%D9%82%D8%B1%D8%A7%D8%A1%D8%A9%20%D8%A7%D8%A8%D9%86%20%D8%B9%D8%A7%D9%85%D8%B1%20%D8%A8%D8%B1%D9%88%D8%A7%D9%8A%D8%AA%D9%8A%20%D9%87%D8%B4%D8%A7%D9%85%20%D9%88%D8%A7%D8%A8%D9%86%20%D8%B0%D9%83%D9%88%D8%A7%D9%86%20%D9%85%D9%86%20%D8%B7%D8%B1%D9%8A%D9%82%D9%8A%20%D8%A7%D9%84%D8%B4%D8%A7%D8%B7%D8%A8%D9%8A%D8%A9%20%D9%88%D8%A7%D9%84%D8%B7%D9%8A%D8%A8%D8%A9%20%20pdf%20%20%20%20%20%D8%A7%D9%82%D8%B1%D8%A7%20%20%D8%A7%D9%88%D9%86%D9%84%D8%A7%D9%8A%D9%86%20%20%20%20%D9%83%D8%AA%D8%A7%D8%A8%20%20%20%20%20%20%20%D8%A7%D9%84%D8%B4%D9%8A%D8%AE%20%D8%AA%D9%88%D9%81%D9%8A%D9%82%20%D8%B6%D9%85%D8%B1%D8%A9%20%D8%B6%D9%85%D8%B1%D9%87%20.pdf"
+  },
+  "shubah": {
+   "title_ar": "أحسن صحبة في رواية الإمام شعبة عن عاصم",
+   "title_en": "The riwayah of Shu'bah",
+   "author_ar": "توفيق إبراهيم ضمرة",
+   "author_en": "Tawfiq Ibrahim Damra",
+   "lang": "ar",
+   "size": 4096607,
+   "pages": 191,
+   "url": "https://archive.org/download/12_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx20191016/12-%20%D8%A3%D8%AD%D8%B3%D9%86%20%D8%B5%D8%AD%D8%A8%D8%A9%20%D9%81%D9%8A%20%D8%B1%D9%88%D8%A7%D9%8A%D8%A9%20%D8%A7%D9%84%D8%A5%D9%85%D8%A7%D9%85%20%D8%B4%D8%B9%D8%A8%D8%A9%20%D9%85%D9%86%20%D9%82%D8%B1%D8%A7%D8%A1%D8%A9%20%D8%B9%D8%A7%D8%B5%D9%85%20%D8%A8%D9%86%20%D8%A3%D8%A8%D9%8A%20%D8%A7%D9%84%D9%86%D8%AC%D9%88%D8%AF%20%D8%A7%D9%84%D9%83%D9%88%D9%81%D9%8A%20%D9%85%D9%86%20%D8%B7%D8%B1%D9%8A%D9%82%D9%8A%20%D8%A7%D9%84%D8%B4%D8%A7%D8%B7%D8%A8%D9%8A%D8%A9%20%D9%88%D8%A7%D9%84%D8%B7%D9%8A%D8%A8%D8%A9%20%20%D9%84%D9%84%D8%B4%D9%8A%D8%AE%20%D8%AA%D9%88%D9%81%D9%8A%D9%82%20%D8%B6%D9%85%D8%B1%D8%A9%20%D8%B6%D9%85%D8%B1%D9%87%20.pdf"
+  },
+  "hafs": {
+   "title_ar": "الإتقان في نطق بعض ألفاظ القرآن برواية حفص بن سليمان",
+   "title_en": "The riwayah of Hafs: pronouncing some of its words",
+   "author_ar": "توفيق إبراهيم ضمرة",
+   "author_en": "Tawfiq Ibrahim Damra",
+   "lang": "ar",
+   "size": 1051584,
+   "pages": 50,
+   "url": "https://archive.org/download/1pdf_20191016/1-%20%D9%83%D8%AA%D8%A7%D8%A8%20%D8%A7%D9%84%D8%A5%D8%AA%D9%82%D8%A7%D9%86%20%D9%81%D9%8A%20%D9%86%D8%B7%D9%82%20%D8%A8%D8%B9%D8%B6%20%D8%A3%D9%84%D9%81%D8%A7%D8%B8%20%D8%A7%D9%84%D9%82%D8%B1%D8%A2%D9%86%20%D8%A8%D8%B1%D9%88%D8%A7%D9%8A%D8%A9%20%D8%AD%D9%81%D8%B5%20%D8%A8%D9%86%20%D8%B3%D9%84%D9%8A%D9%85%D8%A7%D9%86%20%20pdf%20%20%20%20%20%D8%A7%D9%82%D8%B1%D8%A7%20%20%D8%A7%D9%88%D9%86%D9%84%D8%A7%D9%8A%D9%86%20%20%20%20%D9%83%D8%AA%D8%A7%D8%A8%20%20%20%20%20%20%20%D8%A7%D9%84%D8%B4%D9%8A%D8%AE%20%D8%AA%D9%88%D9%81%D9%8A%D9%82%20%D8%B6%D9%85%D8%B1%D8%A9%20%D8%B6%D9%85%D8%B1%D9%87%20.pdf"
+  },
+  "hamzah": {
+   "title_ar": "رفعة الدرجات في قراءة حمزة الزيات بروايتي خلف وخلاد",
+   "title_en": "The qira'ah of Hamzah",
+   "author_ar": "توفيق إبراهيم ضمرة",
+   "author_en": "Tawfiq Ibrahim Damra",
+   "lang": "ar",
+   "size": 5255048,
+   "pages": 327,
+   "url": "https://archive.org/download/1314vvvvvvvvvvvvvvvvvvvvvvvvvvvvv01910/13-14-%20%D8%B1%D9%81%D8%B9%D8%A9%20%D8%A7%D9%84%D8%AF%D8%B1%D8%AC%D8%A7%D8%AA%20%D9%81%D9%8A%20%D9%82%D8%B1%D8%A7%D8%A1%D8%A9%20%D8%AD%D9%85%D8%B2%D8%A9%20%D8%A7%D9%84%D8%B2%D9%8A%D8%A7%D8%AA%20%D8%A8%D8%B1%D9%88%D8%A7%D9%8A%D8%AA%D9%8A%20%D8%AE%D9%84%D9%81%20%D9%88%D8%AE%D9%84%D8%A7%D8%AF%20%D9%85%D9%86%20%D8%B7%D8%B1%D9%8A%D9%82%D9%8A%20%D8%A7%D9%84%D8%B4%D8%A7%D8%B7%D8%A8%D9%8A%D8%A9%20%D9%88%D8%A7%D9%84%D8%B7%D9%8A%D8%A8%D8%A9%20%20pdf%20%20%20%20%20%D8%A7%D9%82%D8%B1%D8%A7%20%20%D8%A7%D9%88%D9%86%D9%84%D8%A7%D9%8A%D9%86%20%20%20%20%D9%83%D8%AA%D8%A7%D8%A8%20%20%20%20%20%20%20%D8%A7%D9%84%D8%B4%D9%8A%D8%AE%20%D8%AA%D9%88%D9%81%D9%8A%D9%82%20%D8%B6%D9%85%D8%B1%D8%A9%20%D8%B6%D9%85%D8%B1%D9%87%20.pdf"
+  },
+  "kisai": {
+   "title_ar": "غاية رضائي في قراءة الكسائي",
+   "title_en": "The qira'ah of al-Kisa'i",
+   "author_ar": "توفيق إبراهيم ضمرة",
+   "author_en": "Tawfiq Ibrahim Damra",
+   "lang": "ar",
+   "size": 3849247,
+   "pages": 342,
+   "url": "https://archive.org/download/1516pdf_201bbbbbbbbbbbbbbbbbbbbbbbb/15-16-%20%D8%BA%D8%A7%D9%8A%D8%A9%20%D8%B1%D8%B6%D8%A7%D8%A6%D9%8A%20%D9%81%D9%8A%20%D9%82%D8%B1%D8%A7%D8%A1%D8%A9%20%D8%A7%D9%84%D9%83%D8%B3%D8%A7%D8%A6%D9%8A%20%D9%85%D9%86%20%D8%B7%D8%B1%D9%8A%D9%82%D9%8A%20%D8%A7%D9%84%D8%B4%D8%A7%D8%B7%D8%A8%D9%8A%D8%A9%20%D9%88%D8%A7%D9%84%D8%B7%D9%8A%D8%A8%D8%A9%20%20pdf%20%20%20%20%20%D8%A7%D9%82%D8%B1%D8%A7%20%20%D8%A7%D9%88%D9%86%D9%84%D8%A7%D9%8A%D9%86%20%20%20%20%D9%83%D8%AA%D8%A7%D8%A8%20%20%20%20%20%20%20%D8%A7%D9%84%D8%B4%D9%8A%D8%AE%20%D8%AA%D9%88%D9%81%D9%8A%D9%82%20%D8%B6%D9%85%D8%B1%D8%A9%20%D8%B6%D9%85%D8%B1%D9%87%20.pdf"
+  },
+  "abu_jafar": {
+   "title_ar": "اتباع الأثر في قراءة أبي جعفر",
+   "title_en": "The qira'ah of Abu Ja'far",
+   "author_ar": "توفيق إبراهيم ضمرة",
+   "author_en": "Tawfiq Ibrahim Damra",
+   "lang": "ar",
+   "size": 4537876,
+   "pages": 266,
+   "url": "https://archive.org/download/bbbbbbbbbbbbbbbbbbbbbbb18pdf_201910/17-18-%20%D8%A7%D8%AA%D8%A8%D8%A7%D8%B9%20%D8%A7%D9%84%D8%A3%D8%AB%D8%B1%20%D9%81%D9%8A%20%D9%82%D8%B1%D8%A7%D8%A1%D8%A9%20%D8%A3%D8%A8%D9%8A%20%D8%AC%D8%B9%D9%81%D8%B1%20%D9%85%D9%86%20%D8%B7%D8%B1%D9%8A%D9%82%D9%8A%20%D8%A7%D9%84%D8%AF%D8%B1%D8%A9%20%D9%88%D8%A7%D9%84%D8%B7%D9%8A%D8%A8%D8%A9%20%20pdf%20%20%20%20%20%D8%A7%D9%82%D8%B1%D8%A7%20%20%D8%A7%D9%88%D9%86%D9%84%D8%A7%D9%8A%D9%86%20%20%20%20%D9%83%D8%AA%D8%A7%D8%A8%20%20%20%20%20%20%20%D8%A7%D9%84%D8%B4%D9%8A%D8%AE%20%D8%AA%D9%88%D9%81%D9%8A%D9%82%20%D8%B6%D9%85%D8%B1%D8%A9%20%D8%B6%D9%85%D8%B1%D9%87%20.pdf"
+  },
+  "yaqub": {
+   "title_ar": "تنوير القلوب في قراءة يعقوب بروايتي رويس وروح",
+   "title_en": "The qira'ah of Ya'qub",
+   "author_ar": "توفيق إبراهيم ضمرة",
+   "author_en": "Tawfiq Ibrahim Damra",
+   "lang": "ar",
+   "size": 3990198,
+   "pages": 264,
+   "url": "https://archive.org/download/1920nnnnnnnnnnnnnnnnnnnnnn01910/19-20-%20%D8%AA%D9%86%D9%88%D9%8A%D8%B1%20%D8%A7%D9%84%D9%82%D9%84%D9%88%D8%A8%20%D9%81%D9%8A%20%D9%82%D8%B1%D8%A7%D8%A1%D8%A9%20%D9%8A%D8%B9%D9%82%D9%88%D8%A8%20%D8%A8%D8%B1%D9%88%D8%A7%D9%8A%D8%AA%D9%8A%20%D8%B1%D9%88%D9%8A%D8%B3%20%D9%88%D8%B1%D9%88%D8%AD%20%D9%85%D9%86%20%D8%B7%D8%B1%D9%8A%D9%82%D9%8A%20%D8%A7%D9%84%D8%AF%D8%B1%D8%A9%20%D9%88%D8%A7%D9%84%D8%B7%D9%8A%D8%A8%D8%A9%20%20pdf%20%20%20%20%20%D8%A7%D9%82%D8%B1%D8%A7%20%20%D8%A7%D9%88%D9%86%D9%84%D8%A7%D9%8A%D9%86%20%20%20%20%D9%83%D8%AA%D8%A7%D8%A8%20%20%20%20%20%20%20%D8%A7%D9%84%D8%B4%D9%8A%D8%AE%20%D8%AA%D9%88%D9%81%D9%8A%D9%82%20%D8%B6%D9%85%D8%B1%D8%A9%20%D8%B6%D9%85%D8%B1%D9%87%20.pdf"
+  },
+  "khalaf": {
+   "title_ar": "فرحة الأبرار في قراءة خلف البزار",
+   "title_en": "The qira'ah of Khalaf",
+   "author_ar": "توفيق إبراهيم ضمرة",
+   "author_en": "Tawfiq Ibrahim Damra",
+   "lang": "ar",
+   "size": 3305787,
+   "pages": 221,
+   "url": "https://archive.org/download/212nnnnnnnnnnmmmmmmmm201910/21-22-%20%D9%81%D8%B1%D8%AD%D8%A9%20%D8%A7%D9%84%D8%A3%D8%A8%D8%B1%D8%A7%D8%B1%20%D9%81%D9%8A%20%D9%82%D8%B1%D8%A7%D8%A1%D8%A9%20%D8%AE%D9%84%D9%81%20%D8%A7%D9%84%D8%A8%D8%B2%D8%A7%D8%B1%20%D9%85%D9%86%20%D8%B7%D8%B1%D9%8A%D9%82%D9%8A%20%D8%A7%D9%84%D8%AF%D8%B1%D8%A9%20%D9%88%D8%A7%D9%84%D8%B7%D9%8A%D8%A8%D8%A9%20%20pdf%20%20%20%20%20%D8%A7%D9%82%D8%B1%D8%A7%20%20%D8%A7%D9%88%D9%86%D9%84%D8%A7%D9%8A%D9%86%20%20%20%20%D9%83%D8%AA%D8%A7%D8%A8%20%20%20%20%20%20%20%D8%A7%D9%84%D8%B4%D9%8A%D8%AE%20%D8%AA%D9%88%D9%81%D9%8A%D9%82%20%D8%B6%D9%85%D8%B1%D8%A9%20%D8%B6%D9%85%D8%B1%D9%87%20.pdf"
+  }
+ }
+}

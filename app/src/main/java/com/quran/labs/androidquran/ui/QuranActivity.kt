@@ -56,6 +56,8 @@ import com.quran.labs.androidquran.ui.fragment.TagBookmarkDialog.OnBookmarkTagsU
 import com.quran.labs.androidquran.ui.helpers.JumpDestination
 import com.quran.labs.androidquran.ui.helpers.QuranNavigator
 import com.quran.labs.androidquran.ui.helpers.QuranRow
+import com.quran.labs.androidquran.ui.library.PoemsFragment
+import com.quran.labs.androidquran.ui.library.UsoolFragment
 import com.quran.labs.androidquran.util.AudioUtils
 import com.quran.labs.androidquran.util.QuranSettings
 import com.quran.labs.androidquran.util.QuranUtils
@@ -72,7 +74,6 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit.MILLISECONDS
-import kotlin.math.abs
 
 /**
  * The home screen activity for the app. Displays a toolbar and 3 fragments:
@@ -177,7 +178,7 @@ class QuranActivity : AppCompatActivity(),
     ab?.setTitle(R.string.app_name)
 
     val pager = findViewById<ViewPager>(R.id.index_pager)
-    pager.offscreenPageLimit = 3
+    pager.offscreenPageLimit = TITLES.size
     val pagerAdapter = PagerAdapter(supportFragmentManager)
     pager.adapter = pagerAdapter
     val indicator = findViewById<SlidingTabLayout>(R.id.indicator)
@@ -531,53 +532,42 @@ class QuranActivity : AppCompatActivity(),
   private inner class PagerAdapter(fm: FragmentManager) :
       FragmentPagerAdapter(fm) {
 
-    override fun getCount() = 3
+    override fun getCount() = TITLES.size
+
+    /** the tab at a position of the pager, which runs right to left in an rtl language */
+    private fun tabAt(position: Int) = if (isRtl) TITLES.size - 1 - position else position
 
     override fun getItem(position: Int): Fragment {
-      var pos = position
-      if (isRtl) {
-        pos = abs(position - 2)
-      }
-      return when (pos) {
+      return when (tabAt(position)) {
         SURA_LIST -> SuraListFragment.newInstance()
         JUZ2_LIST -> JuzListFragment.newInstance()
         BOOKMARKS_LIST -> BookmarksFragment.newInstance()
+        POEMS_LIST -> PoemsFragment.newInstance()
+        USOOL_LIST -> UsoolFragment.newInstance()
         else -> BookmarksFragment.newInstance()
       }
     }
 
-    override fun getItemId(position: Int): Long {
-      val pos = if (isRtl) abs(position - 2) else position
-      return when (pos) {
-        SURA_LIST -> SURA_LIST.toLong()
-        JUZ2_LIST -> JUZ2_LIST.toLong()
-        BOOKMARKS_LIST -> BOOKMARKS_LIST.toLong()
-        else -> BOOKMARKS_LIST.toLong()
-      }
-    }
+    override fun getItemId(position: Int): Long = tabAt(position).toLong()
 
-    override fun getPageTitle(position: Int): CharSequence {
-      val resId = if (isRtl) ARABIC_TITLES[position] else TITLES[position]
-      return getString(resId)
-    }
+    override fun getPageTitle(position: Int): CharSequence = getString(TITLES[tabAt(position)])
   }
 
   companion object {
     private val TITLES = intArrayOf(
         R.string.quran_sura,
         R.string.quran_juz2,
-        R.string.menu_bookmarks
-    )
-    private val ARABIC_TITLES = intArrayOf(
         R.string.menu_bookmarks,
-        R.string.quran_juz2,
-        R.string.quran_sura
+        com.quran.mobile.feature.library.R.string.library_poems,
+        com.quran.mobile.feature.library.R.string.library_usool
     )
     const val EXTRA_SHOW_TRANSLATION_UPGRADE = "transUp"
     private const val SI_SHOWED_UPGRADE_DIALOG = "si_showed_dialog"
     private const val SURA_LIST = 0
     private const val JUZ2_LIST = 1
     private const val BOOKMARKS_LIST = 2
+    private const val POEMS_LIST = 3
+    private const val USOOL_LIST = 4
     private var updatedTranslations = false
   }
 }

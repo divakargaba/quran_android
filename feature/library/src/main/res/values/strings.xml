@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="library_poems">Poems</string>
+  <string name="library_usool">Usool</string>
+  <string name="library_poems_intro">The poems (mutūn) of the qirāʾāt and of tajwīd: their text, a recitation of each, and its translations and commentaries.</string>
+  <string name="library_usool_intro">Books on the principles (uṣūl) of the ten qirāʾāt: of all of them, then of each qirāʾah. A book is downloaded once, from where it is published, and then read here.</string>
+  <plurals name="library_verses">
+    <item quantity="one">%1$d verse</item>
+    <item quantity="other">%1$d verses</item>
+  </plurals>
+  <string name="library_language_arabic">Arabic</string>
+  <string name="library_language_english">English</string>
+  <string name="library_pages">%1$d pages</string>
+  <string name="library_download">Download</string>
+  <string name="library_downloaded">Downloaded</string>
+  <string name="library_download_failed">Could not be downloaded. Check your connection and try again.</string>
+  <string name="library_open">Open</string>
+  <string name="library_delete">Delete the download</string>
+  <string name="library_cancel">Cancel</string>
+  <string name="library_chapters">Chapters</string>
+  <string name="library_documents">Translations and commentaries</string>
+  <string name="library_no_documents">No translation or commentary of this poem is listed yet.</string>
+  <string name="library_verse_hint">Tap a verse for its English translation and explanation.</string>
+  <string name="library_play">Play</string>
+  <string name="library_pause">Pause</string>
+  <string name="library_play_chapter">Recite this chapter</string>
+  <string name="library_previous_track">Previous</string>
+  <string name="library_next_track">Next</string>
+  <string name="library_recitation_of">Recitation: %1$s</string>
+  <string name="library_track">Part %1$d of %2$d</string>
+  <string name="library_audio_failed">The recitation could not be played. Check your connection.</string>
+  <string name="library_page_of">%1$d / %2$d</string>
+  <string name="library_zoom_in">Zoom in</string>
+  <string name="library_zoom_out">Zoom out</string>
+  <string name="library_document_failed">This document could not be opened.</string>
+</resources>
