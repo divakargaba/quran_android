@@ -11,481 +11,15 @@
    "verses": 1173,
    "source_ar": "نص المتن من المكتبة الشاملة (shamela.ws)",
    "source_en": "Text from al-Maktabah al-Shamilah (shamela.ws)",
-   "audio": {
-    "reciter_ar": "مشاري بن راشد العفاسي",
-    "reciter_en": "Mishary Rashid al-Afasy",
-    "base": "https://archive.org/download/shatibiyyah_afasy/",
-    "tracks": [
-     {
-      "f": "01.mp3",
-      "c": [
-       0
-      ]
-     },
-     {
-      "f": "02.mp3",
-      "c": [
-       1
-      ]
-     },
-     {
-      "f": "03.mp3",
-      "c": [
-       2
-      ]
-     },
-     {
-      "f": "04.mp3",
-      "c": [
-       3
-      ]
-     },
-     {
-      "f": "05.mp3",
-      "c": [
-       4
-      ]
-     },
-     {
-      "f": "06.mp3",
-      "c": [
-       5
-      ]
-     },
-     {
-      "f": "07.mp3",
-      "c": [
-       6
-      ]
-     },
-     {
-      "f": "08.mp3",
-      "c": [
-       7
-      ]
-     },
-     {
-      "f": "09.mp3",
-      "c": [
-       8
-      ]
-     },
-     {
-      "f": "10.mp3",
-      "c": [
-       9
-      ]
-     },
-     {
-      "f": "11.mp3",
-      "c": [
-       10
-      ]
-     },
-     {
-      "f": "12.mp3",
-      "c": [
-       11
-      ]
-     },
-     {
-      "f": "13.mp3",
-      "c": [
-       12
-      ]
-     },
-     {
-      "f": "14.mp3",
-      "c": [
-       13
-      ]
-     },
-     {
-      "f": "15.mp3",
-      "c": [
-       14
-      ]
-     },
-     {
-      "f": "16.mp3",
-      "c": [
-       15
-      ]
-     },
-     {
-      "f": "17.mp3",
-      "c": [
-       16
-      ]
-     },
-     {
-      "f": "18.mp3",
-      "c": [
-       17
-      ]
-     },
-     {
-      "f": "19.mp3",
-      "c": [
-       18
-      ]
-     },
-     {
-      "f": "20.mp3",
-      "c": [
-       19
-      ]
-     },
-     {
-      "f": "21.mp3",
-      "c": [
-       20
-      ]
-     },
-     {
-      "f": "22.mp3",
-      "c": [
-       21
-      ]
-     },
-     {
-      "f": "23.mp3",
-      "c": [
-       22
-      ]
-     },
-     {
-      "f": "24.mp3",
-      "c": [
-       23
-      ]
-     },
-     {
-      "f": "25.mp3",
-      "c": [
-       24
-      ]
-     },
-     {
-      "f": "26.mp3",
-      "c": [
-       25
-      ]
-     },
-     {
-      "f": "27.mp3",
-      "c": [
-       26
-      ]
-     },
-     {
-      "f": "28.mp3",
-      "c": [
-       27
-      ]
-     },
-     {
-      "f": "29.mp3",
-      "c": [
-       28
-      ]
-     },
-     {
-      "f": "30.mp3",
-      "c": [
-       29
-      ]
-     },
-     {
-      "f": "31.mp3",
-      "c": [
-       30
-      ]
-     },
-     {
-      "f": "32.mp3",
-      "c": [
-       31
-      ]
-     },
-     {
-      "f": "33.mp3",
-      "c": [
-       32
-      ]
-     },
-     {
-      "f": "34.mp3",
-      "c": [
-       33
-      ]
-     },
-     {
-      "f": "35.mp3",
-      "c": [
-       34
-      ]
-     },
-     {
-      "f": "36.mp3",
-      "c": [
-       35
-      ]
-     },
-     {
-      "f": "37.mp3",
-      "c": [
-       36
-      ]
-     },
-     {
-      "f": "38.mp3",
-      "c": [
-       37
-      ]
-     },
-     {
-      "f": "39.mp3",
-      "c": [
-       38
-      ]
-     },
-     {
-      "f": "40.mp3",
-      "c": [
-       39
-      ]
-     },
-     {
-      "f": "41.mp3",
-      "c": [
-       40
-      ]
-     },
-     {
-      "f": "42.mp3",
-      "c": [
-       41
-      ]
-     },
-     {
-      "f": "43.mp3",
-      "c": [
-       42
-      ]
-     },
-     {
-      "f": "44.mp3",
-      "c": [
-       43
-      ]
-     },
-     {
-      "f": "45.mp3",
-      "c": [
-       44
-      ]
-     },
-     {
-      "f": "46.mp3",
-      "c": [
-       45
-      ]
-     },
-     {
-      "f": "47.mp3",
-      "c": [
-       46
-      ]
-     },
-     {
-      "f": "48.mp3",
-      "c": [
-       47
-      ]
-     },
-     {
-      "f": "49.mp3",
-      "c": [
-       48
-      ]
-     },
-     {
-      "f": "50.mp3",
-      "c": [
-       49
-      ]
-     },
-     {
-      "f": "51.mp3",
-      "c": [
-       50
-      ]
-     },
-     {
-      "f": "52.mp3",
-      "c": [
-       51
-      ]
-     },
-     {
-      "f": "53.mp3",
-      "c": [
-       52
-      ]
-     },
-     {
-      "f": "54.mp3",
-      "c": [
-       53
-      ]
-     },
-     {
-      "f": "55.mp3",
-      "c": [
-       54
-      ]
-     },
-     {
-      "f": "56.mp3",
-      "c": [
-       55
-      ]
-     },
-     {
-      "f": "57.mp3",
-      "c": [
-       56
-      ]
-     },
-     {
-      "f": "58.mp3",
-      "c": [
-       57
-      ]
-     },
-     {
-      "f": "59.mp3",
-      "c": [
-       58
-      ]
-     },
-     {
-      "f": "60.mp3",
-      "c": [
-       59
-      ]
-     },
-     {
-      "f": "61.mp3",
-      "c": [
-       60
-      ]
-     },
-     {
-      "f": "62.mp3",
-      "c": [
-       61
-      ]
-     },
-     {
-      "f": "63.mp3",
-      "c": [
-       62
-      ]
-     },
-     {
-      "f": "64.mp3",
-      "c": [
-       63
-      ]
-     },
-     {
-      "f": "65.mp3",
-      "c": [
-       64
-      ]
-     },
-     {
-      "f": "66.mp3",
-      "c": [
-       65
-      ]
-     },
-     {
-      "f": "67.mp3",
-      "c": [
-       66
-      ]
-     },
-     {
-      "f": "68.mp3",
-      "c": [
-       67
-      ]
-     },
-     {
-      "f": "69.mp3",
-      "c": [
-       68
-      ]
-     },
-     {
-      "f": "70.mp3",
-      "c": [
-       69
-      ]
-     },
-     {
-      "f": "71.mp3",
-      "c": [
-       70
-      ]
-     },
-     {
-      "f": "72.mp3",
-      "c": [
-       71
-      ]
-     },
-     {
-      "f": "73.mp3",
-      "c": [
-       72
-      ]
-     },
-     {
-      "f": "74.mp3",
-      "c": [
-       73
-      ]
-     },
-     {
-      "f": "75.mp3",
-      "c": [
-       74
-      ]
-     },
-     {
-      "f": "76.mp3",
-      "c": [
-       75
-      ]
-     },
-     {
-      "f": "77.mp3",
-      "c": [
-       76,
-       77
-      ]
-     }
-    ]
-   },
+   "recitations": [],
    "documents": [
+    "ghunyah",
     "wafi",
     "siraj",
     "ibraz",
-    "irshad_murid",
+    "irshad_murid"
+   ],
+   "inline": [
     "ghunyah"
    ]
   },
@@ -500,136 +34,64 @@
    "verses": 241,
    "source_ar": "نص المتن من المكتبة الشاملة (shamela.ws)",
    "source_en": "Text from al-Maktabah al-Shamilah (shamela.ws)",
-   "audio": {
-    "reciter_ar": "مشاري بن راشد العفاسي",
-    "reciter_en": "Mishary Rashid al-Afasy",
-    "base": "https://archive.org/download/al-Dura_Afassy-mp3/",
-    "tracks": [
-     {
-      "f": "ar_01_AlDora_Mishari.mp3"
-     },
-     {
-      "f": "ar_02_AlDora_Mishari.mp3"
-     },
-     {
-      "f": "ar_03_AlDora_Mishari.mp3"
-     },
-     {
-      "f": "ar_04_AlDora_Mishari.mp3"
-     },
-     {
-      "f": "ar_05_AlDora_Mishari.mp3"
-     },
-     {
-      "f": "ar_06_AlDora_Mishari.mp3"
-     },
-     {
-      "f": "ar_07_AlDora_Mishari.mp3"
-     },
-     {
-      "f": "ar_08_AlDora_Mishari.mp3"
-     },
-     {
-      "f": "ar_09_AlDora_Mishari.mp3"
-     },
-     {
-      "f": "ar_10_AlDora_Mishari.mp3"
-     },
-     {
-      "f": "ar_11_AlDora_Mishari.mp3"
-     },
-     {
-      "f": "ar_12_AlDora_Mishari.mp3"
-     },
-     {
-      "f": "ar_13_AlDora_Mishari.mp3"
-     },
-     {
-      "f": "ar_14_AlDora_Mishari.mp3"
-     },
-     {
-      "f": "ar_15_AlDora_Mishari.mp3"
-     },
-     {
-      "f": "ar_16_AlDora_Mishari.mp3"
-     },
-     {
-      "f": "ar_17_AlDora_Mishari.mp3"
-     },
-     {
-      "f": "ar_18_AlDora_Mishari.mp3"
-     },
-     {
-      "f": "ar_19_AlDora_Mishari.mp3"
-     },
-     {
-      "f": "ar_20_AlDora_Mishari.mp3"
-     },
-     {
-      "f": "ar_21_AlDora_Mishari.mp3"
-     },
-     {
-      "f": "ar_22_AlDora_Mishari.mp3"
-     },
-     {
-      "f": "ar_23_AlDora_Mishari.mp3"
-     },
-     {
-      "f": "ar_24_AlDora_Mishari.mp3"
-     },
-     {
-      "f": "ar_25_AlDora_Mishari.mp3"
-     },
-     {
-      "f": "ar_26_AlDora_Mishari.mp3"
-     },
-     {
-      "f": "ar_27_AlDora_Mishari.mp3"
-     },
-     {
-      "f": "ar_28_AlDora_Mishari.mp3"
-     },
-     {
-      "f": "ar_29_AlDora_Mishari.mp3"
-     },
-     {
-      "f": "ar_30_AlDora_Mishari.mp3"
-     },
-     {
-      "f": "ar_31_AlDora_Mishari.mp3"
-     },
-     {
-      "f": "ar_32_AlDora_Mishari.mp3"
-     },
-     {
-      "f": "ar_33_AlDora_Mishari.mp3"
-     },
-     {
-      "f": "ar_34_AlDora_Mishari.mp3"
-     },
-     {
-      "f": "ar_35_AlDora_Mishari.mp3"
-     },
-     {
-      "f": "ar_36_AlDora_Mishari.mp3"
-     },
-     {
-      "f": "ar_37_AlDora_Mishari.mp3"
-     },
-     {
-      "f": "ar_38_AlDora_Mishari.mp3"
-     },
-     {
-      "f": "ar_39_AlDora_Mishari.mp3"
-     },
-     {
-      "f": "ar_40_AlDora_Mishari.mp3"
-     }
-    ]
-   },
+   "recitations": [
+    {
+     "id": "durrah_afasy",
+     "reciter_ar": "مشاري بن راشد العفاسي",
+     "reciter_en": "Mishary Rashid al-Afasy",
+     "base": "https://archive.org/download/al-Dura_Afassy-mp3/",
+     "tracks": [
+      "ar_01_AlDora_Mishari.mp3",
+      "ar_02_AlDora_Mishari.mp3",
+      "ar_03_AlDora_Mishari.mp3",
+      "ar_04_AlDora_Mishari.mp3",
+      "ar_05_AlDora_Mishari.mp3",
+      "ar_06_AlDora_Mishari.mp3",
+      "ar_07_AlDora_Mishari.mp3",
+      "ar_08_AlDora_Mishari.mp3",
+      "ar_09_AlDora_Mishari.mp3",
+      "ar_10_AlDora_Mishari.mp3",
+      "ar_11_AlDora_Mishari.mp3",
+      "ar_12_AlDora_Mishari.mp3",
+      "ar_13_AlDora_Mishari.mp3",
+      "ar_14_AlDora_Mishari.mp3",
+      "ar_15_AlDora_Mishari.mp3",
+      "ar_16_AlDora_Mishari.mp3",
+      "ar_17_AlDora_Mishari.mp3",
+      "ar_18_AlDora_Mishari.mp3",
+      "ar_19_AlDora_Mishari.mp3",
+      "ar_20_AlDora_Mishari.mp3",
+      "ar_21_AlDora_Mishari.mp3",
+      "ar_22_AlDora_Mishari.mp3",
+      "ar_23_AlDora_Mishari.mp3",
+      "ar_24_AlDora_Mishari.mp3",
+      "ar_25_AlDora_Mishari.mp3",
+      "ar_26_AlDora_Mishari.mp3",
+      "ar_27_AlDora_Mishari.mp3",
+      "ar_28_AlDora_Mishari.mp3",
+      "ar_29_AlDora_Mishari.mp3",
+      "ar_30_AlDora_Mishari.mp3",
+      "ar_31_AlDora_Mishari.mp3",
+      "ar_32_AlDora_Mishari.mp3",
+      "ar_33_AlDora_Mishari.mp3",
+      "ar_34_AlDora_Mishari.mp3",
+      "ar_35_AlDora_Mishari.mp3",
+      "ar_36_AlDora_Mishari.mp3",
+      "ar_37_AlDora_Mishari.mp3",
+      "ar_38_AlDora_Mishari.mp3",
+      "ar_39_AlDora_Mishari.mp3",
+      "ar_40_AlDora_Mishari.mp3"
+     ]
+    }
+   ],
    "documents": [
+    "fawaid_ayyubiyyah",
+    "three_durrah",
     "bahjah",
     "idah"
+   ],
+   "inline": [
+    "fawaid_ayyubiyyah"
    ]
   },
   {
@@ -643,267 +105,13 @@
    "verses": 1015,
    "source_ar": "نص المتن من المكتبة الشاملة (shamela.ws)",
    "source_en": "Text from al-Maktabah al-Shamilah (shamela.ws)",
-   "audio": {
-    "reciter_ar": "أيمن رشدي سويد",
-    "reciter_en": "Ayman Rushdi Suwaid",
-    "base": "https://archive.org/download/ramy_01_201609/",
-    "tracks": [
-     {
-      "f": "01%20-%20%D8%A7%D9%84%D9%85%D9%82%D8%AF%D9%85%D8%A9.mp3",
-      "t": "المقدمة"
-     },
-     {
-      "f": "02-%20%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D8%B9%D8%A7%D8%B0%D8%A9.mp3",
-      "t": "الاستعاذة"
-     },
-     {
-      "f": "03%20-%20%D8%A7%D9%84%D8%A8%D8%B3%D9%85%D9%84%D8%A9.mp3",
-      "t": "البسملة"
-     },
-     {
-      "f": "04%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A3%D9%85%20%D8%A7%D9%84%D9%82%D8%B1%D8%A2%D9%86.mp3",
-      "t": "سورة أم القرآن"
-     },
-     {
-      "f": "05%20-%20%D8%A7%D9%84%D8%A5%D8%AF%D8%BA%D8%A7%D9%85%20%D8%A7%D9%84%D9%83%D8%A8%D9%8A%D8%B1.mp3",
-      "t": "الإدغام الكبير"
-     },
-     {
-      "f": "06%20-%20%D9%87%D8%A7%D8%A1%20%D8%A7%D9%84%D9%83%D9%86%D8%A7%D9%8A%D8%A9.mp3",
-      "t": "هاء الكناية"
-     },
-     {
-      "f": "07%20-%20%D8%A7%D9%84%D9%85%D8%AF%20%D9%88%D8%A7%D9%84%D9%82%D8%B5%D8%B1.mp3",
-      "t": "المد والقصر"
-     },
-     {
-      "f": "08%20-%20%D8%A7%D9%84%D9%87%D9%85%D8%B2%D8%AA%D8%A7%D9%86%20%D9%85%D9%86%20%D9%83%D9%84%D9%85%D8%A9.mp3",
-      "t": "الهمزتان من كلمة"
-     },
-     {
-      "f": "09%20-%20%D8%A7%D9%84%D9%87%D9%85%D8%B2%D8%AA%D8%A7%D9%86%20%D9%85%D9%86%20%D9%83%D9%84%D9%85%D8%A9.mp3",
-      "t": "الهمزتان من كلمتين"
-     },
-     {
-      "f": "10%20-%20%D8%A7%D9%84%D9%87%D9%85%D8%B2%20%D8%A7%D9%84%D9%85%D9%81%D8%B1%D8%AF.mp3",
-      "t": "الهمز المفرد"
-     },
-     {
-      "f": "11%20-%20%D9%86%D9%82%D9%84%20%D8%AD%D8%B1%D9%83%D8%A9%20%D8%A7%D9%84%D9%87%D9%85%D8%B2%D8%A9%20%D8%A5%D9%84%D9%89%20%D8%A7%D9%84%D8%B3%D8%A7%D9%83%D9%86%20%D9%82%D8%A8%D9%84%D9%87%D8%A7.mp3",
-      "t": "نقل حركة الهمزة إلى الساكن قبلها"
-     },
-     {
-      "f": "12%20-%20%D8%A7%D9%84%D8%B3%D9%83%D8%AA%20%D8%B9%D9%84%D9%89%20%D8%A7%D9%84%D8%B3%D8%A7%D9%83%D9%86%20%D9%82%D8%A8%D9%84%20%D8%A7%D9%84%D9%87%D9%85%D8%B2%20%D9%88%D8%BA%D9%8A%D8%B1%D9%87.mp3",
-      "t": "السكت على الساكن قبل الهمز وغيره"
-     },
-     {
-      "f": "13%20-%20%D9%88%D9%82%D9%81%20%D8%AD%D9%85%D8%B2%D8%A9%20%D9%88%D9%87%D8%B4%D8%A7%D9%85%20%D8%B9%D9%84%D9%89%20%D8%A7%D9%84%D9%87%D9%85%D8%B2.mp3",
-      "t": "وقف حمزة وهشام على الهمز"
-     },
-     {
-      "f": "14%20-%20%D8%B0%D8%A7%D9%84%20%D8%A5%D8%B0.mp3",
-      "t": "ذال إذ"
-     },
-     {
-      "f": "15%20-%20%D8%AF%D8%A7%D9%84%20%D9%82%D8%AF.mp3",
-      "t": "دال قد"
-     },
-     {
-      "f": "17%20-%20%D9%84%D8%A7%D9%85%20%D9%87%D9%84%20%D9%88%D8%A8%D9%84.mp3",
-      "t": "لام هل وبل"
-     },
-     {
-      "f": "18%20-%20%D8%A8%D8%A7%D8%A8%20%D8%AD%D8%B1%D9%88%D9%81%20%D9%82%D8%B1%D8%A8%D8%AA%20%D9%85%D8%AE%D8%A7%D8%B1%D8%AC%D9%87%D8%A7.mp3",
-      "t": "باب حروف قربت مخارجها"
-     },
-     {
-      "f": "19%20-%20%D8%A7%D9%84%D9%86%D9%88%D9%86%20%D8%A7%D9%84%D8%B3%D8%A7%D9%83%D9%86%D8%A9%20%D9%88%D8%A7%D9%84%D8%AA%D9%86%D9%88%D9%8A%D9%86.mp3",
-      "t": "النون الساكنة والتنوين"
-     },
-     {
-      "f": "20%20-%20%D8%A7%D9%84%D9%81%D8%AA%D8%AD%20%D9%88%D8%A7%D9%84%D8%A5%D9%85%D8%A7%D9%84%D8%A9%20%D9%88%D8%A8%D9%8A%D9%86%20%D8%A7%D9%84%D9%84%D9%81%D8%B8%D9%8A%D9%86.mp3",
-      "t": "الفتح والإمالة وبين اللفظين"
-     },
-     {
-      "f": "21%20-%20%D8%A5%D9%85%D8%A7%D9%84%D8%A9%20%D9%87%D8%A7%D8%A1%20%D8%A7%D9%84%D8%AA%D8%A3%D9%86%D9%8A%D8%AB%20%D9%88%D9%85%D8%A7%20%D9%82%D8%A8%D9%84%D9%87%D8%A7%20%D9%81%D9%8A%20%D8%A7%D9%84%D9%88%D9%82%D9%81.mp3",
-      "t": "إمالة هاء التأنيث وما قبلها في الوقف"
-     },
-     {
-      "f": "22%20-%20%D8%A8%D8%A7%D8%A8%20%D9%85%D8%B0%D8%A7%D9%87%D8%A8%D9%85%20%D8%A7%D9%84%D8%B1%D8%A7%D8%A1%D8%A7%D8%AA.mp3",
-      "t": "باب مذاهبهم في الراءات"
-     },
-     {
-      "f": "23%20-%20%D8%A8%D8%A7%D8%A8%20%D8%A7%D9%84%D9%84%D8%A7%D9%85%D8%A7%D8%AA.mp3",
-      "t": "باب اللامات"
-     },
-     {
-      "f": "24%20-%20%D8%A8%D8%A7%D8%A8%20%D8%A7%D9%84%D9%88%D9%82%D9%81%20%D8%B9%D9%84%D9%89%20%D8%A3%D9%88%D8%A7%D8%AE%D8%B1%20%D8%A7%D9%84%D9%83%D9%84%D9%85.mp3",
-      "t": "باب الوقف على أواخر الكلم"
-     },
-     {
-      "f": "25%20-%20%D8%A8%D8%A7%D8%A8%20%D8%A7%D9%84%D9%88%D9%82%D9%81%20%D8%B9%D9%84%D9%89%20%D9%85%D8%B1%D8%B3%D9%88%D9%85%20%D8%A7%D9%84%D8%AE%D8%B7.mp3",
-      "t": "باب الوقف على مرسوم الخط"
-     },
-     {
-      "f": "26%20-%20%D8%A8%D8%A7%D8%A8%20%D9%8A%D8%A7%D8%A1%D8%A7%D8%AA%20%D8%A7%D9%84%D8%A5%D8%B6%D8%A7%D9%81%D8%A9.mp3",
-      "t": "باب ياءات الإضافة"
-     },
-     {
-      "f": "27%20-%20%D8%A8%D8%A7%D8%A8%20%D9%8A%D8%A7%D8%A1%D8%A7%D8%AA%20%D8%A7%D9%84%D8%B2%D9%88%D8%A7%D8%A6%D8%AF.mp3",
-      "t": "باب ياءات الزوائد"
-     },
-     {
-      "f": "28%20-%20%D8%A8%D8%A7%D8%A8%20%D8%A5%D9%81%D8%B1%D8%A7%D8%AF%20%D8%A7%D9%84%D9%82%D8%B1%D8%A7%D8%A1%D8%A7%D8%AA%20%D9%88%D8%AC%D9%85%D8%B9%D9%87%D8%A7.mp3",
-      "t": "باب إفراد القراءات وجمعها"
-     },
-     {
-      "f": "30-.mp3",
-      "t": "فرش الحروف: سورة البقرة"
-     },
-     {
-      "f": "31%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A2%D9%84%20%D8%B9%D9%85%D8%B1%D8%A7%D9%86.mp3",
-      "t": "سورة آل عمران"
-     },
-     {
-      "f": "32%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D9%86%D8%B3%D8%A7%D8%A1.mp3",
-      "t": "سورة النساء"
-     },
-     {
-      "f": "33%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D9%85%D8%A7%D8%A6%D8%AF%D8%A9.mp3",
-      "t": "سورة المائدة"
-     },
-     {
-      "f": "34%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D8%A3%D9%86%D8%B9%D8%A7%D9%85.mp3",
-      "t": "سورة الأنعام"
-     },
-     {
-      "f": "35%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D8%A3%D8%B9%D8%B1%D8%A7%D9%81.mp3",
-      "t": "سورة الأعراف"
-     },
-     {
-      "f": "36%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D8%A3%D9%86%D9%81%D8%A7%D9%84.mp3",
-      "t": "سورة الأنفال"
-     },
-     {
-      "f": "37%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D8%AA%D9%88%D8%A8%D8%A9.mp3",
-      "t": "سورة التوبة"
-     },
-     {
-      "f": "38%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D9%8A%D9%88%D9%86%D8%B3.mp3",
-      "t": "سورة يونس"
-     },
-     {
-      "f": "39%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D9%87%D9%88%D8%AF.mp3",
-      "t": "سورة هود"
-     },
-     {
-      "f": "40%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D9%8A%D9%88%D8%B3%D9%81.mp3",
-      "t": "سورة يوسف"
-     },
-     {
-      "f": "41%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D8%B1%D8%B9%D8%AF%20%D9%88%D8%A3%D8%AE%D8%AA%D9%8A%D9%87%D8%A7.mp3",
-      "t": "سورة الرعد وأختيها"
-     },
-     {
-      "f": "42%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D9%86%D8%AD%D9%84.mp3",
-      "t": "سورة النحل"
-     },
-     {
-      "f": "43%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D8%A5%D8%B3%D8%B1%D8%A7%D8%A1.mp3",
-      "t": "سورة الإسراء"
-     },
-     {
-      "f": "44%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D9%83%D9%87%D9%81.mp3",
-      "t": "سورة الكهف"
-     },
-     {
-      "f": "45%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D9%85%D8%B1%D9%8A%D9%85.mp3",
-      "t": "سورة مريم"
-     },
-     {
-      "f": "46%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%B7%D9%87.mp3",
-      "t": "سورة طه"
-     },
-     {
-      "f": "47%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D8%A3%D9%86%D8%A8%D9%8A%D8%A7%D8%A1.mp3",
-      "t": "سورة الأنبياء"
-     },
-     {
-      "f": "48%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D8%AD%D8%AC%20%D9%88%D8%A7%D9%84%D9%85%D8%A4%D9%85%D9%86%D9%88%D9%86.mp3",
-      "t": "سورة الحج والمؤمنون"
-     },
-     {
-      "f": "49%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D9%86%D9%88%D8%B1%20%D9%88%D8%A7%D9%84%D9%81%D8%B1%D9%82%D8%A7%D9%86.mp3",
-      "t": "سورة النور والفرقان"
-     },
-     {
-      "f": "50%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D8%B4%D8%B9%D8%B1%D8%A7%D8%A1%20%D9%88%D8%A3%D8%AE%D8%AA%D9%8A%D9%87%D8%A7.mp3",
-      "t": "سورة الشعراء وأختيها"
-     },
-     {
-      "f": "51%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D8%B9%D9%86%D9%83%D8%A8%D9%88%D8%AA%20%D9%88%D8%A7%D9%84%D8%B1%D9%88%D9%85.mp3",
-      "t": "سورة العنكبوت والروم"
-     },
-     {
-      "f": "52%20-%20%D9%88%D9%85%D9%86%20%D8%B3%D9%88%D8%B1%D8%A9%20%D9%84%D9%82%D9%85%D8%A7%D9%86%20%D8%A5%D9%84%D9%89%20%D8%B3%D9%88%D8%B1%D8%A9%20%D9%8A%D8%B3.mp3",
-      "t": "ومن سورة لقمان إلى سورة يس"
-     },
-     {
-      "f": "53%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D9%8A%D8%B3.mp3",
-      "t": "سورة يس"
-     },
-     {
-      "f": "54%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D9%88%D8%A7%D9%84%D8%B5%D8%A7%D9%81%D8%A7%D8%AA.mp3",
-      "t": "سورة والصافات"
-     },
-     {
-      "f": "55%20-%20%D9%88%D9%85%D9%86%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%B5%20%D8%A5%D9%84%D9%89%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D8%A3%D8%AD%D9%82%D8%A7%D9%81.mp3",
-      "t": "ومن سورة ص إلى سورة الأحقاف"
-     },
-     {
-      "f": "56%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D8%A3%D8%AD%D9%82%D8%A7%D9%81%20%D9%88%D8%A3%D8%AE%D8%AA%D9%8A%D9%87%D8%A7.mp3",
-      "t": "سورة الأحقاف وأختيها"
-     },
-     {
-      "f": "57%20-%20%D9%88%D9%85%D9%86%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D8%AD%D8%AC%D8%B1%D8%A7%D8%AA%20%D8%A5%D9%84%D9%89%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D8%B1%D8%AD%D9%85%D9%86.mp3",
-      "t": "ومن سورة الحجرات إلى سورة الرحمن"
-     },
-     {
-      "f": "58%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D8%B1%D8%AD%D9%85%D9%86.mp3",
-      "t": "سورة الرحمن"
-     },
-     {
-      "f": "59%20-%20%D9%88%D9%85%D9%86%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D9%88%D8%A7%D9%82%D8%B9%D8%A9%20%D8%A5%D9%84%D9%89%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D8%AA%D8%BA%D8%A7%D8%A8%D9%86.mp3",
-      "t": "ومن سورة الواقعة إلى سورة التغابن"
-     },
-     {
-      "f": "60%20-%20%D9%88%D9%85%D9%86%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D8%AA%D8%BA%D8%A7%D8%A8%D9%86%20%D8%A5%D9%84%D9%89%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D8%A5%D9%86%D8%B3%D8%A7%D9%86.mp3",
-      "t": "ومن سورة التغابن إلى سورة الإنسان"
-     },
-     {
-      "f": "61%20-%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D8%A5%D9%86%D8%B3%D8%A7%D9%86%20%D9%88%D8%A7%D9%84%D9%85%D8%B1%D8%B3%D9%84%D8%A7%D8%AA.mp3",
-      "t": "سورة الإنسان والمرسلات"
-     },
-     {
-      "f": "62%20-%20%D9%88%D9%85%D9%86%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D9%86%D8%A8%D8%A3%20%D8%A5%D9%84%D9%89%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D8%AA%D8%B7%D9%81%D9%8A%D9%81.mp3",
-      "t": "ومن سورة النبأ إلى سورة التطفيف"
-     },
-     {
-      "f": "63%20-%20%D9%88%D9%85%D9%86%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D8%AA%D8%B7%D9%81%D9%8A%D9%81%20%D8%A5%D9%84%D9%89%20%D8%B3%D9%88%D8%B1%D8%A9%20%D9%88%D8%A7%D9%84%D8%B4%D9%85%D8%B3.mp3",
-      "t": "ومن سورة التطفيف إلى سورة والشمس"
-     },
-     {
-      "f": "64%20-%20%D9%88%D9%85%D9%86%20%D8%B3%D9%88%D8%B1%D8%A9%20%D8%A7%D9%84%D8%B4%D9%85%D8%B3%20%D8%A5%D9%84%D9%89%20%D8%A2%D8%AE%D8%B1%20%D8%A7%D9%84%D9%82%D8%B1%D8%A2%D9%86.mp3",
-      "t": "ومن سورة الشمس إلى آخر القرآن"
-     },
-     {
-      "f": "65%20-%20%D8%A8%D8%A7%D8%A8%20%D8%A7%D9%84%D8%AA%D9%83%D8%A8%D9%8A%D8%B1.mp3",
-      "t": "باب التكبير"
-     }
-    ]
-   },
+   "recitations": [],
    "documents": [
+    "anis_ashr",
     "sharh_tayyibah"
+   ],
+   "inline": [
+    "anis_ashr"
    ]
   },
   {
@@ -917,130 +125,34 @@
    "verses": 107,
    "source_ar": "نص المتن من المكتبة الشاملة (shamela.ws)",
    "source_en": "Text from al-Maktabah al-Shamilah (shamela.ws)",
-   "audio": {
-    "reciter_ar": "أيمن رشدي سويد",
-    "reciter_en": "Ayman Rushdi Suwaid",
-    "base": "https://archive.org/download/sh-ayman-sowaid-matn-aljazareiiah/",
-    "tracks": [
-     {
-      "f": "00.mp3",
-      "t": "المتن كاملًا"
-     }
-    ]
-   },
+   "recitations": [
+    {
+     "id": "jazariyyah_suwaid",
+     "reciter_ar": "أيمن رشدي سويد",
+     "reciter_en": "Ayman Rushdi Suwaid",
+     "base": "https://archive.org/download/sh-ayman-sowaid-matn-aljazareiiah/",
+     "tracks": [
+      "00.mp3"
+     ]
+    },
+    {
+     "id": "jazariyyah_ghamidi",
+     "reciter_ar": "سعد الغامدي",
+     "reciter_en": "Sa'd al-Ghamidi",
+     "tracks": [
+      "library/audio/jazariyyah_ghamidi.mp3"
+     ]
+    }
+   ],
    "documents": [
     "jazariyyah_en",
+    "taqrib_laali",
+    "laali_naqiyyah",
     "minah"
    ],
-   "verse_document": "jazariyyah_en",
-   "verse_pages": [
-    0,
-    0,
-    0,
-    0,
-    1,
-    1,
-    1,
-    1,
-    2,
-    2,
-    2,
-    2,
-    2,
-    2,
-    3,
-    3,
-    3,
-    3,
-    3,
-    4,
-    4,
-    4,
-    4,
-    4,
-    4,
-    5,
-    5,
-    5,
-    5,
-    5,
-    6,
-    6,
-    6,
-    6,
-    6,
-    6,
-    7,
-    7,
-    7,
-    7,
-    8,
-    8,
-    8,
-    9,
-    9,
-    9,
-    9,
-    9,
-    10,
-    10,
-    10,
-    11,
-    11,
-    11,
-    11,
-    11,
-    12,
-    12,
-    12,
-    12,
-    12,
-    13,
-    13,
-    13,
-    14,
-    14,
-    14,
-    14,
-    15,
-    15,
-    15,
-    15,
-    16,
-    16,
-    16,
-    16,
-    17,
-    17,
-    17,
-    17,
-    17,
-    18,
-    18,
-    18,
-    18,
-    19,
-    19,
-    19,
-    20,
-    20,
-    20,
-    20,
-    21,
-    22,
-    22,
-    22,
-    22,
-    23,
-    23,
-    23,
-    24,
-    24,
-    24,
-    25,
-    25,
-    25,
-    25
+   "inline": [
+    "jazariyyah_en",
+    "taqrib_laali"
    ]
   },
   {
@@ -1054,76 +166,34 @@
    "verses": 61,
    "source_ar": "نص المتن من المكتبة الشاملة (shamela.ws)",
    "source_en": "Text from al-Maktabah al-Shamilah (shamela.ws)",
-   "audio": {
-    "reciter_ar": "محمد غندر المصري",
-    "reciter_en": "Muhammad Ghandar al-Misri",
-    "base": "https://archive.org/download/to7ft-ala6fal/",
-    "tracks": [
-     {
-      "f": "A-moqadema.mp3",
-      "c": [
-       0
-      ]
-     },
-     {
-      "f": "B-noonsakinatanween.mp3",
-      "c": [
-       1
-      ]
-     },
-     {
-      "f": "C-noonmeem-moshadada.mp3",
-      "c": [
-       2
-      ]
-     },
-     {
-      "f": "D-almeem-alsakina.mp3",
-      "c": [
-       3
-      ]
-     },
-     {
-      "f": "E-lam-allam-alfe3l.mp3",
-      "c": [
-       4
-      ]
-     },
-     {
-      "f": "F-almethleenalmotaqarbenalmotagansen.mp3",
-      "c": [
-       5
-      ]
-     },
-     {
-      "f": "G-aqsam-almad.mp3",
-      "c": [
-       6
-      ]
-     },
-     {
-      "f": "H-a7kam-almad.mp3",
-      "c": [
-       7
-      ]
-     },
-     {
-      "f": "I-aqsam-almad-allazm.mp3",
-      "c": [
-       8
-      ]
-     },
-     {
-      "f": "J-5atema.mp3",
-      "c": [
-       9
-      ]
-     }
-    ]
-   },
+   "recitations": [
+    {
+     "id": "tuhfah_ghandar",
+     "reciter_ar": "محمد غندر المصري",
+     "reciter_en": "Muhammad Ghandar al-Misri",
+     "base": "https://archive.org/download/to7ft-ala6fal/",
+     "tracks": [
+      "A-moqadema.mp3",
+      "B-noonsakinatanween.mp3",
+      "C-noonmeem-moshadada.mp3",
+      "D-almeem-alsakina.mp3",
+      "E-lam-allam-alfe3l.mp3",
+      "F-almethleenalmotaqarbenalmotagansen.mp3",
+      "G-aqsam-almad.mp3",
+      "H-a7kam-almad.mp3",
+      "I-aqsam-almad-allazm.mp3",
+      "J-5atema.mp3"
+     ]
+    }
+   ],
    "documents": [
+    "aysar_aqwal",
     "primer",
     "fath_aqfal"
+   ],
+   "inline": [
+    "primer",
+    "aysar_aqwal"
    ]
   }
  ],
@@ -1132,26 +202,33 @@
    "title_ar": "القراءات العشر عامة",
    "title_en": "All ten qira'at",
    "documents": [
+    "ten_authentic",
+    "mujtaba",
+    "ghunyah",
+    "anis_ashr",
+    "taysir_en",
     "idaah",
     "budur",
-    "nayl_watar",
-    "mujtaba",
-    "ghunyah"
+    "nayl_watar"
    ]
   },
   {
    "title_ar": "نافع: قالون وورش",
    "title_en": "Nafi': Qalun and Warsh",
    "documents": [
+    "qalun_en",
+    "usul_warsh_en",
+    "notes_warsh",
+    "learn_warsh",
     "qalun",
-    "warsh",
-    "usul_warsh_en"
+    "warsh"
    ]
   },
   {
    "title_ar": "ابن كثير: البزي وقنبل",
    "title_en": "Ibn Kathir: al-Bazzi and Qunbul",
    "documents": [
+    "ibn_kathir_en",
     "ibn_kathir"
    ]
   },
@@ -1159,6 +236,7 @@
    "title_ar": "أبو عمرو: الدوري والسوسي",
    "title_en": "Abu 'Amr: al-Duri and al-Susi",
    "documents": [
+    "abu_amr_en",
     "duri",
     "susi"
    ]
@@ -1167,6 +245,7 @@
    "title_ar": "ابن عامر: هشام وابن ذكوان",
    "title_en": "Ibn 'Amir: Hisham and Ibn Dhakwan",
    "documents": [
+    "ibn_amir_en",
     "ibn_amir"
    ]
   },
@@ -1175,6 +254,11 @@
    "title_en": "'Asim: Shu'bah and Hafs",
    "documents": [
     "rules_shuba_hafs",
+    "asim_en",
+    "bayan_hafs",
+    "golden_collection",
+    "hafs_misbah",
+    "nafais_bayan",
     "shubah",
     "hafs"
    ]
@@ -1183,6 +267,7 @@
    "title_ar": "حمزة: خلف وخلاد",
    "title_en": "Hamzah: Khalaf and Khallad",
    "documents": [
+    "hamzah_en",
     "hamzah"
    ]
   },
@@ -1190,13 +275,23 @@
    "title_ar": "الكسائي: أبو الحارث والدوري",
    "title_en": "Al-Kisa'i: Abu al-Harith and al-Duri",
    "documents": [
+    "kisai_en",
     "kisai"
+   ]
+  },
+  {
+   "title_ar": "القراءات الثلاث المتممة للعشر",
+   "title_en": "The three that complete the ten (Abu Ja'far, Ya'qub, Khalaf)",
+   "documents": [
+    "fawaid_ayyubiyyah",
+    "three_durrah"
    ]
   },
   {
    "title_ar": "أبو جعفر: ابن وردان وابن جماز",
    "title_en": "Abu Ja'far: Ibn Wardan and Ibn Jammaz",
    "documents": [
+    "abu_jafar_en",
     "abu_jafar"
    ]
   },
@@ -1211,6 +306,7 @@
    "title_ar": "خلف العاشر: إسحاق وإدريس",
    "title_en": "Khalaf: Ishaq and Idris",
    "documents": [
+    "khalaf_en",
     "khalaf"
    ]
   }
@@ -1525,6 +621,236 @@
    "size": 3305787,
    "pages": 221,
    "url": "https://archive.org/download/212nnnnnnnnnnmmmmmmmm201910/21-22-%20%D9%81%D8%B1%D8%AD%D8%A9%20%D8%A7%D9%84%D8%A3%D8%A8%D8%B1%D8%A7%D8%B1%20%D9%81%D9%8A%20%D9%82%D8%B1%D8%A7%D8%A1%D8%A9%20%D8%AE%D9%84%D9%81%20%D8%A7%D9%84%D8%A8%D8%B2%D8%A7%D8%B1%20%D9%85%D9%86%20%D8%B7%D8%B1%D9%8A%D9%82%D9%8A%20%D8%A7%D9%84%D8%AF%D8%B1%D8%A9%20%D9%88%D8%A7%D9%84%D8%B7%D9%8A%D8%A8%D8%A9%20%20pdf%20%20%20%20%20%D8%A7%D9%82%D8%B1%D8%A7%20%20%D8%A7%D9%88%D9%86%D9%84%D8%A7%D9%8A%D9%86%20%20%20%20%D9%83%D8%AA%D8%A7%D8%A8%20%20%20%20%20%20%20%D8%A7%D9%84%D8%B4%D9%8A%D8%AE%20%D8%AA%D9%88%D9%81%D9%8A%D9%82%20%D8%B6%D9%85%D8%B1%D8%A9%20%D8%B6%D9%85%D8%B1%D9%87%20.pdf"
+  },
+  "ten_authentic": {
+   "title_ar": "القراءات العشر المتواترة (بالإنجليزية)",
+   "title_en": "The Ten Authentic Qiraa'aat",
+   "author_ar": "فاطمة ياقوت الإبياري",
+   "author_en": "Fatma Yacout Elibyari",
+   "lang": "en",
+   "size": 16243503,
+   "pages": 320,
+   "url": "https://islammessage.org/book_file/3686.pdf"
+  },
+  "anis_ashr": {
+   "title_ar": "أنيس العشر: شرح طيبة النشر (بالإنجليزية)",
+   "title_en": "Anis al-'Ashr: a companion to the major ten qira'at, a commentary on the Tayyibah",
+   "author_ar": "محمد سليم غيبي",
+   "author_en": "M. Saleem Gaibie",
+   "lang": "en",
+   "size": 5439878,
+   "pages": 460,
+   "url": "https://assets.al-tanzil.co.za/books/anis-al-ashr/anis-al-ashr.pdf"
+  },
+  "taysir_en": {
+   "title_ar": "التيسير في القراءات السبع لأبي عمرو الداني: ترجمة إنجليزية مع تعليق لغوي",
+   "title_en": "Al-Dani's al-Taysir fi al-Qira'at al-Sab': a translation with linguistic commentary",
+   "author_ar": "مارين فان بوتن",
+   "author_en": "Marijn van Putten (Open Book Publishers, CC BY-NC 4.0)",
+   "lang": "en",
+   "size": 8871889,
+   "pages": 359,
+   "url": "https://archive.org/download/obp.0475/obp.0475.pdf"
+  },
+  "fawaid_ayyubiyyah": {
+   "title_ar": "فوائد أيوبية على الدرة المضية (بالإنجليزية)",
+   "title_en": "Fawa'id Ayyubiyyah: the Ayyubi instruction on al-Durrah al-Mudiyyah",
+   "author_ar": "محمد سليم غيبي",
+   "author_en": "M. Saleem Gaibie",
+   "lang": "en",
+   "size": 1976519,
+   "pages": 97,
+   "url": "https://assets.al-tanzil.co.za/books/fawaid-ayubiyyah/fawaid-ayubiyyah.pdf"
+  },
+  "three_durrah": {
+   "title_ar": "دراسة ميسرة للقراءات الثلاث من طريق الدرة (بالإنجليزية)",
+   "title_en": "A Simplified Study of the Three Variant Readings via the Durrah",
+   "author_ar": "محمد رياض أوباراي",
+   "author_en": "Muhammad Riyaadh Obaray",
+   "lang": "en",
+   "size": 4816751,
+   "pages": 219,
+   "url": "https://assets.al-tanzil.co.za/books/a-simplified-study-of-the-three-variant-readings-via-the-durrah/a-simplified-study-of-the-three-variant-readings-via-the-durrah.pdf"
+  },
+  "qalun_en": {
+   "title_ar": "الطريق المضمون إلى رواية قالون (بالإنجليزية)",
+   "title_en": "The Secure Way to Rewayat Qalun",
+   "author_ar": "فاطمة ياقوت الإبياري",
+   "author_en": "Fatma Yacout Elibyari",
+   "lang": "en",
+   "size": 1784422,
+   "pages": 42,
+   "url": "https://archive.org/download/UsulRewayatQalun/Usul%20Rewayat%20Qalun.pdf"
+  },
+  "notes_warsh": {
+   "title_ar": "مذكرات في رواية ورش (بالإنجليزية)",
+   "title_en": "Notes on Warsh",
+   "author_ar": "إعجاز مقدم، مجلس القضاء الإسلامي بجنوب إفريقيا",
+   "author_en": "Ijaaz Mukaddam (Muslim Judicial Council, Department of Quranic Affairs)",
+   "lang": "en",
+   "size": 1440892,
+   "pages": 76,
+   "url": "https://assets.al-tanzil.co.za/books/notes-on-warsh/notes-on-warsh.pdf"
+  },
+  "learn_warsh": {
+   "title_ar": "لنتعلم رواية ورش (بالإنجليزية)",
+   "title_en": "Let's Learn Riwayat Warsh",
+   "author_ar": "ريهام نصرت",
+   "author_en": "Dr. Reham Nasrat",
+   "lang": "en",
+   "size": 3154613,
+   "pages": 80,
+   "url": "https://archive.org/download/lets-learn-riwayat-warsh/Let%27s%20learn%20Riwayat%20Warsh.pdf"
+  },
+  "ibn_kathir_en": {
+   "title_ar": "الشرح المستنير بقراءة ابن كثير (بالإنجليزية)",
+   "title_en": "The Enlightenment with Qira-at Ibn Kathir",
+   "author_ar": "فاطمة ياقوت الإبياري",
+   "author_en": "Fatma Yacout Elibyari",
+   "lang": "en",
+   "size": 1622205,
+   "pages": 30,
+   "url": "https://archive.org/download/QiratIbnKathir/Qira%27t%20Ibn%20Kathir.pdf"
+  },
+  "abu_amr_en": {
+   "title_ar": "الشرح الوصفي لقراءة أبي عمرو البصري (بالإنجليزية)",
+   "title_en": "The Explanatory Description of Qira-at Abi 'Amr al-Basri",
+   "author_ar": "فاطمة ياقوت الإبياري",
+   "author_en": "Fatma Yacout Elibyari",
+   "lang": "en",
+   "size": 3236324,
+   "pages": 54,
+   "url": "https://archive.org/download/UsulAbuAmrUlBasri/Usul%20Abu%20%27Amr%20ulBasri.pdf"
+  },
+  "ibn_amir_en": {
+   "title_ar": "إفهام الأنام قراءة ابن عامر الشامي (بالإنجليزية)",
+   "title_en": "Qira-at Ibn 'Amir ash-Shami",
+   "author_ar": "فاطمة ياقوت الإبياري",
+   "author_en": "Fatma Yacout Elibyari",
+   "lang": "en",
+   "size": 3525057,
+   "pages": 38,
+   "url": "https://archive.org/download/IbnAamirAshShami/Ibn%20%27Aamir%20Ash-shami.pdf"
+  },
+  "asim_en": {
+   "title_ar": "البيان الواسم لروايتي شعبة وحفص عن عاصم (بالإنجليزية)",
+   "title_en": "The Clarification of Riwayati Shu'bah and Hafs 'an 'Asim",
+   "author_ar": "فاطمة ياقوت الإبياري",
+   "author_en": "Fatma Yacout Elibyari",
+   "lang": "en",
+   "size": 3204036,
+   "pages": 57,
+   "url": "https://archive.org/download/UsulAasimHafsAndShuBah/Usul%20%27Aasim%20%28Hafs%20and%20Shu%27Bah%29.pdf"
+  },
+  "bayan_hafs": {
+   "title_ar": "البيان لطرق الإمام حفص بن سليمان (بالإنجليزية)",
+   "title_en": "Al-Bayan: an explanation of the turuq of Imam Hafs ibn Sulayman",
+   "author_ar": "أبو يوسف منور هارنكر",
+   "author_en": "Abu Yusuf Munowar Harneker",
+   "lang": "en",
+   "size": 2331877,
+   "pages": 129,
+   "url": "https://assets.al-tanzil.co.za/books/al-bayaan/al-bayaan.pdf"
+  },
+  "golden_collection": {
+   "title_ar": "المجموعة الذهبية في تعليم طريقي الروضة والشاطبية (بالإنجليزية)",
+   "title_en": "Al-Majmu'ah al-Dhahabiyyah: the ways of the Rawdah and the Shatibiyyah for Hafs",
+   "author_ar": "محمد سليم غيبي",
+   "author_en": "M. Saleem Gaibie",
+   "lang": "en",
+   "size": 1359279,
+   "pages": 97,
+   "url": "https://assets.al-tanzil.co.za/books/the-golden-collection/the-golden-collection.pdf"
+  },
+  "hafs_misbah": {
+   "title_ar": "رواية حفص من طريق المصباح (بالإنجليزية)",
+   "title_en": "The Narration of Hafs via the Tariq of Misbah",
+   "author_ar": "عائشة بنت حنيف أبراهامز، مجلس القضاء الإسلامي بجنوب إفريقيا",
+   "author_en": "Ayesha bint Hanif Abrahams (Muslim Judicial Council, Department of Quranic Affairs)",
+   "lang": "en",
+   "size": 1408090,
+   "pages": 50,
+   "url": "https://assets.al-tanzil.co.za/books/hafs-via-misbah/hafs-via-misbah.pdf"
+  },
+  "nafais_bayan": {
+   "title_ar": "نفائس البيان: شرح بعض منظومات حفص بن سليمان (بالإنجليزية)",
+   "title_en": "Nafa'is al-Bayan: instruction on selected poems regarding the riwayah of Hafs",
+   "author_ar": "محمد رياض أوباراي",
+   "author_en": "Muhammad Riyaadh Obaray",
+   "lang": "en",
+   "size": 2858853,
+   "pages": 67,
+   "url": "https://assets.al-tanzil.co.za/books/nafais-al-bayan/nafais-al-bayan.pdf"
+  },
+  "hamzah_en": {
+   "title_ar": "هداية الغريب إلى قراءة حمزة بن حبيب (بالإنجليزية)",
+   "title_en": "The Stranger's Guide to the Recitation of Hamza ibn Habib",
+   "author_ar": "فاطمة ياقوت الإبياري",
+   "author_en": "Fatma Yacout Elibyari",
+   "lang": "en",
+   "size": 6939522,
+   "pages": 68,
+   "url": "https://archive.org/download/QiraatHamzaAzzayat/Qira%27at%20Hamza%20Azzayat.pdf"
+  },
+  "kisai_en": {
+   "title_ar": "جمال عين الرائي في قراءة الكسائي (بالإنجليزية)",
+   "title_en": "The Beauty in the Eyes of the Qari in Qira-at al-Kisa'i",
+   "author_ar": "فاطمة ياقوت الإبياري",
+   "author_en": "Fatma Yacout Elibyari",
+   "lang": "en",
+   "size": 3309117,
+   "pages": 31,
+   "url": "https://archive.org/download/QiraatAlkisai/Qira%27at%20Alkisa%27i.pdf"
+  },
+  "abu_jafar_en": {
+   "title_ar": "الشرح الميسر لقراءة أبي جعفر (بالإنجليزية)",
+   "title_en": "The Simplified Explanation of Qira-at Abi Ja'far",
+   "author_ar": "فاطمة ياقوت الإبياري",
+   "author_en": "Fatma Yacout Elibyari",
+   "lang": "en",
+   "size": 1595972,
+   "pages": 25,
+   "url": "https://archive.org/download/QiratAbuJafar/Qira%27t%20Abu%20Ja%27far.pdf"
+  },
+  "khalaf_en": {
+   "title_ar": "تبصرة الأبصار بقراءة خلف البزار (بالإنجليزية)",
+   "title_en": "An Insight to the Vision: Qira-at Khalaf al-Bazzar",
+   "author_ar": "فاطمة ياقوت الإبياري",
+   "author_en": "Fatma Yacout Elibyari",
+   "lang": "en",
+   "size": 2325316,
+   "pages": 17,
+   "url": "https://archive.org/download/UsulQiraatKhalaf10/Usul%20Qira%27at%20Khalaf%2010.pdf"
+  },
+  "taqrib_laali": {
+   "title_ar": "تقريب اللآلي النقية: شرح مختصر للمقدمة الجزرية (بالإنجليزية)",
+   "title_en": "Taqrib al-La'ali al-Naqiyyah: an abridged commentary on the Jazariyyah",
+   "author_ar": "محمد سليم غيبي",
+   "author_en": "Muhammad Saleem Gaibie",
+   "lang": "en",
+   "size": 3446828,
+   "pages": 157,
+   "url": "https://old.duai.org.za/downloads/books/Jazariyah%20Sharh-abridged.pdf"
+  },
+  "laali_naqiyyah": {
+   "title_ar": "اللآلي النقية شرح المقدمة الجزرية (بالإنجليزية)",
+   "title_en": "Al-La'ali al-Naqiyyah: a commentary on the Jazariyyah",
+   "author_ar": "محمد سليم غيبي",
+   "author_en": "Muhammad Saleem Gaibie",
+   "lang": "en",
+   "size": 1943126,
+   "pages": 216,
+   "url": "https://assets.al-tanzil.co.za/books/jazariyya/jazariyya.pdf"
+  },
+  "aysar_aqwal": {
+   "title_ar": "أيسر الأقوال شرح تحفة الأطفال (بالإنجليزية)",
+   "title_en": "Aysar al-Aqwal: a commentary on Tuhfat al-Atfal",
+   "author_ar": "محمد سليم غيبي",
+   "author_en": "Muhammad Saleem Gaibie",
+   "lang": "en",
+   "size": 1896603,
+   "pages": 101,
+   "url": "https://assets.al-tanzil.co.za/books/murshid-al-qari-2/murshid-al-qari-2.pdf"
   }
  }
 }

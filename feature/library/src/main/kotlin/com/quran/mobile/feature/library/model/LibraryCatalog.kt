@@ -24,6 +24,8 @@ class LibraryCatalog(
   companion object {
     private const val CATALOG = "library/catalog.json"
     private const val POEMS = "library/poems"
+    private const val TIMINGS = "library/timings"
+    private const val INLINE = "library/inline"
 
     @Volatile private var instance: LibraryCatalog? = null
 
@@ -35,6 +37,42 @@ class LibraryCatalog(
     /** the text of a poem; call off the main thread */
     fun poemText(context: Context, id: String): PoemText =
       context.applicationContext.assets.open("$POEMS/$id.json").use(::parsePoemText)
+
+    /** where a recording recites each verse; call off the main thread */
+    fun timings(context: Context, recitation: Recitation): VerseTimings =
+      context.applicationContext.assets.open("$TIMINGS/${recitation.id}.json").use(::parseTimings)
+
+    /** where a book says what of each verse of its poem; call off the main thread */
+    fun inlineIndex(context: Context, documentId: String): InlineIndex =
+      context.applicationContext.assets.open("$INLINE/$documentId.json").use(::parseInlineIndex)
+
+    fun parseTimings(stream: InputStream): VerseTimings {
+      val verses = JSONObject(stream.bufferedReader().readText()).getJSONArray("v")
+      val tracks = IntArray(verses.length()) { -1 }
+      val starts = IntArray(verses.length())
+      for (i in 0 until verses.length()) {
+        val verse = verses.optJSONArray(i) ?: continue
+        tracks[i] = verse.getInt(0)
+        starts[i] = verse.getInt(1)
+      }
+      return VerseTimings(tracks, starts)
+    }
+
+    fun parseInlineIndex(stream: InputStream): InlineIndex {
+      val root = JSONObject(stream.bufferedReader().readText())
+      fun regions(array: JSONArray) = List(array.length()) { i ->
+        array.getJSONArray(i).let { InlineIndex.Region(it.getInt(0), it.getInt(1), it.getInt(2), it.getInt(3)) }
+      }
+      val entries = root.getJSONArray("e")
+      return InlineIndex(
+        width = root.getInt("w"),
+        entries = List(entries.length()) { i ->
+          entries.getJSONArray(i).let {
+            InlineIndex.Entry(it.getInt(0), it.getInt(1), regions(it.getJSONArray(2)), regions(it.getJSONArray(3)))
+          }
+        }
+      )
+    }
 
     fun parse(stream: InputStream): LibraryCatalog {
       val root = JSONObject(stream.bufferedReader().readText())
@@ -56,17 +94,14 @@ class LibraryCatalog(
         }
       }
       val poems = root.getJSONArray("poems").objects().map { p ->
-        val audio = p.optJSONObject("audio")?.let { a ->
-          val base = a.getString("base")
-          PoemAudio(
-            reciterArabic = a.getString("reciter_ar"),
-            reciterEnglish = a.getString("reciter_en"),
-            tracks = a.getJSONArray("tracks").objects().map { t ->
-              AudioTrack(
-                url = base + t.getString("f"),
-                title = t.optString("t").takeIf { it.isNotEmpty() },
-                chapters = t.optJSONArray("c")?.ints().orEmpty()
-              )
+        val recitations = p.optJSONArray("recitations")?.objects().orEmpty().map { r ->
+          val base = r.optString("base")
+          Recitation(
+            id = r.getString("id"),
+            reciterArabic = r.getString("reciter_ar"),
+            reciterEnglish = r.getString("reciter_en"),
+            tracks = r.getJSONArray("tracks").strings().map { name ->
+              if (base.isEmpty()) AudioTrack(url = null, asset = name) else AudioTrack(url = base + name, asset = null)
             }
           )
         }
@@ -81,10 +116,9 @@ class LibraryCatalog(
           verseCount = p.getInt("verses"),
           sourceArabic = p.optString("source_ar"),
           sourceEnglish = p.optString("source_en"),
-          audio = audio,
+          recitations = recitations,
           documents = p.optJSONArray("documents")?.strings().orEmpty(),
-          verseDocument = p.optString("verse_document").takeIf { it.isNotEmpty() },
-          versePages = p.optJSONArray("verse_pages")?.ints().orEmpty()
+          inlineDocuments = p.optJSONArray("inline")?.strings().orEmpty()
         )
       }
       val usool = root.getJSONArray("usool").objects().map { g ->
@@ -107,6 +141,5 @@ class LibraryCatalog(
 
     private fun JSONArray.objects() = List(length()) { getJSONObject(it) }
     private fun JSONArray.strings() = List(length()) { getString(it) }
-    private fun JSONArray.ints() = List(length()) { getInt(it) }
   }
 }

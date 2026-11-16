@@ -11,9 +11,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.quran.mobile.feature.library.R
 import com.quran.mobile.feature.library.data.DocumentState
 import com.quran.mobile.feature.library.model.Document
 import com.quran.mobile.feature.library.model.LibraryCatalog
@@ -32,14 +30,6 @@ fun UsoolList(
 ) {
   val arabic = isArabicLocale()
   LazyColumn(modifier = modifier.fillMaxSize(), contentPadding = contentPadding) {
-    item(key = "intro") {
-      Text(
-        stringResource(R.string.library_usool_intro),
-        style = MaterialTheme.typography.bodyMedium,
-        color = MaterialTheme.colorScheme.onSurfaceVariant,
-        modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)
-      )
-    }
     catalog.usool.forEachIndexed { index, group ->
       item(key = "group$index") {
         Text(

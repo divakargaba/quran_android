@@ -2,8 +2,6 @@
 <resources>
   <string name="library_poems">المتون</string>
   <string name="library_usool">الأصول</string>
-  <string name="library_poems_intro">متون القراءات والتجويد: نص كل متن، وتلاوته، وترجماته وشروحه.</string>
-  <string name="library_usool_intro">كتب في أصول القراءات العشر: ما يجمعها، ثم أصول كل قراءة. يُحمَّل الكتاب مرة واحدة من موضع نشره ثم يُقرأ هنا.</string>
   <plurals name="library_verses">
     <item quantity="zero">%1$d بيت</item>
     <item quantity="one">بيت واحد</item>
@@ -24,17 +22,26 @@
   <string name="library_chapters">الأبواب</string>
   <string name="library_documents">الترجمات والشروح</string>
   <string name="library_no_documents">لم تُدرج بعدُ ترجمة أو شرح لهذا المتن.</string>
-  <string name="library_verse_hint">اضغط على بيت لقراءة ترجمته وشرحه بالإنجليزية.</string>
   <string name="library_play">تشغيل</string>
   <string name="library_pause">إيقاف مؤقت</string>
   <string name="library_play_chapter">تلاوة هذا الباب</string>
-  <string name="library_previous_track">السابق</string>
-  <string name="library_next_track">التالي</string>
-  <string name="library_recitation_of">التلاوة: %1$s</string>
-  <string name="library_track">المقطع %1$d من %2$d</string>
   <string name="library_audio_failed">تعذر تشغيل التلاوة. تحقق من الاتصال.</string>
   <string name="library_page_of">%1$d / %2$d</string>
   <string name="library_zoom_in">تكبير</string>
   <string name="library_zoom_out">تصغير</string>
   <string name="library_document_failed">تعذر فتح هذا الكتاب.</string>
+  <string name="library_inline">تُعرض تحت الأبيات</string>
+  <string name="library_books">الكتب</string>
+  <string name="library_verses_range">الأبيات %1$d–%2$d</string>
+  <string name="library_verse_number">البيت %1$d</string>
+  <string name="library_previous_verse">البيت السابق</string>
+  <string name="library_next_verse">البيت التالي</string>
+  <string name="library_stop">إيقاف</string>
+  <string name="library_choose_reciter">اختيار القارئ</string>
+  <string name="library_reciters">القرّاء</string>
+  <string name="library_close">إغلاق</string>
+  <string name="library_explanation">الشرح</string>
+  <string name="library_inline_hint">يُعرض تحت كل بيت بعد تحميل الكتاب.</string>
+  <string name="library_downloading">جارٍ التحميل…</string>
+  <string name="library_inline_prompt">عرض ترجمة أو شرح تحت الأبيات</string>
 </resources>

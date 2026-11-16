@@ -2,6 +2,7 @@ package com.quran.mobile.feature.library.ui
 
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.Matrix
 import android.graphics.pdf.PdfRenderer
 import android.os.ParcelFileDescriptor
 import androidx.compose.foundation.Image
@@ -64,6 +65,29 @@ class PdfPages(file: File) : Closeable {
       }
     }
   }
+
+  /**
+   * a part of a page (from 0), [left] to [right] and [top] to [bottom] in points of the page,
+   * drawn [width] pixels wide, on white
+   */
+  suspend fun renderRegion(index: Int, left: Int, top: Int, right: Int, bottom: Int, width: Int): Bitmap? =
+    withContext(Dispatchers.IO) {
+      mutex.withLock {
+        if (closed || index !in 0 until count || right <= left || bottom <= top || width <= 0) return@withLock null
+        renderer.openPage(index).use { page ->
+          val scale = width.toFloat() / (right - left)
+          val height = ((bottom - top) * scale).roundToInt().coerceAtLeast(1)
+          val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+          bitmap.eraseColor(Color.WHITE)
+          val matrix = Matrix().apply {
+            setScale(scale, scale)
+            postTranslate(-left * scale, -top * scale)
+          }
+          page.render(bitmap, null, matrix, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
+          bitmap
+        }
+      }
+    }
 
   override fun close() {
     // (after the page being drawn, if any)

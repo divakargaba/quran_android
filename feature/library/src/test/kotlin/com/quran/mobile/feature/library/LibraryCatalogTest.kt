@@ -39,17 +39,58 @@ class LibraryCatalogTest {
   }
 
   @Test
-  fun tracksOfChaptersAreChaptersOfThePoem() {
+  fun recordingsReciteTheVersesInOrder() {
     catalog.poems.forEach { poem ->
-      val chapters = LibraryCatalog.poemText(context, poem.id).chapters.size
-      val audio = poem.audio ?: return@forEach
-      assertThat(audio.tracks).isNotEmpty()
-      val mapped = audio.tracks.flatMap { it.chapters }
-      mapped.forEach { assertThat(it).isIn(0 until chapters) }
-      assertThat(mapped).containsNoDuplicates()
-      // a recording matched to the chapters has a track for each
-      if (mapped.isNotEmpty()) assertThat(mapped).hasSize(chapters)
-      audio.tracks.forEach { assertThat(it.url).startsWith("https://") }
+      assertThat(poem.recitations).isNotEmpty()
+      poem.recitations.forEach { recitation ->
+        assertThat(recitation.tracks).isNotEmpty()
+        recitation.tracks.forEach { track ->
+          val asset = track.asset
+          if (asset != null) context.assets.open(asset).close() else assertThat(track.url).startsWith("https://")
+        }
+        val timings = LibraryCatalog.timings(context, recitation)
+        assertThat(timings.verseCount).isEqualTo(poem.verseCount)
+        // most verses are in the recording, each after the one before it
+        val timed = (1..poem.verseCount).filter(timings::has)
+        assertThat(timed.size).isAtLeast(poem.verseCount * 3 / 4)
+        timed.zipWithNext().forEach { (a, b) ->
+          val trackA = timings.trackOf(a)
+          val trackB = timings.trackOf(b)
+          assertThat(trackB).isAtLeast(trackA)
+          if (trackA == trackB) assertThat(timings.startOf(b)).isGreaterThan(timings.startOf(a))
+        }
+        timed.forEach { verse ->
+          assertThat(timings.trackOf(verse)).isIn(recitation.tracks.indices)
+          assertThat(timings.verseAt(timings.trackOf(verse), timings.startOf(verse))).isEqualTo(verse)
+        }
+      }
+    }
+  }
+
+  @Test
+  fun whatIsShownUnderTheVersesIsOfVersesOfThePoem() {
+    catalog.poems.forEach { poem ->
+      assertThat(poem.inlineDocuments).isNotEmpty()
+      poem.inlineDocuments.forEach { id ->
+        val document = catalog.document(id)!!
+        assertThat(poem.documents).contains(id)
+        val index = LibraryCatalog.inlineIndex(context, id)
+        assertThat(index.width).isGreaterThan(100)
+        assertThat(index.entries).isNotEmpty()
+        var last = 0
+        index.entries.forEach { entry ->
+          assertThat(entry.first).isGreaterThan(last)
+          assertThat(entry.last).isAtLeast(entry.first)
+          assertThat(entry.last).isAtMost(poem.verseCount)
+          assertThat(entry.translation + entry.explanation).isNotEmpty()
+          (entry.translation + entry.explanation).forEach { region ->
+            assertThat(region.page).isIn(0 until document.pages)
+            assertThat(region.bottom).isGreaterThan(region.top)
+            assertThat(region.left).isAtLeast(0)
+          }
+          last = entry.last
+        }
+      }
     }
   }
 
@@ -68,14 +109,5 @@ class LibraryCatalogTest {
         assertThat(document.url).startsWith("https://")
       }
     }
-  }
-
-  @Test
-  fun versesOfTheJazariyyahOpenInItsTranslation() {
-    val poem = catalog.poem("jazariyyah")!!
-    val document = catalog.document(poem.verseDocument!!)!!
-    assertThat(poem.versePages).hasSize(poem.verseCount)
-    assertThat(poem.versePages).isInOrder()
-    poem.versePages.forEach { assertThat(it).isIn(0 until document.pages) }
   }
 }
