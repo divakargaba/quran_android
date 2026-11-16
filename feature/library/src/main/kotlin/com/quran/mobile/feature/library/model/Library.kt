@@ -62,7 +62,9 @@ class VerseTimings(private val tracks: IntArray, private val starts: IntArray) {
   fun verseAt(track: Int, positionMs: Int): Int? {
     var found: Int? = null
     for (verse in 1..tracks.size) {
-      if (tracks[verse - 1] != track) {
+      val its = tracks[verse - 1]
+      if (its < 0) continue // (not in the recording)
+      if (its != track) {
         if (found != null) break else continue
       }
       if (starts[verse - 1] <= positionMs) found = verse else break
