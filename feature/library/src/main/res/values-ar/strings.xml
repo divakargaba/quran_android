@@ -44,4 +44,8 @@
   <string name="library_inline_hint">يُعرض تحت كل بيت بعد تحميل الكتاب.</string>
   <string name="library_downloading">جارٍ التحميل…</string>
   <string name="library_inline_prompt">عرض ترجمة أو شرح تحت الأبيات</string>
+  <string name="library_offline_download">تحميل للاستماع دون اتصال (%1$s)</string>
+  <string name="library_offline_here">محفوظ على الجهاز (%1$s)</string>
+  <string name="library_offline_bundled">ضمن التطبيق</string>
+  <string name="library_offline_delete">حذف من الجهاز</string>
 </resources>

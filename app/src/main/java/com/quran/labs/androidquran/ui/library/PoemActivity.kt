@@ -28,7 +28,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -61,6 +60,8 @@ import com.quran.mobile.feature.library.R
 import com.quran.mobile.feature.library.audio.PoemPlayer
 import com.quran.mobile.feature.library.data.DocumentRepository
 import com.quran.mobile.feature.library.data.DocumentState
+import com.quran.mobile.feature.library.data.RecitationRepository
+import com.quran.mobile.feature.library.data.RecitationState
 import com.quran.mobile.feature.library.model.LibraryCatalog
 import com.quran.mobile.feature.library.model.PoemText
 import com.quran.mobile.feature.library.model.Recitation
@@ -68,6 +69,7 @@ import com.quran.mobile.feature.library.ui.DocumentRow
 import com.quran.mobile.feature.library.ui.InlineBook
 import com.quran.mobile.feature.library.ui.PdfPages
 import com.quran.mobile.feature.library.ui.PoemPlayerBar
+import com.quran.mobile.feature.library.ui.ReciterRow
 import com.quran.mobile.feature.library.ui.PoemRow
 import com.quran.mobile.feature.library.ui.PoemVerses
 import com.quran.mobile.feature.library.ui.rowOfChapter
@@ -100,7 +102,8 @@ class PoemActivity : AppCompatActivity() {
     val preferences = getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE)
     val arabicFont = FontFamily(TypefaceManager.getTafseerTypeface(this))
     val arabic = resources.configuration.locales.get(0)?.language == "ar"
-    val poemPlayer = PoemPlayer(this).also { player = it }
+    val recordings = RecitationRepository.get(this)
+    val poemPlayer = PoemPlayer(this, recordings::file).also { player = it }
     val documents = catalog.documentsOf(poem.documents)
     val recitationKey = KEY_RECITATION + poem.id
     val inlineKey = KEY_INLINE + poem.id
@@ -159,6 +162,7 @@ class PoemActivity : AppCompatActivity() {
             val listState = rememberLazyListState()
             val scope = rememberCoroutineScope()
             val playerState by poemPlayer.state.collectAsState()
+            val recordingStates by recordings.states.collectAsState()
             var showChapters by remember { mutableStateOf(false) }
             var showDocuments by remember { mutableStateOf(false) }
             var showReciters by remember { mutableStateOf(false) }
@@ -216,7 +220,7 @@ class PoemActivity : AppCompatActivity() {
                 recitation?.let { chosen ->
                   PoemPlayerBar(
                     recitation = chosen,
-                    canChooseReciter = poem.recitations.size > 1,
+                    canChooseReciter = true,
                     state = playerState,
                     onChooseReciter = { showReciters = true },
                     onToggle = {
@@ -315,21 +319,25 @@ class PoemActivity : AppCompatActivity() {
                 text = {
                   LazyColumn(Modifier.fillMaxWidth().heightIn(max = 460.dp)) {
                     items(poem.recitations) { item ->
-                      Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier
-                          .fillMaxWidth()
-                          .clickable {
-                            showReciters = false
-                            if (item.id != recitation?.id) {
-                              preferences.edit().putString(recitationKey, item.id).apply()
-                              recitation = item
-                            }
+                      ReciterRow(
+                        recitation = item,
+                        selected = item.id == recitation?.id,
+                        state = recordingStates[item.id] ?: RecitationState.NotDownloaded,
+                        onSelect = {
+                          showReciters = false
+                          if (item.id != recitation?.id) {
+                            preferences.edit().putString(recitationKey, item.id).apply()
+                            recitation = item
                           }
-                      ) {
-                        RadioButton(selected = item.id == recitation?.id, onClick = null)
-                        Text(item.reciter(arabic), modifier = Modifier.padding(start = 12.dp, top = 12.dp, bottom = 12.dp))
-                      }
+                        },
+                        onDownload = { recordings.download(item) },
+                        onCancel = { recordings.cancel(item) },
+                        onDelete = {
+                          // (not from under the player)
+                          if (item.id == recitation?.id) poemPlayer.stop()
+                          recordings.delete(item)
+                        }
+                      )
                     }
                   }
                 }

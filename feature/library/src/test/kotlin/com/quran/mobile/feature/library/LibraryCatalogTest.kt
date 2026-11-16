@@ -3,6 +3,8 @@ package com.quran.mobile.feature.library
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import com.google.common.truth.Truth.assertThat
+import com.quran.mobile.feature.library.data.RecitationRepository
+import com.quran.mobile.feature.library.data.RecitationState
 import com.quran.mobile.feature.library.model.LibraryCatalog
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -65,6 +67,37 @@ class LibraryCatalogTest {
         }
       }
     }
+  }
+
+  @Test
+  fun recordingsCanBeKeptOnTheDevice() {
+    val repository = RecitationRepository.get(context)
+    catalog.poems.flatMap { it.recitations }.forEach { recitation ->
+      if (recitation.isBundled) {
+        assertThat(repository.states.value[recitation.id]).isEqualTo(RecitationState.Downloaded)
+      } else {
+        assertThat(recitation.canDownload).isTrue()
+        assertThat(repository.states.value[recitation.id]).isEqualTo(RecitationState.NotDownloaded)
+        recitation.tracks.forEachIndexed { index, track ->
+          assertThat(track.offlineUrl).startsWith("https://")
+          assertThat(track.offlineUrl).endsWith("/${recitation.id}/${LibraryCatalog.offlineName(index)}")
+          assertThat(track.offlineBytes).isGreaterThan(1000)
+          assertThat(repository.file(recitation, index)).isNull()
+        }
+        // far smaller than what is streamed: under 12 MB an hour of it
+        assertThat(recitation.offlineBytes).isLessThan(45_000_000)
+      }
+    }
+    // a track is here once its copy is whole
+    val recitation = catalog.poem("tuhfah")!!.recitations.first { !it.isBundled }
+    val file = java.io.File(context.filesDir, "library/audio/${recitation.id}/${LibraryCatalog.offlineName(0)}")
+    file.parentFile!!.mkdirs()
+    file.writeBytes(ByteArray(100))
+    assertThat(repository.file(recitation, 0)).isNull()
+    file.writeBytes(ByteArray(recitation.tracks[0].offlineBytes.toInt()))
+    assertThat(repository.file(recitation, 0)).isEqualTo(file)
+    repository.delete(recitation)
+    assertThat(file.exists()).isFalse()
   }
 
   @Test

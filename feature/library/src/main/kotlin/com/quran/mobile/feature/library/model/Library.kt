@@ -34,10 +34,25 @@ data class Recitation(
   val tracks: List<AudioTrack>
 ) {
   fun reciter(arabic: Boolean) = if (arabic) reciterArabic else reciterEnglish
+
+  /** whether it is in the app itself */
+  val isBundled: Boolean get() = tracks.all { it.asset != null }
+
+  /** whether it can be downloaded to be played without a connection, and how much that is */
+  val canDownload: Boolean get() = tracks.isNotEmpty() && tracks.all { it.offlineUrl != null }
+  val offlineBytes: Long get() = tracks.sumOf { it.offlineBytes }
 }
 
-/** a track is streamed from where it is published ([url]) or is bundled with the app ([asset]) */
-data class AudioTrack(val url: String?, val asset: String?)
+/**
+ * A track is streamed from where it is published ([url]) or is bundled with the app ([asset]).
+ * One that is streamed has a compact copy ([offlineUrl], of [offlineBytes]) to keep on the device.
+ */
+data class AudioTrack(
+  val url: String?,
+  val asset: String?,
+  val offlineUrl: String? = null,
+  val offlineBytes: Long = 0
+)
 
 /**
  * Where each verse of a poem (numbered from 1) is recited in a recording: its track, and the

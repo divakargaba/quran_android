@@ -13,13 +13,18 @@ import com.quran.mobile.feature.library.model.VerseTimings
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import java.io.File
 
 /**
- * Plays a recording of a poem (its tracks one after the other, streamed from where they are
- * published or read from the app), from any verse, and tells which verse is being recited. Used
- * from the main thread, while the poem is open.
+ * Plays a recording of a poem (its tracks one after the other: read from the device when they are
+ * kept there or are in the app, streamed from where they are published otherwise), from any
+ * verse, and tells which verse is being recited. Used from the main thread, while the poem is open.
  */
-class PoemPlayer(context: Context) {
+class PoemPlayer(
+  context: Context,
+  /** the copy of a recording's track kept on the device, if there is one: played rather than streamed */
+  private val localFile: (Recitation, Int) -> File? = { _, _ -> null }
+) {
 
   data class State(
     /** the verse being recited (from 1), if one is */
@@ -140,8 +145,10 @@ class PoemPlayer(context: Context) {
 
   fun release() = stop()
 
-  private fun open(track: Int, verse: Int?) {
-    val source = recitation?.tracks?.getOrNull(track) ?: return
+  private fun open(track: Int, verse: Int?, streamed: Boolean = false) {
+    val recitation = recitation ?: return
+    val source = recitation.tracks.getOrNull(track) ?: return
+    val local = if (streamed) null else localFile(recitation, track)
     stopPlayer()
     _state.value = State(verse = verse, track = track, isPreparing = true)
     val next = MediaPlayer()
@@ -161,25 +168,35 @@ class PoemPlayer(context: Context) {
       next.setOnSeekCompleteListener { if (player === it) sought = null }
       next.setOnCompletionListener {
         if (player !== it) return@setOnCompletionListener
-        if (track + 1 < (recitation?.tracks?.size ?: 0)) open(track + 1, null) else stop()
+        if (track + 1 < recitation.tracks.size) open(track + 1, null) else stop()
       }
       next.setOnErrorListener { failed, _, _ ->
         if (player === failed) {
           stopPlayer()
-          _state.value = State(verse = verse, track = track, failed = true)
+          if (local != null && source.url != null) {
+            // (the copy kept here cannot be played: the track is streamed)
+            open(track, verse, streamed = true)
+          } else {
+            _state.value = State(verse = verse, track = track, failed = true)
+          }
         }
         true
       }
       val asset = source.asset
-      if (asset != null) {
-        context.assets.openFd(asset).use { next.setDataSource(it.fileDescriptor, it.startOffset, it.length) }
-      } else {
-        next.setDataSource(source.url)
+      when {
+        local != null -> next.setDataSource(local.path)
+        asset != null ->
+          context.assets.openFd(asset).use { next.setDataSource(it.fileDescriptor, it.startOffset, it.length) }
+        else -> next.setDataSource(source.url)
       }
       next.prepareAsync()
     } catch (e: Exception) {
       stopPlayer()
-      _state.value = State(verse = verse, track = track, failed = true)
+      if (local != null && source.url != null) {
+        open(track, verse, streamed = true)
+      } else {
+        _state.value = State(verse = verse, track = track, failed = true)
+      }
     }
   }
 

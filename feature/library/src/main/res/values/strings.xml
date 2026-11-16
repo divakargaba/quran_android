@@ -40,4 +40,8 @@
   <string name="library_inline_hint">Shown under each verse once the book is downloaded.</string>
   <string name="library_downloading">Downloading…</string>
   <string name="library_inline_prompt">Show a translation under the verses</string>
+  <string name="library_offline_download">Download to play offline (%1$s)</string>
+  <string name="library_offline_here">On this device (%1$s)</string>
+  <string name="library_offline_bundled">In the app</string>
+  <string name="library_offline_delete">Remove from this device</string>
 </resources>

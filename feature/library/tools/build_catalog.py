@@ -220,6 +220,8 @@ def q(name): return urllib.parse.quote(name)
 
 # recordings whose files are many or oddly named: {id: {base, tracks}}
 RECORDINGS = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'recordings.json')))
+OFFLINE_BASE = 'https://raw.githubusercontent.com/divakargaba/quran_android/poem-audio/'
+OFFLINE = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'offline.json')))  # {id: [bytes of each track]}
 def recording(rid, reciter): return dict(id=rid, reciter_ar=reciter[0], reciter_en=reciter[1], **RECORDINGS[rid])
 
 POEMS = [
@@ -273,6 +275,12 @@ if __name__ == '__main__':
         listed = [r for r in poem['recitations'] if os.path.exists(os.path.join(timings, r['id'] + '.json'))]
         if len(listed) < len(poem['recitations']): print('without times yet:', [r['id'] for r in poem['recitations'] if r not in listed])
         poem['recitations'] = listed
+        # the compact copies of its tracks, to keep on the device (tools/encode_offline.py: they are
+        # on the repository's branch poem-audio), with their sizes
+        for r in listed:
+            if r.get('base') and r['id'] in OFFLINE:
+                assert len(OFFLINE[r['id']]) == len(r['tracks']), r['id']
+                r['offline'] = dict(base=OFFLINE_BASE + r['id'] + '/', sizes=OFFLINE[r['id']])
     used = {d for p in POEMS for d in p['documents']} | {d for g in USOOL for d in g[2]}
     assert used == set(DOCUMENTS), (used ^ set(DOCUMENTS))
     catalog = dict(poems=POEMS, usool=[dict(title_ar=a, title_en=e, documents=d) for a, e, d in USOOL], documents=DOCUMENTS)

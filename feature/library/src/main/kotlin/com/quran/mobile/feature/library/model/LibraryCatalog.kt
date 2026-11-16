@@ -38,6 +38,9 @@ class LibraryCatalog(
     fun poemText(context: Context, id: String): PoemText =
       context.applicationContext.assets.open("$POEMS/$id.json").use(::parsePoemText)
 
+    /** the name of the compact copy of a recording's track (from 0) */
+    fun offlineName(track: Int): String = String.format(java.util.Locale.US, "%03d.ogg", track)
+
     /** where a recording recites each verse; call off the main thread */
     fun timings(context: Context, recitation: Recitation): VerseTimings =
       context.applicationContext.assets.open("$TIMINGS/${recitation.id}.json").use(::parseTimings)
@@ -96,12 +99,24 @@ class LibraryCatalog(
       val poems = root.getJSONArray("poems").objects().map { p ->
         val recitations = p.optJSONArray("recitations")?.objects().orEmpty().map { r ->
           val base = r.optString("base")
+          val offline = r.optJSONObject("offline")
+          val offlineBase = offline?.optString("base").orEmpty()
+          val offlineSizes = offline?.optJSONArray("sizes")
           Recitation(
             id = r.getString("id"),
             reciterArabic = r.getString("reciter_ar"),
             reciterEnglish = r.getString("reciter_en"),
-            tracks = r.getJSONArray("tracks").strings().map { name ->
-              if (base.isEmpty()) AudioTrack(url = null, asset = name) else AudioTrack(url = base + name, asset = null)
+            tracks = r.getJSONArray("tracks").strings().mapIndexed { index, name ->
+              if (base.isEmpty()) {
+                AudioTrack(url = null, asset = name)
+              } else {
+                AudioTrack(
+                  url = base + name,
+                  asset = null,
+                  offlineUrl = offlineBase.takeIf { it.isNotEmpty() }?.let { it + offlineName(index) },
+                  offlineBytes = offlineSizes?.optLong(index) ?: 0
+                )
+              }
             }
           )
         }
