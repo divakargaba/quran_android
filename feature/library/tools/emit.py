@@ -7,7 +7,8 @@ model = bundle.get_model(with_star=False).eval()
 if os.environ.get('QUANT'):
     # (several times faster, and near enough the same for aligning)
     model = torch.ao.quantization.quantize_dynamic(model, {torch.nn.Linear}, dtype=torch.qint8)
-SR = 16000; CHUNK = 30 * SR; CONTEXT = 2 * SR; STRIDE = 320
+# (in long pieces the model stops recognising part of the way through)
+SR = 16000; CHUNK = 15 * SR; CONTEXT = 2 * SR; STRIDE = 320
 
 def audio(path):
     raw = subprocess.run(['ffmpeg', '-v', 'error', '-i', path, '-ac', '1', '-ar', str(SR), '-f', 's16le', '-'],

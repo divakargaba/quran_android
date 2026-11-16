@@ -5,7 +5,7 @@ Where each verse of a poem is recited in a recording. The tracks' letters are re
 track, the verses being in order across the tracks); then the verses of each track are aligned to
 its sound (align.py). Every verse's alignment is checked against what is recognised in its span.
 Writes {"v": [[track, start ms] or null for each verse]} and prints what is doubtful."""
-import sys, json, numpy as np
+import sys, json, subprocess, numpy as np
 sys.path.insert(0, __import__('os').path.dirname(__import__('os').path.abspath(__file__)))
 import align
 from rapidfuzz import fuzz
@@ -14,6 +14,15 @@ LETTERS = align.LABELS
 ABSENT = 50.0  # a verse found nowhere this well is not in the recording
 HEARD = 45     # a verse is where it is aligned if what is recognised there is this like it (of 100)
 LEAD = 0.30    # a verse is played from this long before its first letter (s), or from the middle of the pause before it
+
+def voiced(emission_file):
+    """for each frame of a track, whether there is sound in it (against the loud of the track)"""
+    raw = subprocess.run(['ffmpeg', '-v', 'error', '-i', emission_file[:-len('.emit.npy')], '-ac', '1', '-ar', '16000', '-f', 's16le', '-'],
+                         capture_output=True, check=True).stdout
+    wave = np.frombuffer(raw, dtype=np.int16).astype(np.float32)
+    n = len(wave) // 320
+    rms = np.sqrt((wave[:n * 320].reshape(n, 320) ** 2).mean(axis=1))
+    return rms > 0.08 * np.percentile(rms, 90)
 
 def greedy(e):
     ids = e.argmax(1)
@@ -82,13 +91,20 @@ def build(poem, emission_files):
         spans = align.align(e, [verses[v] for v in mine], False)
         decoded, frames = decodes[k]
         previous_end = 0.0
+        usual = np.median([b - a for a, b, _ in spans if a is not None])
+        sound = None
         for v, (start, end, score) in zip(mine, spans):
             if start is None: report.append((v + 1, k, 'not aligned')); continue
             a, b = np.searchsorted(frames, start * align.FPS - 2), np.searchsorted(frames, end * align.FPS + 2)
             ratio = fuzz.ratio(texts[v], decoded[a:b])
             if ratio < HEARD:
-                # what is heard there is not the verse: the recording has not got it (a cut, a silence)
-                report.append((v + 1, k, 'not heard', round(start, 2), round(end, 2), round(ratio))); continue
+                # the verse is not recognised where it is aligned: it is there all the same if it is
+                # as long there as the others and is sound (the recognition is weak in places);
+                # otherwise the recording has not got it (a cut, a silence)
+                if sound is None: sound = voiced(emission_files[k])
+                there = sound[int(start * align.FPS):int(end * align.FPS)]
+                if not (0.6 * usual <= end - start <= 1.7 * usual and len(there) and there.mean() >= 0.6):
+                    report.append((v + 1, k, 'not heard', round(start, 2), round(end, 2), round(ratio))); continue
             play = max((previous_end + start) / 2, start - LEAD)
             result[v] = [k, int(round(play * 1000))]
             report.append((v + 1, k, round(start, 2), round(end, 2), round(ratio), round(score, 2)))
