@@ -111,6 +111,9 @@ class QuranDataActivity : AppCompatActivity(), SimpleDownloadListener, OnRequest
     val quranApp = application as QuranApplication
     quranApp.applicationComponent.inject(this)
     quranSettings = QuranSettings.getInstance(this)
+    if (quranSettings.isFreshInstall) {
+      AnnouncementActivity.markSeen(quranSettings)
+    }
     quranSettings.upgradePreferences(preferencesUpgrade)
   }
 
@@ -622,7 +625,7 @@ class QuranDataActivity : AppCompatActivity(), SimpleDownloadListener, OnRequest
       } else {
         val isNormalLaunch = intent?.action == null || intent?.action == Intent.ACTION_MAIN
         val destination = targetIntent()
-        val nextIntent = if (isNormalLaunch && AnnouncementActivity.shouldShow(quranSettings)) {
+        val nextIntent = if (SHOW_ANNOUNCEMENTS && isNormalLaunch && AnnouncementActivity.shouldShow(quranSettings)) {
           AnnouncementActivity.createIntent(this, destination)
         } else {
           destination
@@ -683,6 +686,9 @@ class QuranDataActivity : AppCompatActivity(), SimpleDownloadListener, OnRequest
     const val ACTION_OPEN_PAGE = "com.quran.labs.androidquran.open_page"
     const val PAGES_DOWNLOAD_KEY = "PAGES_DOWNLOAD_KEY"
     private const val REQUEST_POST_NOTIFICATION_PERMISSIONS = 1
+
+    /** the announcements are of Quran for Android's own news (its new icon), not this app's */
+    private const val SHOW_ANNOUNCEMENTS = false
 
     fun openPageIntent(
       context: Context,

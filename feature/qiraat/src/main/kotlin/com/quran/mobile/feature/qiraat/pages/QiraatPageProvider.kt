@@ -2,6 +2,7 @@ package com.quran.mobile.feature.qiraat.pages
 
 import com.quran.data.model.audio.Qari
 import com.quran.data.source.DisplaySize
+import com.quran.data.source.MushafType
 import com.quran.data.source.PageProvider
 import com.quran.data.source.PageSizeCalculator
 import com.quran.labs.androidquran.pages.common.madani.size.DefaultPageSizeCalculator
@@ -34,6 +35,9 @@ class QiraatPageProvider(val riwayah: Riwayah) : PageProvider {
   }
 
   override fun getDataSource() = riwayahDataSource
+
+  // its pages are those of the Madinah mushaf (for bookmarks kept by page)
+  override fun mushafType() = MushafType.MADANI_1405
 
   override fun getPageSizeCalculator(displaySize: DisplaySize): PageSizeCalculator =
     DefaultPageSizeCalculator(displaySize)

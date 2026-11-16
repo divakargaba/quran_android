@@ -37,7 +37,7 @@ class QuranActivityTest {
   @Test
   fun testClickingOnSuraOnListViewNavigatesToSura() {
     //given
-    Espresso.onView(ViewMatchers.withText(Matchers.startsWith("Quran")))
+    Espresso.onView(ViewMatchers.withText(Matchers.startsWith("مصحف القراءات")))
         .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
 
     //when
