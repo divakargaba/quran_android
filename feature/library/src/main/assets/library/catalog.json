@@ -36,6 +36,54 @@
    "source_en": "Text from al-Maktabah al-Shamilah (shamela.ws)",
    "recitations": [
     {
+     "id": "durrah_suwaid",
+     "reciter_ar": "أيمن رشدي سويد",
+     "reciter_en": "Ayman Rushdi Suwaid",
+     "base": "https://archive.org/download/DorraAymanSuwaid/",
+     "tracks": [
+      "Dorra_Ayman_Suwaid_01.mp3",
+      "Dorra_Ayman_Suwaid_02.mp3",
+      "Dorra_Ayman_Suwaid_03.mp3",
+      "Dorra_Ayman_Suwaid_04.mp3",
+      "Dorra_Ayman_Suwaid_05.mp3",
+      "Dorra_Ayman_Suwaid_06.mp3",
+      "Dorra_Ayman_Suwaid_07.mp3",
+      "Dorra_Ayman_Suwaid_08.mp3",
+      "Dorra_Ayman_Suwaid_09.mp3",
+      "Dorra_Ayman_Suwaid_10.mp3",
+      "Dorra_Ayman_Suwaid_11.mp3",
+      "Dorra_Ayman_Suwaid_12.mp3",
+      "Dorra_Ayman_Suwaid_13.mp3",
+      "Dorra_Ayman_Suwaid_14.mp3",
+      "Dorra_Ayman_Suwaid_15.mp3",
+      "Dorra_Ayman_Suwaid_16.mp3",
+      "Dorra_Ayman_Suwaid_17.mp3",
+      "Dorra_Ayman_Suwaid_18.mp3",
+      "Dorra_Ayman_Suwaid_19.mp3",
+      "Dorra_Ayman_Suwaid_20.mp3",
+      "Dorra_Ayman_Suwaid_21.mp3",
+      "Dorra_Ayman_Suwaid_22.mp3",
+      "Dorra_Ayman_Suwaid_23.mp3",
+      "Dorra_Ayman_Suwaid_24.mp3",
+      "Dorra_Ayman_Suwaid_25.mp3",
+      "Dorra_Ayman_Suwaid_26.mp3",
+      "Dorra_Ayman_Suwaid_27.mp3",
+      "Dorra_Ayman_Suwaid_28.mp3",
+      "Dorra_Ayman_Suwaid_29.mp3",
+      "Dorra_Ayman_Suwaid_30.mp3",
+      "Dorra_Ayman_Suwaid_31.mp3",
+      "Dorra_Ayman_Suwaid_32.mp3",
+      "Dorra_Ayman_Suwaid_33.mp3",
+      "Dorra_Ayman_Suwaid_34.mp3",
+      "Dorra_Ayman_Suwaid_35.mp3",
+      "Dorra_Ayman_Suwaid_36.mp3",
+      "Dorra_Ayman_Suwaid_37.mp3",
+      "Dorra_Ayman_Suwaid_38.mp3",
+      "Dorra_Ayman_Suwaid_39.mp3",
+      "Dorra_Ayman_Suwaid_40.mp3"
+     ]
+    },
+    {
      "id": "durrah_afasy",
      "reciter_ar": "مشاري بن راشد العفاسي",
      "reciter_en": "Mishary Rashid al-Afasy",
@@ -142,6 +190,15 @@
      "tracks": [
       "library/audio/jazariyyah_ghamidi.mp3"
      ]
+    },
+    {
+     "id": "jazariyyah_hashim",
+     "reciter_ar": "عبد الباسط هاشم",
+     "reciter_en": "Abdul Basit Hashim",
+     "base": "https://archive.org/download/rnaser023_gmail_201905/",
+     "tracks": [
+      "%D8%A7%D9%84%D8%AC%D8%B2%D8%B1%D9%8A%D8%A9.MP3"
+     ]
     }
    ],
    "documents": [
@@ -183,6 +240,15 @@
       "H-a7kam-almad.mp3",
       "I-aqsam-almad-allazm.mp3",
       "J-5atema.mp3"
+     ]
+    },
+    {
+     "id": "tuhfah_ghamidi",
+     "reciter_ar": "سعد الغامدي",
+     "reciter_en": "Sa'd al-Ghamidi",
+     "base": "https://archive.org/download/misk_844/",
+     "tracks": [
+      "%D8%AA%D8%AD%D9%81%D8%A9%20%D8%A7%D9%84%D8%A7%D8%B7%D9%81%D8%A7%D9%84.mp3"
      ]
     }
    ],
