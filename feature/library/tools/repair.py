@@ -55,7 +55,7 @@ def mend(path):
     return mended
 
 if __name__ == '__main__':
-    torch.set_num_threads(2)
+    torch.set_num_threads(4)
     for path in sys.argv[1:]:
         m = mend(path)
         if m: print(path, m, flush=True)

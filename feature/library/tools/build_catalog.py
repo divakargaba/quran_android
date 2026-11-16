@@ -7,8 +7,8 @@ app shows it only if the file it downloads is of the size given here).
 
 The documents were each checked (their title pages) to be the book they are listed as; their
 sizes and pages are those of the files at their urls when checked. The recordings are items of
-archive.org; a recording's tracks are matched to the poem's chapters only where it is divided as
-the poem is (checked by the tracks' lengths against the chapters' verses)."""
+archive.org (one is bundled); the times of a recording's verses are in assets/library/timings
+(tools/build_timings.py)."""
 import sys, os, json, urllib.parse
 
 ARCHIVE = 'https://archive.org/download/'
@@ -213,7 +213,6 @@ IBN_JAZARI = ('محمد بن محمد ابن الجزري (ت ٨٣٣هـ)', 'Ibn
 AFASY = ('مشاري بن راشد العفاسي', 'Mishary Rashid al-Afasy')
 SUWAID = ('أيمن رشدي سويد', 'Ayman Rushdi Suwaid')
 GHAMIDI = ('سعد الغامدي', "Sa'd al-Ghamidi")
-SUFI = ('عبد الرشيد بن علي صوفي', 'Abdul Rashid Ali Sufi')
 ABU_MALIK = ('أبو مالك المصري', 'Abu Malik al-Misri')
 HASHIM = ('عبد الباسط هاشم', 'Abdul Basit Hashim')
 
@@ -223,27 +222,13 @@ def q(name): return urllib.parse.quote(name)
 RECORDINGS = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'recordings.json')))
 def recording(rid, reciter): return dict(id=rid, reciter_ar=reciter[0], reciter_en=reciter[1], **RECORDINGS[rid])
 
-TAYYIBAH_TRACKS = ['01 - المقدمة.mp3', '02-  الاستعاذة.mp3', '03 - البسملة.mp3', '04 - سورة أم القرآن.mp3', '05 - الإدغام الكبير.mp3',
-    '06 - هاء الكناية.mp3', '07 - المد والقصر.mp3', '08 - الهمزتان من كلمة.mp3', '09 - الهمزتان من كلمة.mp3', '10 - الهمز المفرد.mp3',
-    '11 - نقل حركة الهمزة إلى الساكن قبلها.mp3', '12 - السكت على الساكن قبل الهمز وغيره.mp3', '13 - وقف حمزة وهشام على الهمز.mp3',
-    '14 - ذال إذ.mp3', '15 - دال قد.mp3', '17 - لام هل وبل.mp3', '18 - باب حروف قربت مخارجها.mp3', '19 - النون الساكنة والتنوين.mp3',
-    '20 - الفتح والإمالة وبين اللفظين.mp3', '21 - إمالة هاء التأنيث وما قبلها في الوقف.mp3', '22 - باب مذاهبم الراءات.mp3', '23 - باب اللامات.mp3',
-    '24 - باب الوقف على أواخر الكلم.mp3', '25 - باب الوقف على مرسوم الخط.mp3', '26 - باب ياءات الإضافة.mp3', '27 - باب ياءات الزوائد.mp3',
-    '28 - باب إفراد القراءات وجمعها.mp3', '30-.mp3', '31 - سورة آل عمران.mp3', '32 - سورة النساء.mp3', '33 - سورة المائدة.mp3',
-    '34 - سورة الأنعام.mp3', '35 - سورة الأعراف.mp3', '36 - سورة الأنفال.mp3', '37 - سورة التوبة.mp3', '38 - سورة يونس.mp3', '39 - سورة هود.mp3',
-    '40 - سورة يوسف.mp3', '41 - سورة الرعد وأختيها.mp3', '42 - سورة النحل.mp3', '43 - سورة الإسراء.mp3', '44 - سورة الكهف.mp3', '45 - سورة مريم.mp3',
-    '46 - سورة طه.mp3', '47 - سورة الأنبياء.mp3', '48 - سورة الحج والمؤمنون.mp3', '49 - سورة النور والفرقان.mp3', '50 - سورة الشعراء وأختيها.mp3',
-    '51 - سورة العنكبوت والروم.mp3', '52 - ومن سورة لقمان إلى سورة يس.mp3', '53 - سورة يس.mp3', '54 - سورة والصافات.mp3',
-    '55 - ومن سورة ص إلى سورة الأحقاف.mp3', '56 - سورة الأحقاف وأختيها.mp3', '57 - ومن سورة الحجرات إلى سورة الرحمن.mp3', '58 - سورة الرحمن.mp3',
-    '59 - ومن سورة الواقعة إلى سورة التغابن.mp3', '60 - ومن سورة التغابن إلى سورة الإنسان.mp3', '61 - سورة الإنسان والمرسلات.mp3',
-    '62 - ومن سورة النبأ إلى سورة التطفيف.mp3', '63 - ومن سورة التطفيف إلى سورة والشمس.mp3', '64 - ومن سورة الشمس إلى آخر القرآن.mp3', '65 - باب التكبير.mp3']
 POEMS = [
     dict(id='shatibiyyah', title_ar='متن الشاطبية: حرز الأماني ووجه التهاني', title_en='Ash-Shatibiyyah (Hirz al-Amani wa Wajh al-Tahani)',
          author_ar='القاسم بن فِيرُّه الشاطبي (ت ٥٩٠هـ)', author_en='Al-Qasim ibn Firruh al-Shatibi (d. 590 AH)',
          subject_ar='القراءات السبع', subject_en="The seven qira'at", verses=1173, source_ar=SHAMELA_AR, source_en=SHAMELA_EN,
-         recitations=[dict(id='shatibiyyah_afasy', reciter_ar=AFASY[0], reciter_en=AFASY[1], base=ARCHIVE + 'shatibiyyah_afasy/',
-                           tracks=['%02d.mp3' % (i + 1) for i in range(77)]),
-                      recording('shatibiyyah_suwaid', SUWAID), recording('shatibiyyah_sufi', SUFI)],
+         recitations=[recording('shatibiyyah_suwaid', SUWAID),
+                      dict(id='shatibiyyah_afasy', reciter_ar=AFASY[0], reciter_en=AFASY[1], base=ARCHIVE + 'shatibiyyah_afasy/',
+                           tracks=['%02d.mp3' % (i + 1) for i in range(77)])],
          documents=['ghunyah', 'wafi', 'siraj', 'ibraz', 'irshad_murid'], inline=['ghunyah']),
     dict(id='durrah', title_ar='الدرة المضية في القراءات الثلاث المتممة للعشر', title_en='Ad-Durrah al-Mudiyyah',
          author_ar=IBN_JAZARI[0], author_en=IBN_JAZARI[1],
@@ -258,10 +243,7 @@ POEMS = [
          author_ar=IBN_JAZARI[0], author_en=IBN_JAZARI[1],
          subject_ar='القراءات العشر الكبرى', subject_en="The ten qira'at by the ways of al-Nashr", verses=1015,
          source_ar=SHAMELA_AR, source_en=SHAMELA_EN,
-         # (the copy there is of Suwaid's recording lacks some chapters)
-         recitations=[recording('tayyibah_abumalik', ABU_MALIK),
-                      dict(id='tayyibah_suwaid', reciter_ar=SUWAID[0], reciter_en=SUWAID[1], base=ARCHIVE + 'ramy_01_201609/',
-                           tracks=[q(name) for name in TAYYIBAH_TRACKS])],
+         recitations=[recording('tayyibah_abumalik', ABU_MALIK)],
          documents=['anis_ashr', 'sharh_tayyibah'], inline=['anis_ashr']),
     dict(id='jazariyyah', title_ar='المقدمة الجزرية: المقدمة فيما يجب على قارئ القرآن أن يعلمه', title_en='Al-Muqaddimah al-Jazariyyah',
          author_ar=IBN_JAZARI[0], author_en=IBN_JAZARI[1],
