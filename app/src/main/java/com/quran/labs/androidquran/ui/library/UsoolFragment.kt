@@ -16,7 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
-import com.quran.labs.androidquran.common.ui.core.QuranTheme
+
 import com.quran.mobile.feature.library.data.DocumentRepository
 import com.quran.mobile.feature.library.model.LibraryCatalog
 import com.quran.mobile.feature.library.ui.UsoolList
@@ -35,7 +35,7 @@ class UsoolFragment : Fragment() {
     return ComposeView(context).apply {
       setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
       setContent {
-        QuranTheme {
+        LibraryTheme {
           Surface(color = MaterialTheme.colorScheme.surface, modifier = Modifier.fillMaxSize()) {
             val states by repository.states.collectAsState()
             UsoolList(

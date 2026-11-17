@@ -55,7 +55,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.quran.labs.androidquran.common.ui.core.QuranIcons
-import com.quran.labs.androidquran.common.ui.core.QuranTheme
+
 import com.quran.labs.androidquran.ui.util.TypefaceManager
 import com.quran.mobile.feature.library.R
 import com.quran.mobile.feature.library.audio.PoemPlayer
@@ -66,6 +66,7 @@ import com.quran.mobile.feature.library.data.RecitationState
 import com.quran.mobile.feature.library.model.LibraryCatalog
 import com.quran.mobile.feature.library.model.PoemText
 import com.quran.mobile.feature.library.model.Recitation
+import com.quran.mobile.feature.library.model.VerseTimings
 import com.quran.mobile.feature.library.ui.DocumentRow
 import com.quran.mobile.feature.library.ui.InlineBook
 import com.quran.mobile.feature.library.ui.PoemPlayerBar
@@ -85,7 +86,6 @@ import kotlinx.coroutines.withContext
  * played from any verse; and its commentaries (documents, opened in [DocumentActivity]).
  */
 class PoemActivity : AppCompatActivity() {
-  private var player: PoemPlayer? = null
 
   @OptIn(ExperimentalMaterial3Api::class)
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -104,7 +104,8 @@ class PoemActivity : AppCompatActivity() {
     val arabicFont = FontFamily(TypefaceManager.getTafseerTypeface(this))
     val arabic = resources.configuration.locales.get(0)?.language == "ar"
     val recordings = RecitationRepository.get(this)
-    val poemPlayer = PoemPlayer(this, recordings::file).also { player = it }
+    // (the recitation goes on when this screen is left: it is the app's, not this screen's)
+    val playback = PoemPlayback.get(this)
     val documents = catalog.documentsOf(poem.documents)
     val recitationKey = KEY_RECITATION + poem.id
     val inlineKey = KEY_INLINE + poem.id
@@ -115,7 +116,7 @@ class PoemActivity : AppCompatActivity() {
     setContentView(
       ComposeView(this).apply {
         setContent {
-          QuranTheme {
+          LibraryTheme {
             var text by remember { mutableStateOf<PoemText?>(null) }
             LaunchedEffect(poem.id) {
               text = withContext(Dispatchers.IO) { LibraryCatalog.poemText(this@PoemActivity, poem.id) }
@@ -133,7 +134,7 @@ class PoemActivity : AppCompatActivity() {
             val rows = remember(text, books) { text?.rows(books).orEmpty() }
             val listState = rememberLazyListState()
             val scope = rememberCoroutineScope()
-            val playerState by poemPlayer.state.collectAsState()
+            val playbackState by playback.state.collectAsState()
             val recordingStates by recordings.states.collectAsState()
             var showChapters by remember { mutableStateOf(false) }
             var showDocuments by remember { mutableStateOf(false) }
@@ -143,19 +144,21 @@ class PoemActivity : AppCompatActivity() {
               val saved = preferences.getString(recitationKey, null)
               mutableStateOf(poem.recitations.firstOrNull { it.id == saved } ?: poem.recitations.firstOrNull())
             }
-            var ready by remember { mutableStateOf(false) }
+            var timings by remember { mutableStateOf<VerseTimings?>(null) }
             LaunchedEffect(recitation) {
-              ready = false
+              timings = null
               val chosen = recitation ?: return@LaunchedEffect
-              val timings = withContext(Dispatchers.IO) { LibraryCatalog.timings(this@PoemActivity, chosen) }
-              poemPlayer.setRecitation(chosen, timings)
-              ready = true
+              timings = withContext(Dispatchers.IO) { LibraryCatalog.timings(this@PoemActivity, chosen) }
             }
+            // what is being played is shown here when it is this poem's recording chosen here
+            val playerState = if (playback.recitation?.id == recitation?.id) playbackState else PoemPlayer.State()
 
             // the text follows the recitation: the verse being recited is kept in view
             val currentRows by rememberUpdatedState(rows)
             LaunchedEffect(Unit) {
-              snapshotFlow { playerState.verse.takeIf { playerState.isPlaying } }.collect { verse ->
+              snapshotFlow {
+                playbackState.verse.takeIf { playbackState.isPlaying && playback.recitation?.id == recitation?.id }
+              }.collect { verse ->
                 val row = verse?.let { rowOfVerse(currentRows, it) } ?: -1
                 if (row >= 0) {
                   // (the first item of the list is the poem's title)
@@ -204,11 +207,12 @@ class PoemActivity : AppCompatActivity() {
                         is PoemRow.Inline -> first.entry.last + 1
                         null -> 1
                       }
-                      if (ready) poemPlayer.toggle(verse)
+                      val chosenTimings = timings
+                      if (chosenTimings != null) playback.toggle(poem, chosen, chosenTimings, verse)
                     },
-                    onPrevious = poemPlayer::previousVerse,
-                    onNext = poemPlayer::nextVerse,
-                    onStop = poemPlayer::stop,
+                    onPrevious = playback::previousVerse,
+                    onNext = playback::nextVerse,
+                    onStop = playback::stop,
                     modifier = Modifier.navigationBarsPadding()
                   )
                 }
@@ -228,7 +232,11 @@ class PoemActivity : AppCompatActivity() {
                   recitedVerse = playerState.verse,
                   arabicFont = arabicFont,
                   onPlayVerse = if (recitation != null) {
-                    { verse -> if (ready) poemPlayer.playVerse(verse) }
+                    { verse ->
+                      val chosen = recitation
+                      val chosenTimings = timings
+                      if (chosen != null && chosenTimings != null) playback.playVerse(poem, chosen, chosenTimings, verse)
+                    }
                   } else {
                     null
                   },
@@ -310,7 +318,7 @@ class PoemActivity : AppCompatActivity() {
                         onCancel = { recordings.cancel(item) },
                         onDelete = {
                           // (not from under the player)
-                          if (item.id == recitation?.id) poemPlayer.stop()
+                          if (item.id == playback.recitation?.id) playback.stop()
                           recordings.delete(item)
                         }
                       )
@@ -396,12 +404,6 @@ class PoemActivity : AppCompatActivity() {
         }
       }
     )
-  }
-
-  override fun onDestroy() {
-    player?.release()
-    player = null
-    super.onDestroy()
   }
 
   companion object {

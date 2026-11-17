@@ -38,7 +38,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.quran.labs.androidquran.common.ui.core.QuranIcons
-import com.quran.labs.androidquran.common.ui.core.QuranTheme
+
 import com.quran.mobile.feature.library.R
 import com.quran.mobile.feature.library.data.DocumentRepository
 import com.quran.mobile.feature.library.model.LibraryCatalog
@@ -68,7 +68,7 @@ class DocumentActivity : AppCompatActivity() {
     setContentView(
       ComposeView(this).apply {
         setContent {
-          QuranTheme {
+          LibraryTheme {
             // null while it is being opened; a failure has no pages
             var pages by remember { mutableStateOf<Result<PdfPages>?>(null) }
             LaunchedEffect(document.id) {

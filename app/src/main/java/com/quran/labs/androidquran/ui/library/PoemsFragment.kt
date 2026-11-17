@@ -15,7 +15,7 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.text.font.FontFamily
 import androidx.fragment.app.Fragment
-import com.quran.labs.androidquran.common.ui.core.QuranTheme
+
 import com.quran.labs.androidquran.ui.util.TypefaceManager
 import com.quran.mobile.feature.library.model.LibraryCatalog
 import com.quran.mobile.feature.library.ui.PoemsList
@@ -34,7 +34,7 @@ class PoemsFragment : Fragment() {
     return ComposeView(context).apply {
       setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
       setContent {
-        QuranTheme {
+        LibraryTheme {
           Surface(color = MaterialTheme.colorScheme.surface, modifier = Modifier.fillMaxSize()) {
             PoemsList(
               poems = catalog.poems,
