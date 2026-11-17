@@ -125,6 +125,27 @@ class LibraryCatalogTest {
   }
 
   @Test
+  fun thePrinciplesOfEachQiraahAreWritten() {
+    // of the ten qira'at (the other groups are of books on them together)
+    val written = catalog.usool.filter { it.id != null }
+    assertThat(written).hasSize(10)
+    written.forEach { group ->
+      val text = LibraryCatalog.usoolText(context, group.id!!)
+      assertThat(text.chapters.size).isAtLeast(8)
+      text.chapters.forEach { chapter ->
+        assertThat(chapter.title).isNotEmpty()
+        assertThat(chapter.paragraphs).isNotEmpty()
+        chapter.paragraphs.forEach { assertThat(it.length).isGreaterThan(20) }
+        // the book a chapter is drawn from is one of the app's, and has the page
+        chapter.sourceDocument?.let { id ->
+          val document = catalog.document(id)!!
+          assertThat(chapter.sourcePage).isIn(0 until document.pages)
+        }
+      }
+    }
+  }
+
+  @Test
   fun everyDocumentIsListedAndCanBeHad() {
     val listed = catalog.poems.flatMap { it.documents } + catalog.usool.flatMap { it.documents }
     listed.forEach { assertThat(catalog.document(it)).isNotNull() }

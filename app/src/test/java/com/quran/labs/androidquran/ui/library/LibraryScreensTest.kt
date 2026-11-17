@@ -28,6 +28,16 @@ class LibraryScreensTest {
   }
 
   @Test
+  fun everyQiraahsPrinciplesOpen() {
+    LibraryCatalog.get(context).usool.indices.forEach { group ->
+      ActivityScenario.launch<UsoolActivity>(UsoolActivity.intent(context, group)).use { scenario ->
+        shadowOf(Looper.getMainLooper()).idle()
+        scenario.onActivity { assertThat(it.isFinishing).isFalse() }
+      }
+    }
+  }
+
+  @Test
   fun aPoemThatIsNotThereCloses() {
     ActivityScenario.launch<PoemActivity>(PoemActivity.intent(context, "none")).use { scenario ->
       assertThat(scenario.state).isEqualTo(androidx.lifecycle.Lifecycle.State.DESTROYED)
