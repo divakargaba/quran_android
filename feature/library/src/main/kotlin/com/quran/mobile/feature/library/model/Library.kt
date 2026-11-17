@@ -143,6 +143,8 @@ data class UsoolGroup(
 class UsoolText(val chapters: List<Chapter>) {
   data class Chapter(
     val title: String,
+    /** the chapter's name in Arabic (empty when it has none) */
+    val titleArabic: String,
     val paragraphs: List<String>,
     val sourceDocument: String?,
     val sourcePage: Int

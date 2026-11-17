@@ -233,8 +233,8 @@ private fun VerseRow(
       Text(
         row.verse.firstHalf,
         fontFamily = arabicFont,
-        fontSize = 20.sp,
-        lineHeight = 38.sp,
+        fontSize = 23.sp,
+        lineHeight = 42.sp,
         textAlign = TextAlign.Start,
         color = MaterialTheme.colorScheme.onSurface,
         modifier = Modifier.fillMaxWidth().padding(end = 28.dp)
@@ -242,8 +242,8 @@ private fun VerseRow(
       Text(
         row.verse.secondHalf,
         fontFamily = arabicFont,
-        fontSize = 20.sp,
-        lineHeight = 38.sp,
+        fontSize = 23.sp,
+        lineHeight = 42.sp,
         textAlign = TextAlign.End,
         color = MaterialTheme.colorScheme.onSurface,
         modifier = Modifier.fillMaxWidth().padding(start = 28.dp)
@@ -303,8 +303,8 @@ private fun InlineRow(
       if (entry.translation.isNotEmpty()) {
         Text(
           text = remember(entry) { withArabic(entry.translation, arabicFont) },
-          fontSize = 18.sp,
-          lineHeight = 28.sp,
+          fontSize = 16.sp,
+          lineHeight = 24.sp,
           style = TextStyle(textDirection = TextDirection.Content),
           color = MaterialTheme.colorScheme.onSurface,
           modifier = Modifier.fillMaxWidth().padding(top = 4.dp)
@@ -341,8 +341,8 @@ private fun InlineRow(
               val note = paragraph.startsWith("[")
               Text(
                 text = remember(paragraph) { withArabic(paragraph, arabicFont) },
-                fontSize = if (note) 15.sp else 17.sp,
-                lineHeight = if (note) 23.sp else 27.sp,
+                fontSize = if (note) 14.sp else 15.sp,
+                lineHeight = if (note) 21.sp else 23.sp,
                 style = TextStyle(textDirection = TextDirection.Content),
                 color = if (note) MaterialTheme.colorScheme.onSurfaceVariant else MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp)

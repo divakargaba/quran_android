@@ -28,6 +28,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDirection
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -38,14 +39,14 @@ import com.quran.mobile.feature.library.model.UsoolText
 
 /** a row of the list of a qira'ah's principles: a chapter's heading, a rule, or the chapter's source */
 sealed interface UsoolRow {
-  data class Heading(val chapter: Int, val title: String) : UsoolRow
+  data class Heading(val chapter: Int, val title: String, val titleArabic: String) : UsoolRow
   data class Rule(val text: String) : UsoolRow
   data class Source(val document: Document, val page: Int) : UsoolRow
 }
 
 fun UsoolText.rows(document: (String) -> Document?): List<UsoolRow> = buildList {
   chapters.forEachIndexed { index, chapter ->
-    add(UsoolRow.Heading(index, chapter.title))
+    add(UsoolRow.Heading(index, chapter.title, chapter.titleArabic))
     chapter.paragraphs.forEach { add(UsoolRow.Rule(it)) }
     chapter.sourceDocument?.let(document)?.let { add(UsoolRow.Source(it, chapter.sourcePage)) }
   }
@@ -73,8 +74,11 @@ fun UsoolChapters(
     items(rows) { row ->
       when (row) {
         is UsoolRow.Heading -> Text(
-          row.title,
-          style = MaterialTheme.typography.titleMedium,
+          text = remember(row) { heading(row.title, row.titleArabic, arabicFont) },
+          fontSize = 20.sp,
+          lineHeight = 32.sp,
+          fontWeight = FontWeight.SemiBold,
+          style = TextStyle(textDirection = TextDirection.Content),
           color = MaterialTheme.colorScheme.primary,
           modifier = Modifier
             .fillMaxWidth()
@@ -119,6 +123,17 @@ fun UsoolChapters(
     }
   }
 }
+
+/** a chapter's name, with its Arabic name in brackets after it */
+private fun heading(title: String, titleArabic: String, arabicFont: FontFamily): AnnotatedString =
+  buildAnnotatedString {
+    append(title)
+    if (titleArabic.isNotEmpty()) {
+      append(" (")
+      withStyle(SpanStyle(fontFamily = arabicFont)) { append(titleArabic) }
+      append(")")
+    }
+  }
 
 private val LABEL = Regex("^[^:\\n]{2,70}:(?= )")
 

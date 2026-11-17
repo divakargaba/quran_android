@@ -12,15 +12,10 @@ def commentary(name, number=lambda n: n):
     r = index_commentary.index(f'{books}/{name}')
     return regions.pack(r['doc'], r['entries'], *regions.sides(r['spans']), number=number)
 
-def jazariyyah_109(n):
-    # of the 109 verses these books count, the poem's text has not the 107th (the count of its
-    # verses) nor the 109th (the end of the prayer on the Prophet)
-    return {107: None, 108: 107, 109: None}.get(n, n)
-
 built = {}
 r = index_abt.index(f'{books}/jazariyyah_en.pdf', f'{poems}/jazariyyah.json')
 built['jazariyyah_en'] = regions.pack(r['doc'], r['entries'], *regions.sides(r['spans']))
-built['taqrib_laali'] = commentary('taqrib_laali.pdf', jazariyyah_109)
+built['taqrib_laali'] = commentary('taqrib_laali.pdf')
 built['aysar_aqwal'] = commentary('aysar_aqwal.pdf')
 built['fawaid_ayyubiyyah'] = commentary('fawaid_ayyubiyyah.pdf')
 built['anis_ashr'] = commentary('anis_ashr.pdf')

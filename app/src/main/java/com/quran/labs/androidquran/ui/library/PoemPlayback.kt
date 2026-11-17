@@ -1,6 +1,9 @@
 package com.quran.labs.androidquran.ui.library
 
 import android.content.Context
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import com.quran.mobile.feature.library.audio.PoemPlayer
 import com.quran.mobile.feature.library.data.RecitationRepository
 import com.quran.mobile.feature.library.data.RecitationState
@@ -19,10 +22,13 @@ class PoemPlayback private constructor(context: Context) {
   private val recordings = RecitationRepository.get(appContext)
   private val player = PoemPlayer(appContext, recordings::file)
 
-  /** the poem and the recording being played (or last played) */
-  var poem: Poem? = null
+  /**
+   * the poem and the recording being played (or last played): observable, so that a screen
+   * showing a poem follows the recitation from the moment it starts it
+   */
+  var poem: Poem? by mutableStateOf(null)
     private set
-  var recitation: Recitation? = null
+  var recitation: Recitation? by mutableStateOf(null)
     private set
 
   val state: StateFlow<PoemPlayer.State> get() = player.state

@@ -60,6 +60,7 @@ class LibraryCatalog(
         chapters.objects().map { c ->
           UsoolText.Chapter(
             title = c.getString("t"),
+            titleArabic = c.optString("ta"),
             paragraphs = c.getJSONArray("p").strings(),
             sourceDocument = c.optString("doc").takeIf { it.isNotEmpty() },
             sourcePage = c.optInt("page")

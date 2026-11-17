@@ -151,7 +151,8 @@ class PoemActivity : AppCompatActivity() {
               timings = withContext(Dispatchers.IO) { LibraryCatalog.timings(this@PoemActivity, chosen) }
             }
             // what is being played is shown here when it is this poem's recording chosen here
-            val playerState = if (playback.recitation?.id == recitation?.id) playbackState else PoemPlayer.State()
+            val playing = playbackState
+            val playerState = if (playback.recitation?.id == recitation?.id) playing else PoemPlayer.State()
 
             // the text follows the recitation: the verse being recited is kept in view
             val currentRows by rememberUpdatedState(rows)

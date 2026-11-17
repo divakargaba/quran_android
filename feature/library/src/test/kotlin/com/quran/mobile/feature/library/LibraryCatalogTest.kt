@@ -21,7 +21,7 @@ class LibraryCatalogTest {
   fun poemsHaveTheirVerses() {
     val counts = catalog.poems.associate { it.id to it.verseCount }
     assertThat(counts).containsExactly(
-      "shatibiyyah", 1173, "durrah", 241, "tayyibah", 1015, "jazariyyah", 107, "tuhfah", 61
+      "shatibiyyah", 1173, "durrah", 241, "tayyibah", 1015, "jazariyyah", 109, "tuhfah", 61
     )
     catalog.poems.forEach { poem ->
       val text = LibraryCatalog.poemText(context, poem.id)
@@ -134,6 +134,7 @@ class LibraryCatalogTest {
       assertThat(text.chapters.size).isAtLeast(8)
       text.chapters.forEach { chapter ->
         assertThat(chapter.title).isNotEmpty()
+        assertThat(chapter.titleArabic).isNotEmpty()
         assertThat(chapter.paragraphs).isNotEmpty()
         chapter.paragraphs.forEach { assertThat(it.length).isGreaterThan(20) }
         // the book a chapter is drawn from is one of the app's, and has the page

@@ -16,6 +16,13 @@ SPLITS = {'shatibiyyah': {90: 6, 96: 8, 107: 5, 174: 6, 444: 5, 651: 6, 733: 6, 
 # headings the digital edition has in the wrong order
 ORDER = {'tayyibah': [('بَابُ السَّكْتِ', 'بَابُ وَقفِ حَمْزَةَ')]}
 # (name, shamela book, its first page of the poem, whether it prints the verses of each chapter)
+# verses an edition has not that the poem is known by (the Jazariyyah is read as 109 verses: the
+# edition's 107 and these, by their numbers), and the headings set to the chapters the poem is known by:
+# (verse, title) with None for a heading that goes
+ADDED = {'jazariyyah': {107: ['أَبْيَاتُهَا قَافٌ وَزَايٌ فِي العَدَدْ', 'مَنْ يُحْسِنِ التَّجْوِيدَ يَظْفَرْ بِالرَّشَدْ'],
+                        109: ['عَلَى النَّبِيِّ المُصْطَفَى وَآلِهِ', 'وَصَحْبِهِ وَتَابِعِي مِنْوَالِهِ']}}
+HEADINGS = {'jazariyyah': [(44, 'فِي اللَّامَاتِ وَأَحْكَامٍ مُتَفَرِّقَةٍ'), (45, None),
+                           (62, 'فِي النُّونِ وَالمِيمِ المُشَدَّدَتَيْنِ وَالمِيمِ السَّاكِنَةِ')]}
 POEMS = [('shatibiyyah', '7754', 7, True), ('durrah', '7749', 2, True), ('tayyibah', '7795', 2, True),
          ('jazariyyah', '581', 51, False), ('tuhfah', '9632', 2, False)]
 
@@ -23,6 +30,8 @@ def clean(t):
     for name in NAMES:
         t = re.sub(r'(?<=[ً-ْ])' + name + r'(?=\s|$)', '', t)
         t = re.sub(r'(?:(?<=\s)|^)' + name + r'(?=\s|$)', '', t)
+    # (the footnote marks that went leave their spaces before the points)
+    t = re.sub(r'\s+([،؛:»])', r'\1', t); t = re.sub(r'«\s+', '«', t)
     return re.sub(r'\s+', ' ', t).strip()
 
 def paragraphs(d, first, counts):
@@ -80,6 +89,15 @@ def build(name, d, first, counts):
                 halves = [' '.join(words[:k]), ' '.join(words[k:])]
                 print('  no mark between the halves of', name, number, ':', halves)
         verses.append(halves)
+    for number, halves in sorted(ADDED.get(name, {}).items()):
+        verses.insert(number - 1, halves)
+        for h in heads:
+            if h[1] >= number - 1: h[1] += 1
+    for number, h in HEADINGS.get(name, []):
+        at = [x for x in heads if x[1] == number - 1]
+        if h is None: heads.remove(at[0])
+        elif at: at[0][0] = h
+        else: heads.append([h, number - 1, None]); heads.sort(key=lambda x: x[1])
     for a, b in ORDER.get(name, []):
         ia = next(i for i, h in enumerate(heads) if h[0].startswith(a))
         ib = next(i for i, h in enumerate(heads) if h[0].startswith(b))
@@ -104,7 +122,7 @@ def build(name, d, first, counts):
         else:
             i += 1
     chapters = []; wrong = []
-    if heads and heads[0][1] > 0: heads.insert(0, ['', 0, None])
+    if heads and heads[0][1] > 0: heads.insert(0, ['المقدمة', 0, None])
     pending = ''
     for k, (h, start, count) in enumerate(heads):
         end = heads[k + 1][1] if k + 1 < len(heads) else len(verses)

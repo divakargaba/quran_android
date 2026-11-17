@@ -248,7 +248,7 @@ POEMS = [
          documents=['anis_ashr', 'sharh_tayyibah'], inline=['anis_ashr']),
     dict(id='jazariyyah', title_ar='المقدمة الجزرية: المقدمة فيما يجب على قارئ القرآن أن يعلمه', title_en='Al-Muqaddimah al-Jazariyyah',
          author_ar=IBN_JAZARI[0], author_en=IBN_JAZARI[1],
-         subject_ar='التجويد', subject_en='Tajwid', verses=107, source_ar=SHAMELA_AR, source_en=SHAMELA_EN,
+         subject_ar='التجويد', subject_en='Tajwid', verses=109, source_ar=SHAMELA_AR, source_en=SHAMELA_EN,
          recitations=[dict(id='jazariyyah_suwaid', reciter_ar=SUWAID[0], reciter_en=SUWAID[1],
                            base=ARCHIVE + 'sh-ayman-sowaid-matn-aljazareiiah/', tracks=['00.mp3']),
                       # (bundled with the app: no base)

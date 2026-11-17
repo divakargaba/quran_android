@@ -22,9 +22,6 @@ def commentary(name, number=lambda n: n, **options):
         result.append([numbers[0], numbers[-1], e['translation'], '\n\n'.join(e['explanation'])])
     return result
 
-def jazariyyah_109(n):
-    return {107: None, 108: 107, 109: None}.get(n, n)
-
 def by_regions(name, index, overrides=None, strict=False, notes=True):
     """a book whose parts for each verse are known by their places on its pages (the index made
     for showing them): [[first, last, translation, explanation]] with the text of those places"""
@@ -47,6 +44,7 @@ def by_regions(name, index, overrides=None, strict=False, notes=True):
         if unread and strict: continue  # (it has Arabic that cannot be read)
         t = ' '.join(extract_text.paragraphs(rows, 16))
         t = re.sub(r'^\d+\s*[.\-]\s*', '', t)
+        t = re.sub(r'\s*[\u0600-\u06ff]+ \(some other tajweed rules.*$', '', t)  # (the title of what follows the last verse)
         # (the marks of its notes, which are not given)
         if not notes: t = re.sub(r'\s+([,.;:])', r'\1', re.sub(r'(?<!yah )(?<!\d)\d{1,2}(?![\d)])', '', t))
         rows, missing = text(explanation)
@@ -62,7 +60,7 @@ built = {
         ('Traditional Arabic', 200): FATHAH, ('Traditional Arabic', 204): SUKUN, ('Traditional Arabic,Bold', 3): ' '}, notes=False),
     # (the Arabic of its explanations cannot be read from the pdf: those without any are given)
     'ghunyah': by_regions('ghunyah', sys.argv[4] + '/ghunyah.json', strict=True),
-    'taqrib_laali': commentary('taqrib_laali', jazariyyah_109),
+    'taqrib_laali': commentary('taqrib_laali'),
     'aysar_aqwal': commentary('aysar_aqwal'),
     'fawaid_ayyubiyyah': commentary('fawaid_ayyubiyyah'),
     'anis_ashr': commentary('anis_ashr', number_by_verse=True),
