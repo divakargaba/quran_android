@@ -92,6 +92,11 @@
         android:name=".ui.library.DocumentActivity"
         android:theme="@style/QuranToolBarDayNight"
         android:exported="false"/>
+
+    <activity
+        android:name=".ui.library.UsoolActivity"
+        android:theme="@style/QuranToolBarDayNight"
+        android:exported="false"/>
     <activity
         android:name=".ui.TranslationManagerActivity"
         android:theme="@style/QuranToolBarDayNight"

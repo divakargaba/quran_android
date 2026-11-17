@@ -48,4 +48,15 @@
   <string name="library_offline_here">محفوظ على الجهاز (%1$s)</string>
   <string name="library_offline_bundled">ضمن التطبيق</string>
   <string name="library_offline_delete">حذف من الجهاز</string>
+  <string name="library_usool_rules">الأحكام بابًا بابًا</string>
+  <string name="library_usool_source">من: %1$s، ص %2$d</string>
+  <string name="library_usool_books_only">كتب في الأصول</string>
+  <plurals name="library_books_count">
+    <item quantity="zero">%1$d كتاب</item>
+    <item quantity="one">كتاب واحد</item>
+    <item quantity="two">كتابان</item>
+    <item quantity="few">%1$d كتب</item>
+    <item quantity="many">%1$d كتابًا</item>
+    <item quantity="other">%1$d كتاب</item>
+  </plurals>
 </resources>

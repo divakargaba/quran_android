@@ -123,7 +123,28 @@ data class Document(
   fun author(arabic: Boolean) = if (arabic || authorEnglish.isEmpty()) authorArabic else authorEnglish
 }
 
-/** books on the principles (usul) of a qira'ah, or of them all */
-data class UsoolGroup(val titleArabic: String, val titleEnglish: String, val documents: List<String>) {
+/**
+ * The principles (usul) of a qira'ah, or of them all: books on them, and for a qira'ah ([id]
+ * given) its principles as text ([UsoolText]).
+ */
+data class UsoolGroup(
+  val id: String?,
+  val titleArabic: String,
+  val titleEnglish: String,
+  val documents: List<String>
+) {
   fun title(arabic: Boolean) = if (arabic) titleArabic else titleEnglish
+}
+
+/**
+ * The principles of a qira'ah, chapter by chapter: each rule a paragraph, which begins with what
+ * it is of and a colon. A chapter can name the book, and the page of it (from 0), it is drawn from.
+ */
+class UsoolText(val chapters: List<Chapter>) {
+  data class Chapter(
+    val title: String,
+    val paragraphs: List<String>,
+    val sourceDocument: String?,
+    val sourcePage: Int
+  )
 }

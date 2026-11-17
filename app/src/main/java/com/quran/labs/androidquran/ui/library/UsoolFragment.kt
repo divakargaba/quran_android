@@ -10,18 +10,19 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.compose.ui.text.font.FontFamily
 import androidx.fragment.app.Fragment
-
-import com.quran.mobile.feature.library.data.DocumentRepository
+import com.quran.labs.androidquran.ui.util.TypefaceManager
 import com.quran.mobile.feature.library.model.LibraryCatalog
 import com.quran.mobile.feature.library.ui.UsoolList
 
-/** the tab of the books on the principles (usul) of the qira'at, on the app's first screen */
+/**
+ * the tab of the principles (usul) of the qira'at, on the app's first screen: each qira'ah opens
+ * to its rules and the books on them ([UsoolActivity])
+ */
 class UsoolFragment : Fragment() {
 
   override fun onCreateView(
@@ -31,20 +32,16 @@ class UsoolFragment : Fragment() {
   ): View {
     val context = requireContext()
     val catalog = LibraryCatalog.get(context)
-    val repository = DocumentRepository.get(context)
+    val arabicFont = FontFamily(TypefaceManager.getTafseerTypeface(context))
     return ComposeView(context).apply {
       setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
       setContent {
         LibraryTheme {
           Surface(color = MaterialTheme.colorScheme.surface, modifier = Modifier.fillMaxSize()) {
-            val states by repository.states.collectAsState()
             UsoolList(
-              catalog = catalog,
-              states = states,
-              onOpen = { startActivity(DocumentActivity.intent(context, it.id)) },
-              onDownload = repository::download,
-              onCancel = repository::cancel,
-              onDelete = repository::delete,
+              groups = catalog.usool,
+              arabicFont = arabicFont,
+              onOpen = { startActivity(UsoolActivity.intent(context, it)) },
               contentPadding = WindowInsets.navigationBars.asPaddingValues()
             )
           }

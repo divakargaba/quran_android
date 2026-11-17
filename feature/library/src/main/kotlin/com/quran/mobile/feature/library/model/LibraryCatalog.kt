@@ -26,6 +26,7 @@ class LibraryCatalog(
     private const val POEMS = "library/poems"
     private const val TIMINGS = "library/timings"
     private const val INLINE = "library/inline"
+    private const val USOOL = "library/usool"
 
     @Volatile private var instance: LibraryCatalog? = null
 
@@ -48,6 +49,24 @@ class LibraryCatalog(
     /** what a book says of each verse of its poem; call off the main thread */
     fun inlineText(context: Context, documentId: String): InlineText =
       context.applicationContext.assets.open("$INLINE/$documentId.json").use(::parseInlineText)
+
+    /** the principles of a qira'ah as text; call off the main thread */
+    fun usoolText(context: Context, id: String): UsoolText =
+      context.applicationContext.assets.open("$USOOL/$id.json").use(::parseUsoolText)
+
+    fun parseUsoolText(stream: InputStream): UsoolText {
+      val chapters = JSONObject(stream.bufferedReader().readText()).getJSONArray("chapters")
+      return UsoolText(
+        chapters.objects().map { c ->
+          UsoolText.Chapter(
+            title = c.getString("t"),
+            paragraphs = c.getJSONArray("p").strings(),
+            sourceDocument = c.optString("doc").takeIf { it.isNotEmpty() },
+            sourcePage = c.optInt("page")
+          )
+        }
+      )
+    }
 
     fun parseTimings(stream: InputStream): VerseTimings {
       val verses = JSONObject(stream.bufferedReader().readText()).getJSONArray("v")
@@ -130,7 +149,12 @@ class LibraryCatalog(
         )
       }
       val usool = root.getJSONArray("usool").objects().map { g ->
-        UsoolGroup(g.getString("title_ar"), g.getString("title_en"), g.getJSONArray("documents").strings())
+        UsoolGroup(
+          g.optString("id").takeIf { it.isNotEmpty() },
+          g.getString("title_ar"),
+          g.getString("title_en"),
+          g.getJSONArray("documents").strings()
+        )
       }
       return LibraryCatalog(poems, usool, documents)
     }

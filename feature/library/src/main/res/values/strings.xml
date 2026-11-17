@@ -44,4 +44,11 @@
   <string name="library_offline_here">On this device (%1$s)</string>
   <string name="library_offline_bundled">In the app</string>
   <string name="library_offline_delete">Remove from this device</string>
+  <string name="library_usool_rules">Rules, chapter by chapter</string>
+  <string name="library_usool_source">From: %1$s, p. %2$d</string>
+  <string name="library_usool_books_only">Books on the principles</string>
+  <plurals name="library_books_count">
+    <item quantity="one">%1$d book</item>
+    <item quantity="other">%1$d books</item>
+  </plurals>
 </resources>

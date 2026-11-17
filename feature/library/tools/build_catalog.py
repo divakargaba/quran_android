@@ -189,21 +189,21 @@ DOCUMENTS = {
 }
 
 USOOL = [
-    ('القراءات العشر عامة', "All ten qira'at",
+    (None, 'القراءات العشر عامة', "All ten qira'at",
      ['ten_authentic', 'mujtaba', 'ghunyah', 'anis_ashr', 'taysir_en', 'idaah', 'budur', 'nayl_watar']),
-    ('نافع: قالون وورش', "Nafi': Qalun and Warsh", ['qalun_en', 'usul_warsh_en', 'notes_warsh', 'learn_warsh', 'qalun', 'warsh']),
-    ('ابن كثير: البزي وقنبل', 'Ibn Kathir: al-Bazzi and Qunbul', ['ibn_kathir_en', 'ibn_kathir']),
-    ('أبو عمرو: الدوري والسوسي', "Abu 'Amr: al-Duri and al-Susi", ['abu_amr_en', 'duri', 'susi']),
-    ('ابن عامر: هشام وابن ذكوان', "Ibn 'Amir: Hisham and Ibn Dhakwan", ['ibn_amir_en', 'ibn_amir']),
-    ('عاصم: شعبة وحفص', "'Asim: Shu'bah and Hafs",
+    ('nafi', 'نافع: قالون وورش', "Nafi': Qalun and Warsh", ['qalun_en', 'usul_warsh_en', 'notes_warsh', 'learn_warsh', 'qalun', 'warsh']),
+    ('ibn_kathir', 'ابن كثير: البزي وقنبل', 'Ibn Kathir: al-Bazzi and Qunbul', ['ibn_kathir_en', 'ibn_kathir']),
+    ('abu_amr', 'أبو عمرو: الدوري والسوسي', "Abu 'Amr: al-Duri and al-Susi", ['abu_amr_en', 'duri', 'susi']),
+    ('ibn_amir', 'ابن عامر: هشام وابن ذكوان', "Ibn 'Amir: Hisham and Ibn Dhakwan", ['ibn_amir_en', 'ibn_amir']),
+    ('asim', 'عاصم: شعبة وحفص', "'Asim: Shu'bah and Hafs",
      ['rules_shuba_hafs', 'asim_en', 'bayan_hafs', 'golden_collection', 'hafs_misbah', 'nafais_bayan', 'shubah', 'hafs']),
-    ('حمزة: خلف وخلاد', 'Hamzah: Khalaf and Khallad', ['hamzah_en', 'hamzah']),
-    ('الكسائي: أبو الحارث والدوري', "Al-Kisa'i: Abu al-Harith and al-Duri", ['kisai_en', 'kisai']),
-    ('القراءات الثلاث المتممة للعشر', "The three that complete the ten (Abu Ja'far, Ya'qub, Khalaf)",
+    ('hamzah', 'حمزة: خلف وخلاد', 'Hamzah: Khalaf and Khallad', ['hamzah_en', 'hamzah']),
+    ('kisai', 'الكسائي: أبو الحارث والدوري', "Al-Kisa'i: Abu al-Harith and al-Duri", ['kisai_en', 'kisai']),
+    (None, 'القراءات الثلاث المتممة للعشر', "The three that complete the ten (Abu Ja'far, Ya'qub, Khalaf)",
      ['fawaid_ayyubiyyah', 'three_durrah']),
-    ('أبو جعفر: ابن وردان وابن جماز', "Abu Ja'far: Ibn Wardan and Ibn Jammaz", ['abu_jafar_en', 'abu_jafar']),
-    ('يعقوب: رويس وروح', "Ya'qub: Ruways and Rawh", ['yaqub']),
-    ('خلف العاشر: إسحاق وإدريس', 'Khalaf: Ishaq and Idris', ['khalaf_en', 'khalaf']),
+    ('abu_jafar', 'أبو جعفر: ابن وردان وابن جماز', "Abu Ja'far: Ibn Wardan and Ibn Jammaz", ['abu_jafar_en', 'abu_jafar']),
+    ('yaqub', 'يعقوب: رويس وروح', "Ya'qub: Ruways and Rawh", ['yaqub']),
+    ('khalaf', 'خلف العاشر: إسحاق وإدريس', 'Khalaf: Ishaq and Idris', ['khalaf_en', 'khalaf']),
 ]
 
 SHAMELA_AR = 'نص المتن من المكتبة الشاملة (shamela.ws)'
@@ -270,6 +270,8 @@ POEMS = [
 if __name__ == '__main__':
     # a recording is listed once the times of its verses are made (tools/build_timings.py)
     timings = os.path.join(os.path.dirname(os.path.abspath(sys.argv[1])), 'timings')
+    # (a qira'ah's principles are given as text once written: assets/library/usool, tools/build_usool.py)
+    usool_dir = os.path.join(os.path.dirname(os.path.abspath(sys.argv[1])), 'usool')
     for poem in POEMS:
         listed = [r for r in poem['recitations'] if os.path.exists(os.path.join(timings, r['id'] + '.json'))]
         if len(listed) < len(poem['recitations']): print('without times yet:', [r['id'] for r in poem['recitations'] if r not in listed])
@@ -280,8 +282,8 @@ if __name__ == '__main__':
             if r.get('base') and r['id'] in OFFLINE:
                 assert len(OFFLINE[r['id']]) == len(r['tracks']), r['id']
                 r['offline'] = dict(base=OFFLINE_BASE + r['id'] + '/', sizes=OFFLINE[r['id']])
-    used = {d for p in POEMS for d in p['documents']} | {d for g in USOOL for d in g[2]}
+    used = {d for p in POEMS for d in p['documents']} | {d for g in USOOL for d in g[3]}
     assert used == set(DOCUMENTS), (used ^ set(DOCUMENTS))
-    catalog = dict(poems=POEMS, usool=[dict(title_ar=a, title_en=e, documents=d) for a, e, d in USOOL], documents=DOCUMENTS)
+    catalog = dict(poems=POEMS, usool=[dict(title_ar=a, title_en=e, documents=d, **({'id': i} if i and os.path.exists(os.path.join(usool_dir, i + '.json')) else {})) for i, a, e, d in USOOL], documents=DOCUMENTS)
     json.dump(catalog, open(sys.argv[1], 'w'), ensure_ascii=False, indent=1)
     print(len(POEMS), 'poems', len(DOCUMENTS), 'documents', len(USOOL), 'groups')
