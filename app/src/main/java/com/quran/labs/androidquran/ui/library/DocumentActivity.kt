@@ -3,6 +3,7 @@ package com.quran.labs.androidquran.ui.library
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
@@ -53,6 +54,8 @@ class DocumentActivity : AppCompatActivity() {
   @OptIn(ExperimentalMaterial3Api::class)
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    // (the screen stays on while a book is read, as while the mushaf is)
+    window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
     supportActionBar?.hide()
     val document = LibraryCatalog.get(this).document(intent.getStringExtra(EXTRA_DOCUMENT).orEmpty())
     if (document == null) {

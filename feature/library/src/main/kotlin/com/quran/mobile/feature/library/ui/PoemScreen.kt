@@ -1,15 +1,11 @@
 package com.quran.mobile.feature.library.ui
 
-import android.graphics.Bitmap
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -29,29 +25,29 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateMapOf
-import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.ColorMatrix
-import androidx.compose.ui.graphics.asImageBitmap
-import androidx.compose.ui.graphics.luminance
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.quran.labs.androidquran.common.ui.core.QuranIcons
 import com.quran.mobile.feature.library.R
 import com.quran.mobile.feature.library.audio.PoemPlayer
 import com.quran.mobile.feature.library.model.Document
-import com.quran.mobile.feature.library.model.InlineIndex
+import com.quran.mobile.feature.library.model.InlineText
 import com.quran.mobile.feature.library.model.Poem
 import com.quran.mobile.feature.library.model.PoemText
 import com.quran.mobile.feature.library.model.Recitation
@@ -61,17 +57,17 @@ import java.util.Locale
 sealed interface PoemRow {
   data class Heading(val chapter: Int, val title: String, val first: Int, val last: Int) : PoemRow
   data class Verse(val number: Int, val verse: PoemText.Verse) : PoemRow
-  data class Inline(val book: InlineBook, val entry: InlineIndex.Entry) : PoemRow
+  data class Inline(val book: InlineBook, val entry: InlineText.Entry) : PoemRow
 }
 
-/** a book shown under the verses: its pages, and where on them it says what of each verse */
-class InlineBook(val document: Document, val pages: PdfPages, val index: InlineIndex)
+/** a book shown under the verses: what it says of each */
+class InlineBook(val document: Document, val text: InlineText)
 
 /** the poem's rows, with what each of [books] says of a verse (or run of verses) under it */
 fun PoemText.rows(books: List<InlineBook> = emptyList()): List<PoemRow> {
   val after = HashMap<Int, MutableList<PoemRow.Inline>>()
   books.forEach { book ->
-    book.index.entries.forEach { after.getOrPut(it.last) { ArrayList() }.add(PoemRow.Inline(book, it)) }
+    book.text.entries.forEach { after.getOrPut(it.last) { ArrayList() }.add(PoemRow.Inline(book, it)) }
   }
   return buildList {
     chapters.forEachIndexed { index, chapter ->
@@ -111,7 +107,7 @@ fun PoemVerses(
   recitedVerse: Int?,
   arabicFont: FontFamily,
   onPlayVerse: ((Int) -> Unit)?,
-  onOpenBook: (Document, Int) -> Unit,
+  onOpenBook: (Document) -> Unit,
   /** to choose a translation to show under the verses, while there are some and none is shown */
   onChooseInline: (() -> Unit)?,
   modifier: Modifier = Modifier,
@@ -139,16 +135,6 @@ fun PoemVerses(
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.padding(top = 4.dp)
           )
-          val source = poem.source(arabic)
-          if (source.isNotEmpty()) {
-            Text(
-              source,
-              style = MaterialTheme.typography.labelSmall,
-              textAlign = TextAlign.Center,
-              color = MaterialTheme.colorScheme.onSurfaceVariant,
-              modifier = Modifier.padding(top = 4.dp)
-            )
-          }
           if (onChooseInline != null) {
             Text(
               stringResource(R.string.library_inline_prompt),
@@ -174,6 +160,7 @@ fun PoemVerses(
             InlineRow(
               row = row,
               expanded = expanded[key] == true,
+              arabicFont = arabicFont,
               onExpand = { expanded[key] = expanded[key] != true },
               onOpenBook = onOpenBook
             )
@@ -267,31 +254,32 @@ private fun VerseRow(
 }
 
 /**
- * What a book says of the verse (or verses) above it, as its pages have it: the translation, and
- * the rest (vocabulary, commentary) when opened. The book's name opens it at that page.
+ * What a book says of the verse (or verses) above it: the translation, and the explanation when
+ * opened. The book's name opens the book itself.
  */
 @Composable
 private fun InlineRow(
   row: PoemRow.Inline,
   expanded: Boolean,
+  arabicFont: FontFamily,
   onExpand: () -> Unit,
-  onOpenBook: (Document, Int) -> Unit
+  onOpenBook: (Document) -> Unit
 ) {
   val entry = row.entry
   val book = row.book
   val arabicBook = book.document.language == "ar"
-  val dark = MaterialTheme.colorScheme.surface.luminance() < 0.5f
-  val page = (entry.translation.firstOrNull() ?: entry.explanation.firstOrNull())?.page ?: 0
   CompositionLocalProvider(
     LocalLayoutDirection provides if (arabicBook) LayoutDirection.Rtl else LayoutDirection.Ltr
   ) {
-    Column(Modifier.fillMaxWidth().padding(top = 2.dp, bottom = 4.dp)) {
+    Column(
+      Modifier
+        .fillMaxWidth()
+        .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f))
+        .padding(horizontal = 16.dp, vertical = 8.dp)
+    ) {
       Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-          .fillMaxWidth()
-          .clickable { onOpenBook(book.document, page) }
-          .padding(horizontal = 12.dp, vertical = 4.dp)
+        modifier = Modifier.fillMaxWidth().clickable { onOpenBook(book.document) }.padding(vertical = 2.dp)
       ) {
         Text(
           book.document.title(arabicBook) + if (entry.first != entry.last) {
@@ -299,7 +287,7 @@ private fun InlineRow(
           } else {
             ""
           },
-          style = MaterialTheme.typography.labelSmall,
+          style = MaterialTheme.typography.labelMedium,
           color = MaterialTheme.colorScheme.primary,
           maxLines = 1,
           overflow = TextOverflow.Ellipsis,
@@ -312,14 +300,20 @@ private fun InlineRow(
           modifier = Modifier.size(14.dp)
         )
       }
-      entry.translation.forEach { RegionImage(book, it, dark) }
+      if (entry.translation.isNotEmpty()) {
+        Text(
+          text = remember(entry) { withArabic(entry.translation, arabicFont) },
+          fontSize = 18.sp,
+          lineHeight = 28.sp,
+          style = TextStyle(textDirection = TextDirection.Content),
+          color = MaterialTheme.colorScheme.onSurface,
+          modifier = Modifier.fillMaxWidth().padding(top = 4.dp)
+        )
+      }
       if (entry.explanation.isNotEmpty()) {
         Row(
           verticalAlignment = Alignment.CenterVertically,
-          modifier = Modifier
-            .fillMaxWidth()
-            .clickable(onClick = onExpand)
-            .padding(horizontal = 12.dp, vertical = 6.dp)
+          modifier = Modifier.fillMaxWidth().clickable(onClick = onExpand).padding(vertical = 8.dp)
         ) {
           Text(
             stringResource(R.string.library_explanation),
@@ -333,47 +327,44 @@ private fun InlineRow(
             modifier = Modifier.size(18.dp).rotate(if (expanded) 180f else 0f)
           )
         }
-        if (expanded) entry.explanation.forEach { RegionImage(book, it, dark) }
+        if (expanded) {
+          val paragraphs = remember(entry) { entry.explanation.split("\n\n").filter { it.isNotBlank() } }
+          paragraphs.forEach { paragraph ->
+            if (paragraph.startsWith("# ")) {
+              Text(
+                paragraph.removePrefix("# "),
+                style = MaterialTheme.typography.titleSmall,
+                color = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.padding(top = 8.dp, bottom = 2.dp)
+              )
+            } else {
+              val note = paragraph.startsWith("[")
+              Text(
+                text = remember(paragraph) { withArabic(paragraph, arabicFont) },
+                fontSize = if (note) 15.sp else 17.sp,
+                lineHeight = if (note) 23.sp else 27.sp,
+                style = TextStyle(textDirection = TextDirection.Content),
+                color = if (note) MaterialTheme.colorScheme.onSurfaceVariant else MaterialTheme.colorScheme.onSurface,
+                modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp)
+              )
+            }
+          }
+        }
       }
     }
   }
   HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.4f))
 }
 
-/** a part of a page of a book, as wide as the screen (light on dark in the dark theme) */
-@Composable
-private fun RegionImage(book: InlineBook, region: InlineIndex.Region, dark: Boolean) {
-  val width = book.index.width
-  val height = (region.bottom - region.top).coerceAtLeast(1)
-  BoxWithConstraints(Modifier.fillMaxWidth().padding(horizontal = 6.dp)) {
-    val pixels = constraints.maxWidth
-    val bitmap by produceState<Bitmap?>(null, book, region, pixels) {
-      value = book.pages.renderRegion(region.page, region.left, region.top, region.left + width, region.bottom, pixels)
-    }
-    Box(Modifier.fillMaxWidth().aspectRatio(width.toFloat() / height)) {
-      bitmap?.let {
-        Image(
-          bitmap = it.asImageBitmap(),
-          contentDescription = null,
-          contentScale = ContentScale.FillBounds,
-          colorFilter = if (dark) INVERTED else null,
-          modifier = Modifier.fillMaxSize()
-        )
-      }
-    }
+private val ARABIC_RUN = Regex("[\\u0600-\\u06FF\\uFB50-\\uFDFF\\uFE70-\\uFEFF]+(?:[\\s،؛]+[\\u0600-\\u06FF\\uFB50-\\uFDFF\\uFE70-\\uFEFF]+)*")
+
+/** the text with its Arabic in the Arabic font, larger (its marks need the room) */
+fun withArabic(text: String, arabicFont: FontFamily): AnnotatedString = buildAnnotatedString {
+  append(text)
+  ARABIC_RUN.findAll(text).forEach { run ->
+    addStyle(SpanStyle(fontFamily = arabicFont, fontSize = 1.2.em), run.range.first, run.range.last + 1)
   }
 }
-
-private val INVERTED = ColorFilter.colorMatrix(
-  ColorMatrix(
-    floatArrayOf(
-      -1f, 0f, 0f, 0f, 255f,
-      0f, -1f, 0f, 0f, 255f,
-      0f, 0f, -1f, 0f, 255f,
-      0f, 0f, 0f, 1f, 0f
-    )
-  )
-)
 
 /**
  * The bar of the poem's recitation: its reciter (tapped to choose another, when there are more),

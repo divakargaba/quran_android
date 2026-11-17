@@ -1,9 +1,8 @@
 """build_catalog.py <out catalog.json>: the catalog of the library (the poems, their recordings
 and documents, and the books on the principles of the qira'at).
 
-A book listed as a poem's "inline" is shown under its verses, verse by verse, from its own pages
-(src/main/assets/library/inline, made by tools/build_inline.py from the very file at its url: the
-app shows it only if the file it downloads is of the size given here).
+A book listed as a poem's "inline" is shown under its verses, verse by verse, as text
+(src/main/assets/library/inline, read from the book's pdf by tools/build_text.py).
 
 The documents were each checked (their title pages) to be the book they are listed as; their
 sizes and pages are those of the files at their urls when checked. The recordings are items of
@@ -266,7 +265,7 @@ POEMS = [
                                    'E-lam-allam-alfe3l.mp3', 'F-almethleenalmotaqarbenalmotagansen.mp3', 'G-aqsam-almad.mp3',
                                    'H-a7kam-almad.mp3', 'I-aqsam-almad-allazm.mp3', 'J-5atema.mp3']),
                       recording('tuhfah_ghamidi', GHAMIDI)],
-         documents=['aysar_aqwal', 'primer', 'fath_aqfal'], inline=['primer', 'aysar_aqwal']),
+         documents=['aysar_aqwal', 'primer', 'fath_aqfal'], inline=['aysar_aqwal']),
 ]
 if __name__ == '__main__':
     # a recording is listed once the times of its verses are made (tools/build_timings.py)

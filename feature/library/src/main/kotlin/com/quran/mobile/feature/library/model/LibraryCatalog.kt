@@ -45,9 +45,9 @@ class LibraryCatalog(
     fun timings(context: Context, recitation: Recitation): VerseTimings =
       context.applicationContext.assets.open("$TIMINGS/${recitation.id}.json").use(::parseTimings)
 
-    /** where a book says what of each verse of its poem; call off the main thread */
-    fun inlineIndex(context: Context, documentId: String): InlineIndex =
-      context.applicationContext.assets.open("$INLINE/$documentId.json").use(::parseInlineIndex)
+    /** what a book says of each verse of its poem; call off the main thread */
+    fun inlineText(context: Context, documentId: String): InlineText =
+      context.applicationContext.assets.open("$INLINE/$documentId.json").use(::parseInlineText)
 
     fun parseTimings(stream: InputStream): VerseTimings {
       val verses = JSONObject(stream.bufferedReader().readText()).getJSONArray("v")
@@ -61,18 +61,11 @@ class LibraryCatalog(
       return VerseTimings(tracks, starts)
     }
 
-    fun parseInlineIndex(stream: InputStream): InlineIndex {
-      val root = JSONObject(stream.bufferedReader().readText())
-      fun regions(array: JSONArray) = List(array.length()) { i ->
-        array.getJSONArray(i).let { InlineIndex.Region(it.getInt(0), it.getInt(1), it.getInt(2), it.getInt(3)) }
-      }
-      val entries = root.getJSONArray("e")
-      return InlineIndex(
-        width = root.getInt("w"),
-        entries = List(entries.length()) { i ->
-          entries.getJSONArray(i).let {
-            InlineIndex.Entry(it.getInt(0), it.getInt(1), regions(it.getJSONArray(2)), regions(it.getJSONArray(3)))
-          }
+    fun parseInlineText(stream: InputStream): InlineText {
+      val entries = JSONObject(stream.bufferedReader().readText()).getJSONArray("e")
+      return InlineText(
+        List(entries.length()) { i ->
+          entries.getJSONArray(i).let { InlineText.Entry(it.getInt(0), it.getInt(1), it.optString(2), it.optString(3)) }
         }
       )
     }

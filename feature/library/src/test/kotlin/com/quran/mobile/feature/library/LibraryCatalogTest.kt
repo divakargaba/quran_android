@@ -107,22 +107,19 @@ class LibraryCatalogTest {
       poem.inlineDocuments.forEach { id ->
         val document = catalog.document(id)!!
         assertThat(poem.documents).contains(id)
-        val index = LibraryCatalog.inlineIndex(context, id)
-        assertThat(index.width).isGreaterThan(100)
-        assertThat(index.entries).isNotEmpty()
+        val entries = LibraryCatalog.inlineText(context, id).entries
+        assertThat(entries).isNotEmpty()
         var last = 0
-        index.entries.forEach { entry ->
+        entries.forEach { entry ->
           assertThat(entry.first).isGreaterThan(last)
           assertThat(entry.last).isAtLeast(entry.first)
           assertThat(entry.last).isAtMost(poem.verseCount)
           assertThat(entry.translation + entry.explanation).isNotEmpty()
-          (entry.translation + entry.explanation).forEach { region ->
-            assertThat(region.page).isIn(0 until document.pages)
-            assertThat(region.bottom).isGreaterThan(region.top)
-            assertThat(region.left).isAtLeast(0)
-          }
           last = entry.last
         }
+        // most of what it covers is translated
+        assertThat(entries.count { it.translation.isNotEmpty() }).isAtLeast(entries.size * 3 / 4)
+        assertThat(document.pages).isGreaterThan(0)
       }
     }
   }

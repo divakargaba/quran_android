@@ -3,6 +3,7 @@ package com.quran.labs.androidquran.ui.library
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -67,7 +68,6 @@ import com.quran.mobile.feature.library.model.PoemText
 import com.quran.mobile.feature.library.model.Recitation
 import com.quran.mobile.feature.library.ui.DocumentRow
 import com.quran.mobile.feature.library.ui.InlineBook
-import com.quran.mobile.feature.library.ui.PdfPages
 import com.quran.mobile.feature.library.ui.PoemPlayerBar
 import com.quran.mobile.feature.library.ui.ReciterRow
 import com.quran.mobile.feature.library.ui.PoemRow
@@ -86,7 +86,6 @@ import kotlinx.coroutines.withContext
  */
 class PoemActivity : AppCompatActivity() {
   private var player: PoemPlayer? = null
-  private var closeBooks: () -> Unit = {}
 
   @OptIn(ExperimentalMaterial3Api::class)
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -98,6 +97,8 @@ class PoemActivity : AppCompatActivity() {
       finish()
       return
     }
+    // (the screen stays on while a poem is read, as while the mushaf is)
+    window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
     val repository = DocumentRepository.get(this)
     val preferences = getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE)
     val arabicFont = FontFamily(TypefaceManager.getTafseerTypeface(this))
@@ -108,32 +109,8 @@ class PoemActivity : AppCompatActivity() {
     val recitationKey = KEY_RECITATION + poem.id
     val inlineKey = KEY_INLINE + poem.id
     val inlineDocuments = catalog.documentsOf(poem.inlineDocuments)
-    // shown under the verses unless chosen otherwise: the first in the app's language that is here
-    val inlineDefault = inlineDocuments
-      .firstOrNull { (it.language == "ar") == arabic && repository.states.value[it.id] is DocumentState.Downloaded }
-      ?.let { setOf(it.id) }
-      .orEmpty()
-    // the books open to be shown under the verses
-    val openBooks = HashMap<String, InlineBook>()
-    fun book(id: String): InlineBook? = synchronized(openBooks) {
-      openBooks[id] ?: try {
-        val document = catalog.document(id) ?: return null
-        val file = repository.open(document) ?: return null
-        // (only the very book whose pages were indexed)
-        if (document.sizeBytes > 0 && file.length() != document.sizeBytes) return null
-        InlineBook(document, PdfPages(file), LibraryCatalog.inlineIndex(this, id)).also { openBooks[id] = it }
-      } catch (e: Exception) {
-        null
-      } catch (e: LinkageError) {
-        null
-      }
-    }
-    closeBooks = {
-      synchronized(openBooks) {
-        openBooks.values.forEach { it.pages.close() }
-        openBooks.clear()
-      }
-    }
+    // shown under the verses unless chosen otherwise: the first in the app's language
+    val inlineDefault = inlineDocuments.firstOrNull { (it.language == "ar") == arabic }?.let { setOf(it.id) }.orEmpty()
 
     setContentView(
       ComposeView(this).apply {
@@ -147,15 +124,10 @@ class PoemActivity : AppCompatActivity() {
             var inlineIds by remember {
               mutableStateOf(preferences.getStringSet(inlineKey, null)?.toSet() ?: inlineDefault)
             }
-            // those chosen that are here (a book chosen is shown once it is downloaded)
-            val wanted = inlineDocuments.map { it.id }
-              .filter { it in inlineIds && states[it] is DocumentState.Downloaded }
+            val wanted = inlineDocuments.filter { it.id in inlineIds }
             val books by produceState(emptyList<InlineBook>(), wanted) {
               value = withContext(Dispatchers.IO) {
-                synchronized(openBooks) {
-                  (openBooks.keys - wanted.toSet()).forEach { openBooks.remove(it)?.pages?.close() }
-                }
-                wanted.mapNotNull(::book)
+                wanted.map { InlineBook(it, LibraryCatalog.inlineText(this@PoemActivity, it.id)) }
               }
             }
             val rows = remember(text, books) { text?.rows(books).orEmpty() }
@@ -260,8 +232,12 @@ class PoemActivity : AppCompatActivity() {
                   } else {
                     null
                   },
-                  onOpenBook = { document, page ->
-                    startActivity(DocumentActivity.intent(this@PoemActivity, document.id, page))
+                  onOpenBook = { document ->
+                    if (states[document.id] is DocumentState.Downloaded) {
+                      startActivity(DocumentActivity.intent(this@PoemActivity, document.id))
+                    } else {
+                      showDocuments = true
+                    }
                   },
                   onChooseInline = if (inlineDocuments.isNotEmpty() && inlineIds.none { id -> inlineDocuments.any { it.id == id } }) {
                     { showDocuments = true }
@@ -367,18 +343,13 @@ class PoemActivity : AppCompatActivity() {
                           )
                         }
                         items(inlineDocuments) { item ->
-                          val state = states[item.id] ?: DocumentState.NotDownloaded
                           Row(
                             verticalAlignment = Alignment.CenterVertically,
                             modifier = Modifier
                               .fillMaxWidth()
                               .clickable {
-                                val chosen = item.id !in inlineIds
-                                inlineIds = if (chosen) inlineIds + item.id else inlineIds - item.id
+                                inlineIds = if (item.id in inlineIds) inlineIds - item.id else inlineIds + item.id
                                 preferences.edit().putStringSet(inlineKey, inlineIds).apply()
-                                if (chosen && (state is DocumentState.NotDownloaded || state is DocumentState.Failed)) {
-                                  repository.download(item)
-                                }
                               }
                               .padding(vertical = 6.dp)
                           ) {
@@ -390,24 +361,6 @@ class PoemActivity : AppCompatActivity() {
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                               )
-                              val status = when (state) {
-                                is DocumentState.Downloaded -> null
-                                is DocumentState.Downloading -> stringResource(R.string.library_downloading) +
-                                  (state.progress?.let { " ${(it * 100).toInt()}%" } ?: "")
-                                is DocumentState.Failed -> stringResource(R.string.library_download_failed)
-                                DocumentState.NotDownloaded -> stringResource(R.string.library_inline_hint)
-                              }
-                              if (status != null) {
-                                Text(
-                                  status,
-                                  style = MaterialTheme.typography.labelSmall,
-                                  color = if (state is DocumentState.Failed) {
-                                    MaterialTheme.colorScheme.error
-                                  } else {
-                                    MaterialTheme.colorScheme.primary
-                                  }
-                                )
-                              }
                             }
                           }
                         }
@@ -448,7 +401,6 @@ class PoemActivity : AppCompatActivity() {
   override fun onDestroy() {
     player?.release()
     player = null
-    closeBooks()
     super.onDestroy()
   }
 

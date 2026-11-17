@@ -89,20 +89,13 @@ class VerseTimings(private val tracks: IntArray, private val starts: IntArray) {
 }
 
 /**
- * Where a book (a translation or commentary of a poem, kept as a pdf) says what of each verse:
- * the parts of its pages that are shown under the verse. [width] is that of the book's text.
- * Lengths are in points of the pdf's pages.
+ * What a book (a translation or commentary of a poem) says of each verse, as text: the verse's
+ * translation, and its explanation (paragraphs set apart by blank lines; one that begins "# " is
+ * the name of a part of it; a note begins with its number in brackets, as its mark in the text is).
  */
-class InlineIndex(val width: Int, val entries: List<Entry>) {
-  data class Region(val page: Int, val left: Int, val top: Int, val bottom: Int)
-
-  /** of the verses [first] to [last]: their translation, and what else is said of them */
-  data class Entry(
-    val first: Int,
-    val last: Int,
-    val translation: List<Region>,
-    val explanation: List<Region>
-  )
+class InlineText(val entries: List<Entry>) {
+  /** of the verses [first] to [last] */
+  data class Entry(val first: Int, val last: Int, val translation: String, val explanation: String)
 }
 
 /** the text of a poem: [first] is the number of a chapter's first verse */
