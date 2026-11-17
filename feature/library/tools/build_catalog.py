@@ -284,6 +284,16 @@ if __name__ == '__main__':
                 r['offline'] = dict(base=OFFLINE_BASE + r['id'] + '/', sizes=OFFLINE[r['id']])
     used = {d for p in POEMS for d in p['documents']} | {d for g in USOOL for d in g[3]}
     assert used == set(DOCUMENTS), (used ^ set(DOCUMENTS))
-    catalog = dict(poems=POEMS, usool=[dict(title_ar=a, title_en=e, documents=d, **({'id': i} if i and os.path.exists(os.path.join(usool_dir, i + '.json')) else {})) for i, a, e, d in USOOL], documents=DOCUMENTS)
+    # the books a qira'ah's written principles are drawn from are among its books
+    groups = []
+    for i, a, e, d in USOOL:
+        group = dict(title_ar=a, title_en=e, documents=list(d))
+        path = os.path.join(usool_dir, (i or '') + '.json')
+        if i and os.path.exists(path):
+            group['id'] = i
+            for chapter in json.load(open(path))['chapters']:
+                if chapter.get('doc') and chapter['doc'] not in group['documents']: group['documents'].append(chapter['doc'])
+        groups.append(group)
+    catalog = dict(poems=POEMS, usool=groups, documents=DOCUMENTS)
     json.dump(catalog, open(sys.argv[1], 'w'), ensure_ascii=False, indent=1)
     print(len(POEMS), 'poems', len(DOCUMENTS), 'documents', len(USOOL), 'groups')

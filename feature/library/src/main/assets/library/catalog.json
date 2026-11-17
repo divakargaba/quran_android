@@ -887,7 +887,8 @@
     "learn_warsh",
     "qalun",
     "warsh"
-   ]
+   ],
+   "id": "nafi"
   },
   {
    "title_ar": "ابن كثير: البزي وقنبل",
@@ -895,7 +896,8 @@
    "documents": [
     "ibn_kathir_en",
     "ibn_kathir"
-   ]
+   ],
+   "id": "ibn_kathir"
   },
   {
    "title_ar": "أبو عمرو: الدوري والسوسي",
@@ -904,7 +906,8 @@
     "abu_amr_en",
     "duri",
     "susi"
-   ]
+   ],
+   "id": "abu_amr"
   },
   {
    "title_ar": "ابن عامر: هشام وابن ذكوان",
@@ -912,7 +915,8 @@
    "documents": [
     "ibn_amir_en",
     "ibn_amir"
-   ]
+   ],
+   "id": "ibn_amir"
   },
   {
    "title_ar": "عاصم: شعبة وحفص",
@@ -926,7 +930,8 @@
     "nafais_bayan",
     "shubah",
     "hafs"
-   ]
+   ],
+   "id": "asim"
   },
   {
    "title_ar": "حمزة: خلف وخلاد",
@@ -934,7 +939,8 @@
    "documents": [
     "hamzah_en",
     "hamzah"
-   ]
+   ],
+   "id": "hamzah"
   },
   {
    "title_ar": "الكسائي: أبو الحارث والدوري",
@@ -942,7 +948,8 @@
    "documents": [
     "kisai_en",
     "kisai"
-   ]
+   ],
+   "id": "kisai"
   },
   {
    "title_ar": "القراءات الثلاث المتممة للعشر",
@@ -958,14 +965,18 @@
    "documents": [
     "abu_jafar_en",
     "abu_jafar"
-   ]
+   ],
+   "id": "abu_jafar"
   },
   {
    "title_ar": "يعقوب: رويس وروح",
    "title_en": "Ya'qub: Ruways and Rawh",
    "documents": [
-    "yaqub"
-   ]
+    "yaqub",
+    "ten_authentic",
+    "three_durrah"
+   ],
+   "id": "yaqub"
   },
   {
    "title_ar": "خلف العاشر: إسحاق وإدريس",
@@ -973,7 +984,8 @@
    "documents": [
     "khalaf_en",
     "khalaf"
-   ]
+   ],
+   "id": "khalaf"
   }
  ],
  "documents": {
