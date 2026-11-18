@@ -59,4 +59,14 @@
     <item quantity="many">%1$d كتابًا</item>
     <item quantity="other">%1$d كتاب</item>
   </plurals>
+  <string name="library_repeat">تكرار كل بيت (اضغط مطولاً للمزيد)</string>
+  <string name="library_speed">السرعة</string>
+  <string name="library_repeat_options">التكرار</string>
+  <string name="library_play_each_verse">تشغيل كل بيت</string>
+  <string name="library_repeat_set">مجموعة أبيات فقط</string>
+  <string name="library_from_verse">من البيت</string>
+  <string name="library_to_verse">إلى البيت</string>
+  <string name="library_play_set">تشغيل المجموعة</string>
+  <string name="library_apply">تطبيق</string>
+  <string name="library_apply_and_play">تطبيق وتشغيل</string>
 </resources>

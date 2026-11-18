@@ -1,6 +1,12 @@
 package com.quran.mobile.feature.library.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.draw.clip
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -375,11 +381,17 @@ fun PoemPlayerBar(
   recitation: Recitation,
   canChooseReciter: Boolean,
   state: PoemPlayer.State,
+  settings: PoemPlayer.Settings,
   onChooseReciter: () -> Unit,
   onToggle: () -> Unit,
   onPrevious: () -> Unit,
   onNext: () -> Unit,
   onStop: () -> Unit,
+  /** how many times more each verse is recited: the next of the choices */
+  onRepeat: (Int) -> Unit,
+  onSpeed: (Float) -> Unit,
+  /** to choose a set of verses to repeat, and the rest of how the recitation is repeated */
+  onRepeatOptions: () -> Unit,
   modifier: Modifier = Modifier
 ) {
   val arabic = isArabicLocale()
@@ -416,7 +428,10 @@ fun PoemPlayerBar(
           state.failed -> stringResource(R.string.library_audio_failed)
           state.verse != null -> stringResource(R.string.library_verse_number, state.verse)
           else -> null
-        }
+        }?.let { status ->
+          // (with the set of verses being repeated)
+          if (settings.hasRange && !state.failed) "$status · ${settings.first}–${settings.last}" else status
+        } ?: if (settings.hasRange) "${settings.first}–${settings.last}" else null
         if (status != null) {
           Text(
             status,
@@ -430,14 +445,13 @@ fun PoemPlayerBar(
       // the controls keep their order in any direction of the app
       CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-          IconButton(onClick = onPrevious, enabled = state.isActive) {
-            Icon(QuranIcons.FastRewind, contentDescription = stringResource(R.string.library_previous_verse))
-          }
-          IconButton(onClick = onToggle) {
+          BarButton(QuranIcons.FastRewind, stringResource(R.string.library_previous_verse), onPrevious, enabled = state.isActive)
+          Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier.size(44.dp, 48.dp).clip(CircleShape).clickable(onClick = onToggle)
+          ) {
             if (state.isPreparing) {
-              Box(contentAlignment = Alignment.Center) {
-                CircularProgressIndicator(Modifier.size(22.dp), strokeWidth = 2.dp)
-              }
+              CircularProgressIndicator(Modifier.size(22.dp), strokeWidth = 2.dp)
             } else {
               Icon(
                 if (state.isPlaying) QuranIcons.Pause else QuranIcons.PlayArrow,
@@ -449,14 +463,79 @@ fun PoemPlayerBar(
               )
             }
           }
-          IconButton(onClick = onNext, enabled = state.isActive) {
-            Icon(QuranIcons.FastForward, contentDescription = stringResource(R.string.library_next_verse))
-          }
-          IconButton(onClick = onStop, enabled = state.track != null) {
-            Icon(QuranIcons.Stop, contentDescription = stringResource(R.string.library_stop))
-          }
+          BarButton(QuranIcons.FastForward, stringResource(R.string.library_next_verse), onNext, enabled = state.isActive)
+          BarButton(QuranIcons.Stop, stringResource(R.string.library_stop), onStop, enabled = state.track != null)
+          // each verse again (once more, twice, three times, without end); held: the set of verses
+          BarButton(
+            QuranIcons.Repeat,
+            stringResource(R.string.library_repeat),
+            onClick = { onRepeat(REPEATS[(REPEATS.indexOf(settings.verseRepeat) + 1) % REPEATS.size]) },
+            onLongClick = onRepeatOptions,
+            active = settings.repeats,
+            badge = if (settings.verseRepeat != 0) timesLabel(settings.verseRepeat) else null
+          )
+          BarButton(
+            QuranIcons.Speed,
+            stringResource(R.string.library_speed),
+            onClick = { onSpeed(SPEEDS[(SPEEDS.indexOf(settings.speed) + 1) % SPEEDS.size]) },
+            active = settings.speed != 1f,
+            badge = if (settings.speed != 1f) speedLabel(settings.speed) else null
+          )
         }
       }
+    }
+  }
+}
+
+/** the choices of how many times more a verse (or a set of verses) is recited, and of the speed */
+val REPEATS = listOf(0, 1, 2, 3, PoemPlayer.INFINITE)
+val SPEEDS = listOf(1f, 1.25f, 1.5f, 1.75f, 2f, 0.5f, 0.75f)
+
+/** how many times a verse is recited in all, for a number of repeats: "2×" */
+fun timesLabel(repeat: Int): String = if (repeat == PoemPlayer.INFINITE) "∞" else "${repeat + 1}×"
+
+fun speedLabel(speed: Float): String =
+  (if (speed == speed.toInt().toFloat()) speed.toInt().toString() else speed.toString()) + "×"
+
+/** a control of the bar: narrow, so that six are beside the reciter's name; its choice above it */
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+private fun BarButton(
+  icon: ImageVector,
+  description: String,
+  onClick: () -> Unit,
+  enabled: Boolean = true,
+  onLongClick: (() -> Unit)? = null,
+  active: Boolean = false,
+  badge: String? = null
+) {
+  Box(
+    contentAlignment = Alignment.Center,
+    modifier = Modifier
+      .size(40.dp, 48.dp)
+      .clip(CircleShape)
+      .combinedClickable(enabled = enabled, onClick = onClick, onLongClick = onLongClick)
+  ) {
+    Icon(
+      icon,
+      contentDescription = description,
+      tint = when {
+        !enabled -> MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
+        active -> MaterialTheme.colorScheme.primary
+        else -> MaterialTheme.colorScheme.onSurfaceVariant
+      },
+      modifier = Modifier.size(22.dp).then(if (badge != null) Modifier.padding(top = 4.dp) else Modifier)
+    )
+    if (badge != null) {
+      Text(
+        badge,
+        fontSize = 10.sp,
+        lineHeight = 12.sp,
+        fontWeight = FontWeight.Bold,
+        color = MaterialTheme.colorScheme.primary,
+        maxLines = 1,
+        modifier = Modifier.align(Alignment.TopCenter).padding(top = 2.dp)
+      )
     }
   }
 }

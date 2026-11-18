@@ -51,4 +51,14 @@
     <item quantity="one">%1$d book</item>
     <item quantity="other">%1$d books</item>
   </plurals>
+  <string name="library_repeat">Repeat each verse (hold for more)</string>
+  <string name="library_speed">Speed</string>
+  <string name="library_repeat_options">Repeat</string>
+  <string name="library_play_each_verse">Play each verse</string>
+  <string name="library_repeat_set">Only a set of verses</string>
+  <string name="library_from_verse">From verse</string>
+  <string name="library_to_verse">To verse</string>
+  <string name="library_play_set">Play the set</string>
+  <string name="library_apply">Apply</string>
+  <string name="library_apply_and_play">Apply and play</string>
 </resources>

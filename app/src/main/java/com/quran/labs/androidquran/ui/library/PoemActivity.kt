@@ -71,6 +71,7 @@ import com.quran.mobile.feature.library.ui.DocumentRow
 import com.quran.mobile.feature.library.ui.InlineBook
 import com.quran.mobile.feature.library.ui.PoemPlayerBar
 import com.quran.mobile.feature.library.ui.ReciterRow
+import com.quran.mobile.feature.library.ui.RepeatOptionsDialog
 import com.quran.mobile.feature.library.ui.PoemRow
 import com.quran.mobile.feature.library.ui.PoemVerses
 import com.quran.mobile.feature.library.ui.rowOfChapter
@@ -136,6 +137,14 @@ class PoemActivity : AppCompatActivity() {
             val scope = rememberCoroutineScope()
             val playbackState by playback.state.collectAsState()
             val recordingStates by recordings.states.collectAsState()
+            val playbackSettings by playback.settings.collectAsState()
+            // (a set of verses being repeated is shown in its poem)
+            val settings = if (playbackSettings.hasRange && playback.rangePoem != poem.id) {
+              playbackSettings.withoutRange()
+            } else {
+              playbackSettings
+            }
+            var showRepeat by remember { mutableStateOf(false) }
             var showChapters by remember { mutableStateOf(false) }
             var showDocuments by remember { mutableStateOf(false) }
             var showReciters by remember { mutableStateOf(false) }
@@ -189,6 +198,11 @@ class PoemActivity : AppCompatActivity() {
                     IconButton(onClick = { showDocuments = true }) {
                       Icon(QuranIcons.MenuBook, contentDescription = stringResource(R.string.library_documents))
                     }
+                    if (recitation != null) {
+                      IconButton(onClick = { showRepeat = true }) {
+                        Icon(QuranIcons.Settings, contentDescription = stringResource(R.string.library_repeat_options))
+                      }
+                    }
                   }
                 )
               },
@@ -198,22 +212,23 @@ class PoemActivity : AppCompatActivity() {
                     recitation = chosen,
                     canChooseReciter = true,
                     state = playerState,
+                    settings = settings,
                     onChooseReciter = { showReciters = true },
                     onToggle = {
                       // from the first verse on screen, when nothing is being recited
-                      val first = rows.getOrNull(listState.firstVisibleItemIndex - 1)
-                      val verse = when (first) {
-                        is PoemRow.Verse -> first.number
-                        is PoemRow.Heading -> first.first
-                        is PoemRow.Inline -> first.entry.last + 1
-                        null -> 1
-                      }
                       val chosenTimings = timings
-                      if (chosenTimings != null) playback.toggle(poem, chosen, chosenTimings, verse)
+                      if (chosenTimings != null) {
+                        // (a set of verses kept from another poem is not this one's)
+                        if (settings != playbackSettings) playback.set(poem, settings)
+                        playback.toggle(poem, chosen, chosenTimings, firstVerseOnScreen(rows, listState.firstVisibleItemIndex))
+                      }
                     },
                     onPrevious = playback::previousVerse,
                     onNext = playback::nextVerse,
                     onStop = playback::stop,
+                    onRepeat = { playback.set(poem, settings.copy(verseRepeat = it)) },
+                    onSpeed = { playback.set(poem, settings.copy(speed = it)) },
+                    onRepeatOptions = { showRepeat = true },
                     modifier = Modifier.navigationBarsPadding()
                   )
                 }
@@ -259,6 +274,29 @@ class PoemActivity : AppCompatActivity() {
             }
 
             val loaded = text
+            if (showRepeat && loaded != null) {
+              // offered as the set of verses: from the verse recited (or the first on screen) to
+              // the end of its chapter
+              val from = playerState.verse ?: firstVerseOnScreen(rows, listState.firstVisibleItemIndex)
+              val chapter = loaded.chapters.lastOrNull { it.first <= from }
+              val verseCount = loaded.chapters.sumOf { it.verses.size }
+              RepeatOptionsDialog(
+                verseCount = verseCount,
+                settings = settings,
+                defaultFirst = from.coerceIn(1, verseCount),
+                defaultLast = (chapter?.let { it.first + it.verses.size - 1 } ?: from).coerceIn(1, verseCount),
+                onApply = { chosen, play ->
+                  showRepeat = false
+                  playback.set(poem, chosen)
+                  val reciter = recitation
+                  val chosenTimings = timings
+                  if (play && reciter != null && chosenTimings != null) {
+                    playback.playVerse(poem, reciter, chosenTimings, chosen.first ?: from)
+                  }
+                },
+                onDismiss = { showRepeat = false }
+              )
+            }
             if (showChapters && loaded != null) {
               AlertDialog(
                 onDismissRequest = { showChapters = false },
@@ -417,3 +455,13 @@ class PoemActivity : AppCompatActivity() {
       Intent(context, PoemActivity::class.java).putExtra(EXTRA_POEM, poemId)
   }
 }
+
+/** the verse to recite from when nothing is being recited: the first on screen */
+private fun firstVerseOnScreen(rows: List<PoemRow>, firstVisibleItem: Int): Int =
+  // (the first item of the list is the poem's title)
+  when (val first = rows.getOrNull(firstVisibleItem - 1)) {
+    is PoemRow.Verse -> first.number
+    is PoemRow.Heading -> first.first
+    is PoemRow.Inline -> first.entry.last + 1
+    null -> 1
+  }

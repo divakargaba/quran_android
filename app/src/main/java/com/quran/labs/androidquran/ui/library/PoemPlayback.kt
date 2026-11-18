@@ -33,6 +33,21 @@ class PoemPlayback private constructor(context: Context) {
 
   val state: StateFlow<PoemPlayer.State> get() = player.state
 
+  /** how the recitation is repeated (a verse, a set of verses), and its speed */
+  val settings: StateFlow<PoemPlayer.Settings> get() = player.settings
+
+  /** the poem the set of verses being repeated is of */
+  var rangePoem: String? by mutableStateOf(null)
+    private set
+
+  /** how the recitation is repeated, and its speed, as chosen in a poem's screen */
+  fun set(poem: Poem, settings: PoemPlayer.Settings) {
+    // (a set of verses is not asked of another poem's recitation)
+    if (settings.hasRange && this.poem?.id != poem.id) player.stop()
+    rangePoem = poem.id.takeIf { settings.hasRange }
+    player.set(settings)
+  }
+
   /** recites a poem's recording from a verse (in place of what is being played) */
   fun playVerse(poem: Poem, recitation: Recitation, timings: VerseTimings, verse: Int) {
     use(poem, recitation, timings)
@@ -60,6 +75,11 @@ class PoemPlayback private constructor(context: Context) {
 
   private fun use(poem: Poem, recitation: Recitation, timings: VerseTimings) {
     if (this.recitation?.id != recitation.id) {
+      // (a set of verses to repeat is of the poem it was chosen in)
+      if (rangePoem != poem.id) {
+        rangePoem = null
+        player.set(player.settings.value.withoutRange())
+      }
       player.setRecitation(recitation, timings)
       this.poem = poem
       this.recitation = recitation
