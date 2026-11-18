@@ -71,7 +71,16 @@ class PoemPlayback private constructor(context: Context) {
   fun pause() = player.pause()
   fun nextVerse() = player.nextVerse()
   fun previousVerse() = player.previousVerse()
-  fun stop() = player.stop()
+
+  /**
+   * stops the recitation, and what was asked of how it is repeated (a verse, a set of verses):
+   * it is recited plainly when played again, at the speed chosen
+   */
+  fun stop() {
+    player.stop()
+    rangePoem = null
+    player.set(PoemPlayer.Settings(speed = player.settings.value.speed))
+  }
 
   private fun use(poem: Poem, recitation: Recitation, timings: VerseTimings) {
     if (this.recitation?.id != recitation.id) {

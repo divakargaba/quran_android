@@ -83,6 +83,15 @@ class PoemPlaybackService : Service() {
     return START_NOT_STICKY
   }
 
+  /** the app is closed (swiped away from the recent apps): the recitation ends with it */
+  override fun onTaskRemoved(rootIntent: Intent?) {
+    playback.stop()
+    ServiceCompat.stopForeground(this, ServiceCompat.STOP_FOREGROUND_REMOVE)
+    foreground = false
+    stopSelf()
+    super.onTaskRemoved(rootIntent)
+  }
+
   override fun onDestroy() {
     scope.cancel()
     unregisterReceiver(noisyReceiver)

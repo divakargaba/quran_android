@@ -621,6 +621,9 @@ class QuranDataActivity : AppCompatActivity(), SimpleDownloadListener, OnRequest
   private fun runListView() {
     if (!isFinishing && !isDestroyed) {
       if (intent?.action == ACTION_OPEN_PAGE) {
+        // (under the page, the app's first screen: going back from the page is to it, not out
+        // of the app, as when the page is opened after another riwayah is chosen)
+        if (isTaskRoot) startActivity(Intent(this, QuranActivity::class.java))
         jumpToRequestedPage(intent)
       } else {
         val isNormalLaunch = intent?.action == null || intent?.action == Intent.ACTION_MAIN
